@@ -1,0 +1,9 @@
+{
+  "name": "New Word Tab",
+  "description": "Learn a word definition per new tab",
+  "version": "0.1.0",
+  "manifest_version": 2,
+  "chrome_url_overrides": {
+    "newtab": "src/index.html"
+  }
+}

@@ -1,0 +1,81 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: #191919;
+  color: #fff;
+}
+
+#app {
+  max-width: 768px;
+  margin: 100px auto 50px;
+}
+
+.title {
+  display: flex;
+  justify-content: space-between;
+
+  margin-bottom: 20px;
+}
+
+.word {
+  font-size: 4rem;
+  margin: 0;
+  text-transform: capitalize;
+}
+
+.phonetic {
+  display: flex;
+  align-items: center;
+  font-size: 1.25rem;
+}
+.phonetic__text {
+  margin-right: 5px;
+}
+.phonetic__play {
+  visibility: hidden;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.meaning:not(:last-of-type) {
+  margin-bottom: 2rem;
+}
+
+.meaning__pts {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  background-color: hsl(0, 0%, 25%);
+  color: hsl(0, 0%, 90%);
+  text-transform: capitalize;
+}
+
+.meaning__def {
+  margin-bottom: 5px;
+  font-size: 1rem;
+  color: hsl(0, 0%, 75%);
+}
+
+.meaning__example {
+  margin: 0;
+  color: hsl(0, 0%, 55%);
+}
+
+.meaning__def::first-letter,
+.meaning__example::first-letter {
+  text-transform: uppercase;
+}
