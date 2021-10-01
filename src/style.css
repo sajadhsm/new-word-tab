@@ -1,3 +1,16 @@
+
+:root {
+  --def-color: hsl(0, 0%, 75%);
+  --bg-color: hsl(0, 0%, 10%);
+  --color: hsl(0, 0%, 100%);
+}
+
+.light {
+  --def-color: hsl(0, 0%, 25%);
+  --bg-color: hsl(0, 0%, 100%);
+  --color: hsl(0, 0%, 10%);
+}
+
 *,
 *::before,
 *::after {
@@ -13,13 +26,14 @@ body {
 }
 
 body {
-  background-color: #191919;
-  color: #fff;
+  background-color: var(--bg-color);
+  color: var(--color);
 }
 
 #app {
-  max-width: 768px;
   margin: 100px auto 50px;
+  padding: 0 15px;
+  max-width: 800px;
 }
 
 .title {
@@ -30,23 +44,25 @@ body {
 }
 
 .word {
-  font-size: 4rem;
   margin: 0;
+  font-size: 4rem;
   text-transform: capitalize;
 }
 
 .phonetic {
   display: flex;
   align-items: center;
+
   font-size: 1.25rem;
 }
 .phonetic__text {
   margin-right: 5px;
 }
-.phonetic__play {
+.phonetic__listen-btn {
   visibility: hidden;
   background-color: transparent;
   border: none;
+  color: var(--color);
   cursor: pointer;
 }
 
@@ -67,7 +83,7 @@ body {
 .meaning__def {
   margin-bottom: 5px;
   font-size: 1rem;
-  color: hsl(0, 0%, 75%);
+  color: var(--def-color);
 }
 
 .meaning__example {
@@ -78,4 +94,13 @@ body {
 .meaning__def::first-letter,
 .meaning__example::first-letter {
   text-transform: uppercase;
+}
+
+.theme-btn {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  border: none;
+  background: none;
+  cursor: pointer;
 }

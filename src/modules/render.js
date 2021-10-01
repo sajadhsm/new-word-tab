@@ -1,4 +1,4 @@
-import { WORD_ELEMENT, PHONETIC_ELEMENT, MEANINGS_ELEMENT, PHONETIC_PLAY_BUTTON } from './elements.js';
+import { WORD_ELEMENT, PHONETIC_ELEMENT, MEANINGS_ELEMENT, PHONETIC_LISTEN_BUTTON } from './elements.js';
 import { createElement } from './utils.js';
 import audio from './audio.js';
 
@@ -9,13 +9,13 @@ export default function displayWordDefinitions(wordDefinitions) {
   handleSetPhoneticAudio(phonetics);
 }
 
-PHONETIC_PLAY_BUTTON.addEventListener('click', audio.playAudio);
+PHONETIC_LISTEN_BUTTON.addEventListener('click', audio.playAudio);
 function handleSetPhoneticAudio(phonetics) {
   if (phonetics && phonetics.length) {
     audio.setAudio(phonetics[0].audio);
-    PHONETIC_PLAY_BUTTON.style.visibility = 'visible';
+    PHONETIC_LISTEN_BUTTON.style.visibility = 'visible';
   } else {
-    PHONETIC_PLAY_BUTTON.style.visibility = 'visible';
+    PHONETIC_LISTEN_BUTTON.style.visibility = 'hidden';
   }
 }
 
