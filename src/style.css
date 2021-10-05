@@ -30,6 +30,12 @@ body {
   color: var(--color);
 }
 
+button {
+  cursor: pointer;
+}
+
+/* WORD & DEFINITIONS */
+
 #app {
   margin: 100px auto 50px;
   padding: 0 15px;
@@ -63,7 +69,6 @@ body {
   background-color: transparent;
   border: none;
   color: var(--color);
-  cursor: pointer;
 }
 
 .meaning:not(:last-of-type) {
@@ -96,11 +101,44 @@ body {
   text-transform: uppercase;
 }
 
+/* THEME */
+
 .theme-btn {
   position: absolute;
   right: 15px;
   top: 15px;
   border: none;
   background: none;
-  cursor: pointer;
+}
+
+
+/* ERROR HANDLING */
+
+.error {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: none; /* Hidden by default */
+  width: 100%;
+  padding: 0 15px;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.error__title {
+  margin: 0 0 10px;
+}
+
+.error__subtitle {
+  margin-bottom: 30px;
+}
+
+.error__retry-btn {
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: none;
+  background-color: var(--color);
+  color: var(--bg-color);
+  font-size: 1rem;
 }

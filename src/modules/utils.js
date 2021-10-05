@@ -10,3 +10,7 @@ export function createElement(tag = 'div', className, innerText) {
 
   return element;
 }
+
+export function getElement(selector, container = document) {
+  return container.querySelector(selector);
+}
