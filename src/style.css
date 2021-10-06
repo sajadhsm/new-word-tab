@@ -1,4 +1,4 @@
-
+/******* GLOBAL *******/
 :root {
   --def-color: hsl(0, 0%, 75%);
   --bg-color: hsl(0, 0%, 10%);
@@ -34,9 +34,8 @@ button {
   cursor: pointer;
 }
 
-/* WORD & DEFINITIONS */
-
-#app {
+/******* WORD & DEFINITIONS *******/
+.content {
   margin: 100px auto 50px;
   padding: 0 15px;
   max-width: 800px;
@@ -101,8 +100,7 @@ button {
   text-transform: uppercase;
 }
 
-/* THEME */
-
+/******* THEME *******/
 .theme-btn {
   position: absolute;
   right: 15px;
@@ -111,9 +109,7 @@ button {
   background: none;
 }
 
-
-/* ERROR HANDLING */
-
+/******* ERROR HANDLING *******/
 .error {
   position: absolute;
   top: 50%;
@@ -141,4 +137,29 @@ button {
   background-color: var(--color);
   color: var(--bg-color);
   font-size: 1rem;
+}
+
+/******* LOADING *******/
+.loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: none; /* Hidden by default */
+  animation: defer-blink 2s infinite;
+}
+
+@keyframes defer-blink {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  75% {
+    opacity: 0.25;
+  }
+  100% {
+    opacity: 1;
+  }
 }

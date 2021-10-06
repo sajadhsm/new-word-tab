@@ -1,4 +1,4 @@
-import { APP_ELEMENT, ERROR_CONTAINER, ERROR_RETRY_BUTTON } from './elements.js';
+import { ERROR_RETRY_BUTTON, displayError, displayContent, displayLoading } from './elements.js';
 import { randomNumberBetween } from './utils.js';
 import displayWordDefinitions from './render.js';
 
@@ -28,8 +28,7 @@ function getRandomWordFromList() {
 
 async function getWordDefinitions(word) {
   try {
-    APP_ELEMENT.style.display = 'block';
-    ERROR_CONTAINER.style.display = 'none';
+    displayLoading();
 
     const response = await fetch(API_URL + word);
 
@@ -38,9 +37,11 @@ async function getWordDefinitions(word) {
     }
 
     const data = await response.json();
+
+    displayContent();
+    
     return data;
-  } catch (error) {
-    ERROR_CONTAINER.style.display = 'block';
-    APP_ELEMENT.style.display = 'none';
+  } catch {
+    displayError();
   }
 }
