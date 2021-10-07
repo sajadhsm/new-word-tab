@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "manifest_version": 2,
   "chrome_url_overrides": {
-    "newtab": "src/index.html"
+    "newtab": "index.html"
   },
   "icons": {
     "16": "./assets/icon/16.png",
