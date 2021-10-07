@@ -2,7 +2,7 @@ import { ERROR_RETRY_BUTTON, displayError, displayContent, displayLoading } from
 import { randomNumberBetween } from './utils.js';
 import displayWordDefinitions from './render.js';
 
-import WORDS from '../../data/words.js';
+import WORDS from '../data/words.js';
 
 const API_URL = 'https://api.dictionaryapi.dev/api/v2/entries/en/';
 

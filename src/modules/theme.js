@@ -28,7 +28,7 @@ function setTheme(theme) {
   THEMES.forEach(t => document.body.classList.remove(t));
 
   document.body.classList.add(theme);
-  THEME_SVG_IMG_ELEMENT.src = `../assets/${theme}_mode.svg`;
+  THEME_SVG_IMG_ELEMENT.src = `./assets/${theme}_mode.svg`;
 
   storage.set(THEME_STORAGE_KEY, theme);
 }
