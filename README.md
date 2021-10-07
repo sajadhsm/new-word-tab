@@ -15,6 +15,10 @@ You can also listen to the word pronunciation. Switch between Light & Dark theme
 More features like *Words list management* & *Favorites sites shortcuts* will be added soon to give you more options on the new tab behavior.
 
 ## Contribution
-You can find project roadmp [here](https://github.com/sajadhsm/new-word-tab/projects/1).
+You can find the project roadmap [here](https://github.com/sajadhsm/new-word-tab/projects/1).
 
-Feel free to suggest new ideas & report bugs. Pull requests are welcomed.
+Feel free to suggest new ideas & report bugs. Pull requests are welcome.
+
+### Special thanks to
+- [Free Dictionary API](https://github.com/meetDeveloper/freeDictionaryAPI) which powers word definitions lookup.
+- [Sepehr Mohammadi](https://github.com/sepehrity) who made it possible to publish on Chrome Web Store.
