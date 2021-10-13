@@ -1,11 +1,13 @@
 <template>
-  <div>TEST APP</div>
+  <ThemeSwitch />
 </template>
 
 <script>
+import ThemeSwitch from '@/components/ThemeSwitch.vue';
+
 export default {
-  setup() {
-    console.log('HELLO VUE');
+  components: {
+    ThemeSwitch,
   },
 };
 </script>

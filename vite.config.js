@@ -1,10 +1,19 @@
 import { defineConfig } from 'vite';
-import vue from '@vitejs/plugin-vue';
+import Vue from '@vitejs/plugin-vue';
+import Icons from 'unplugin-icons/vite';
+import IconsResolver from 'unplugin-icons/resolver';
+import Components from 'unplugin-vue-components/vite';
 
 import { r, port, isDev } from './scripts/utils';
 
 export default defineConfig(({ command }) => ({
-  plugins: [vue()],
+  plugins: [
+    Vue(),
+    Components({
+      resolvers: IconsResolver(),
+    }),
+    Icons({ autoInstall: true }),
+  ],
   root: r('src'),
   resolve: {
     alias: {
