@@ -25,7 +25,7 @@ function handleSwitchTheme() {
 }
 
 function setTheme(theme) {
-  THEMES.forEach(t => document.body.classList.remove(t));
+  THEMES.forEach((t) => document.body.classList.remove(t));
 
   document.body.classList.add(theme);
   THEME_SVG_IMG_ELEMENT.src = `./assets/${theme}_mode.svg`;

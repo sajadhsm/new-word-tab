@@ -1,0 +1,39 @@
+{
+  "name": "new-word-tab",
+  "displayName": "New Word Tab",
+  "description": "Learn a word per new tab",
+  "version": "0.1.0",
+  "author": {
+    "name": "Sajad Hashemian",
+    "email": "sajadhsm@gmail.com"
+  },
+  "license": "MIT",
+  "scripts": {
+    "dev": "npm run clear && cross-env NODE_ENV=development run-p dev:*",
+    "dev:prepare": "esno scripts/prepare.js",
+    "dev:web": "vite",
+    "build": "cross-env NODE_ENV=production run-s clear build:web build:prepare",
+    "build:prepare": "esno scripts/prepare.js",
+    "build:web": "vite build",
+    "start:chromium": "web-ext run --source-dir ./extension --target=chromium",
+    "start:firefox": "web-ext run --source-dir ./extension --target=firefox-desktop",
+    "clear": "rimraf extension/dist extension/manifest.json extension.*",
+    "lint": "eslint 'src/**/*.{json,js,vue}'"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^1.9.3",
+    "chokidar": "^3.5.2",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.0.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-vue": "^7.19.1",
+    "esno": "^0.10.1",
+    "fs-extra": "^10.0.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "2.4.1",
+    "rimraf": "^3.0.2",
+    "vite": "^2.6.7",
+    "vue": "^3.2.20",
+    "web-ext": "^6.5.0"
+  }
+}

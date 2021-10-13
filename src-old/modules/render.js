@@ -1,4 +1,9 @@
-import { WORD_ELEMENT, PHONETIC_ELEMENT, MEANINGS_ELEMENT, PHONETIC_LISTEN_BUTTON } from './elements.js';
+import {
+  WORD_ELEMENT,
+  PHONETIC_ELEMENT,
+  MEANINGS_ELEMENT,
+  PHONETIC_LISTEN_BUTTON,
+} from './elements.js';
 import { createElement } from './utils.js';
 import audio from './audio.js';
 
