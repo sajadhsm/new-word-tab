@@ -7,16 +7,24 @@ import useLearnedWord from './useLearnedWords';
 import useWordDefinitions from './useWordDefinitions';
 
 export default function useWord() {
-  const { randomWord, getRandomWord } = useRandomWord();
+  const {
+    learnedWords,
+    learnedWordsDict,
+    isWordLearned,
+    getLocalLearnedWords,
+  } = useLearnedWord();
 
-  const { learnedWords, isWordLearned, getLocalLearnedWords } =
-    useLearnedWord();
+  const unlearnedWords = computed(() =>
+    WORDS.filter((word) => !learnedWordsDict.value[word])
+  );
+
+  const { randomWord, getRandomWord } = useRandomWord(unlearnedWords);
 
   const { isLoading, definitions, error, getDefinitions } =
     useWordDefinitions();
 
   const hasLearnedAllWords = computed(
-    () => WORDS.length === learnedWords.value.length
+    () => WORDS.length <= learnedWords.value.length
   );
 
   function getWord() {
