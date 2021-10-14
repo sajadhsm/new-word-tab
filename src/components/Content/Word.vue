@@ -3,7 +3,11 @@
     <div class="title">
       <h1 class="word">{{ word }}</h1>
 
-      <Actions :definition="definition" @learned="$emit('learned')" />
+      <Actions
+        v-if="definition"
+        :definition="definition"
+        @learned="$emit('learned')"
+      />
     </div>
 
     <div v-if="definition" class="meanings">
@@ -50,7 +54,7 @@ export default {
   emits: ['learned'],
 
   setup(props) {
-    const definition = computed(() => props.definitions[0]);
+    const definition = computed(() => props.definitions?.[0]);
 
     return { definition };
   },
