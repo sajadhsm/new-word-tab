@@ -1,18 +1,18 @@
-import { ref, watchEffect } from 'vue';
+import { ref } from 'vue';
 
 const API_URL = 'https://api.dictionaryapi.dev/api/v2/entries/en/';
 
-export default function useWordDefinitions(word) {
+export default function useWordDefinitions() {
   const definitions = ref(null);
   const isLoading = ref(false);
   const error = ref(null);
 
-  async function getDefinitions() {
+  async function getDefinitions(word) {
     try {
       isLoading.value = true;
       error.value = null;
 
-      const response = await fetch(API_URL + word.value);
+      const response = await fetch(API_URL + word);
 
       if (!response.ok) {
         throw new Error('Failed due to network response.');
@@ -27,8 +27,6 @@ export default function useWordDefinitions(word) {
       isLoading.value = false;
     }
   }
-
-  watchEffect(getDefinitions);
 
   return {
     getDefinitions,

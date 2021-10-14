@@ -11,7 +11,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 2.5rem;
-  animation: defer-blink ease-in 2s;
+  animation: defer-blink ease-in 1s;
 }
 
 @keyframes defer-blink {
