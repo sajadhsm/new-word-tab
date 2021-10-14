@@ -5,5 +5,5 @@ export default {
 
   set(key, value) {
     localStorage.setItem(key, value);
-  }
-}
+  },
+};

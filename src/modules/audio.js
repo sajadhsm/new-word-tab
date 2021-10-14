@@ -5,4 +5,4 @@ export default {
     audioInstance.src = src ? `https:${src}` : null;
   },
   playAudio: () => audioInstance.play(),
-}
+};

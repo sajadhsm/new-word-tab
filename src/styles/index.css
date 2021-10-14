@@ -1,0 +1,34 @@
+:root {
+  --def-color: hsl(0, 0%, 75%);
+  --bg-color: hsl(0, 0%, 10%);
+  --color: hsl(0, 0%, 100%);
+}
+
+.light {
+  --def-color: hsl(0, 0%, 25%);
+  --bg-color: hsl(0, 0%, 100%);
+  --color: hsl(0, 0%, 10%);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--color);
+}
+
+button {
+  cursor: pointer;
+}
