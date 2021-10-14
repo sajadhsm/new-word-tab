@@ -7,13 +7,11 @@ export default function useRandomWord() {
   const randomWord = ref(null);
 
   function getRandomWord() {
-    const randomWordIndex = randomNumberBetween(0, WORDS.length);
+    const randomWordIndex = randomNumberBetween(0, WORDS.length - 1);
     randomWord.value = WORDS[randomWordIndex];
 
     return randomWord;
   }
-
-  getRandomWord();
 
   return {
     getRandomWord,

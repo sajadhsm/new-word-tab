@@ -1,7 +1,7 @@
 <template>
   <Loading v-if="isLoading" />
-  <Error v-else-if="error" @retry="getRandomWord" />
-  <Word v-else :word="randomWord" :definitions="definitions" />
+  <Error v-else-if="error" @retry="getWord" />
+  <Word v-else :word="word" :definitions="definitions" @learned="getWord" />
 </template>
 
 <script>
@@ -9,8 +9,7 @@ import Loading from './Loading.vue';
 import Error from './Error.vue';
 import Word from './Word.vue';
 
-import useRandomWord from '@/composables/useRandomWord';
-import useWordDefinitions from '@/composables/useWordDefinitions';
+import useWord from '@/composables/useWord';
 
 export default {
   name: 'Content',
@@ -18,19 +17,18 @@ export default {
   components: { Loading, Error, Word },
 
   setup() {
-    const { randomWord, getRandomWord } = useRandomWord();
+    const { hasLearnedAllWords, definitions, isLoading, getWord, error, word } =
+      useWord();
 
-    const { getDefinitions, definitions, isLoading, error } =
-      useWordDefinitions(randomWord);
+    getWord();
 
     return {
-      getRandomWord,
-      randomWord,
-
-      getDefinitions,
+      hasLearnedAllWords,
       definitions,
       isLoading,
+      getWord,
       error,
+      word,
     };
   },
 };
