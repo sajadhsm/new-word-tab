@@ -18,3 +18,16 @@ export default {
   },
 };
 </script>
+
+<style>
+.theme-btn {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  border: none;
+  background: none;
+  color: var(--color);
+  font-size: 1.5rem;
+  outline: none;
+}
+</style>
