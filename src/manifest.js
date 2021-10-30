@@ -14,6 +14,8 @@ export async function getManifest() {
       newtab: './dist/newTab/index.html',
     },
 
+    options_page: './dist/options/index.html',
+
     icons: {
       16: './assets/16.png',
       32: './assets/32.png',

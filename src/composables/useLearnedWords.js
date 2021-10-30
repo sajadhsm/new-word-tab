@@ -21,9 +21,7 @@ export default function useLearnedWords() {
   function setWordAsLearned(word) {
     const localLearnedWords = getLocalLearnedWords(true);
     localLearnedWords.add(word);
-    const list = Array.from(localLearnedWords);
-    learnedWords.value = Array.from(list);
-    storage.set(LEARNED_WORDS_STORAGE_KEY, list.join());
+    storeWordsList(localLearnedWords);
   }
 
   function getLocalLearnedWords(asSet = false) {
@@ -41,8 +39,21 @@ export default function useLearnedWords() {
     }
   }
 
+  function removeLearnedWord(word) {
+    const words = getLocalLearnedWords(true);
+    words.delete(word);
+    storeWordsList(words);
+  }
+
+  function storeWordsList(wordsList) {
+    const list = Array.from(wordsList);
+    learnedWords.value = list;
+    storage.set(LEARNED_WORDS_STORAGE_KEY, list.join());
+  }
+
   return {
     getLocalLearnedWords,
+    removeLearnedWord,
     setWordAsLearned,
     isWordLearned,
     learnedWordsDict,

@@ -4,7 +4,7 @@ import { writeManifest } from './manifest';
 import { r, port, isDev, log } from './utils';
 
 async function stubIndexHtml() {
-  const views = ['newTab'];
+  const views = ['newTab', 'options'];
 
   for (const view of views) {
     await fs.ensureDir(r(`extension/dist/${view}`));
