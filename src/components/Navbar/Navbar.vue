@@ -2,11 +2,13 @@
   <div class="navbar">
     <Search />
     <ThemeSwitch />
+    <Options />
   </div>
 </template>
 
 <script>
 import ThemeSwitch from './ThemeSwitch.vue';
+import Options from './Options.vue';
 import Search from './Search.vue';
 
 export default {
@@ -14,6 +16,7 @@ export default {
 
   components: {
     ThemeSwitch,
+    Options,
     Search,
   },
 };

@@ -1,13 +1,8 @@
 <template>
   <div class="search">
-    <button
-      v-if="!isVisible"
-      class="search__toggle-btn"
-      title="Search word"
-      @click="isVisible = true"
-    >
+    <NavButton v-if="!isVisible" title="Search word" @click="isVisible = true">
       <i-ic-round-search />
-    </button>
+    </NavButton>
 
     <form v-else class="search__form" @submit.prevent="handleSearch">
       <input
@@ -26,10 +21,16 @@
 <script>
 import { ref, computed } from 'vue';
 
+import NavButton from './NavButton.vue';
+
 import useWord from '@/composables/useWord';
 
 export default {
   name: 'Search',
+
+  components: {
+    NavButton,
+  },
 
   setup() {
     const query = ref('');
@@ -62,14 +63,6 @@ export default {
 </script>
 
 <style>
-.search__toggle-btn {
-  font-size: 1.5rem;
-  background-color: transparent;
-  color: var(--color);
-  outline: none;
-  border: none;
-}
-
 .search__form {
   display: flex;
   background-color: hsla(var(--color-raw), 0.15);
