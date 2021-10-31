@@ -4,6 +4,14 @@
       <i-ic-round-beenhere />
     </button>
 
+    <a
+      :title="`Google translate (${targetLanguage.lang})`"
+      :href="`https://translate.google.com/?sl=en&tl=${targetLanguage.code}&text=${definition.word}&op=translate`"
+      target="_blank"
+    >
+      <i-ic-round-g-translate />
+    </a>
+
     <div v-if="definition?.phonetic" class="phonetic">
       <small class="phonetic__text">{{ definition.phonetic }}</small>
       <button title="Listen" @click="handleListen">
@@ -17,6 +25,7 @@
 import audio from '@/modules/audio';
 
 import useLearnedWord from '@/composables/useLearnedWords';
+import useGoogleTranslate from '@/composables/useGoogleTranslate';
 
 export default {
   name: 'Actions',
@@ -32,6 +41,7 @@ export default {
 
   setup(props, { emit }) {
     const { setWordAsLearned } = useLearnedWord();
+    const { targetLanguage } = useGoogleTranslate();
 
     function handleMarkAsLearned() {
       setWordAsLearned(props.definition.word);
@@ -45,6 +55,7 @@ export default {
 
     return {
       handleMarkAsLearned,
+      targetLanguage,
       handleListen,
     };
   },
@@ -57,14 +68,16 @@ export default {
   align-items: center;
 }
 
-.actions button {
+.actions button,
+.actions a {
   background: transparent;
   border: none;
   outline: none;
   color: var(--color);
 }
 
-.actions button svg {
+.actions button svg,
+.actions a {
   font-size: 1.25rem;
 }
 
