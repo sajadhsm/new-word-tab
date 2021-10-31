@@ -13,9 +13,16 @@
 ## Description
 
 Replace the new tab page with a new word definition and examples.
-You can also listen to the word pronunciation. Switch between Light & Dark themes that best suit your desktop.
 
-More features like _Words list management_ & _Favorite sites shortcuts_ will be added soon to give you more options on the new tab behavior.
+### Features:
+
+- Listen to word pronunciation
+- Switch between Light & Dark themes that best suit your desktop
+- Mark words as "learned" so they will not show up in your new tabs
+- Search for custom words definitions
+- Quickly look up word in Google translate
+
+More features like _Favorite sites shortcuts_ will be added soon to give you more options on the new tab behavior.
 
 ## Contribution
 
