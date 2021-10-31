@@ -2,11 +2,11 @@ import { ref } from 'vue';
 
 const API_URL = 'https://api.dictionaryapi.dev/api/v2/entries/en/';
 
-export default function useWordDefinitions() {
-  const definitions = ref(null);
-  const isLoading = ref(false);
-  const error = ref(null);
+const definitions = ref(null);
+const isLoading = ref(false);
+const error = ref(null);
 
+export default function useWordDefinitions() {
   async function getDefinitions(word) {
     try {
       isLoading.value = true;

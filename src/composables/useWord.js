@@ -1,10 +1,12 @@
-import { computed } from 'vue';
+import { ref, computed } from 'vue';
 
 import WORDS from '@/data/words';
 
 import useRandomWord from './useRandomWord';
 import useLearnedWord from './useLearnedWords';
 import useWordDefinitions from './useWordDefinitions';
+
+const word = ref('');
 
 export default function useWord() {
   const {
@@ -18,7 +20,7 @@ export default function useWord() {
     WORDS.filter((word) => !learnedWordsDict.value[word])
   );
 
-  const { randomWord, getRandomWord } = useRandomWord(unlearnedWords);
+  const { getRandomWord } = useRandomWord(unlearnedWords);
 
   const { isLoading, definitions, error, getDefinitions } =
     useWordDefinitions();
@@ -29,27 +31,33 @@ export default function useWord() {
 
   function getWord() {
     getLocalLearnedWords();
-    getRandomWord();
+    word.value = getRandomWord().value;
 
     if (hasLearnedAllWords.value) {
-      randomWord.value = 'end';
+      word.value = 'end';
       return;
     }
 
-    if (!isWordLearned(randomWord.value)) {
-      getDefinitions(randomWord.value);
+    if (!isWordLearned(word.value)) {
+      getDefinitions(word.value);
       return;
     }
 
     getWord();
   }
 
+  function searchWord(searchedWord) {
+    word.value = searchedWord;
+    getDefinitions(searchedWord);
+  }
+
   return {
     hasLearnedAllWords,
-    word: randomWord,
     definitions,
+    searchWord,
     isLoading,
     getWord,
     error,
+    word,
   };
 }
