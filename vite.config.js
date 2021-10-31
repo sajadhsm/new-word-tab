@@ -40,6 +40,7 @@ export default defineConfig(({ command }) => ({
     rollupOptions: {
       input: {
         newTab: r('src/newTab/index.html'),
+        options: r('src/options/index.html'),
       },
     },
   },
