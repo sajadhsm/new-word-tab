@@ -1,13 +1,21 @@
 :root {
   --def-color: hsl(0, 0%, 75%);
-  --bg-color: hsl(0, 0%, 10%);
-  --color: hsl(0, 0%, 100%);
+
+  --bg-color-raw: 0, 0%, 10%;
+  --bg-color: hsl(var(--bg-color-raw));
+
+  --color-raw: 0, 0%, 100%;
+  --color: hsl(var(--color-raw));
 }
 
 .light {
   --def-color: hsl(0, 0%, 25%);
-  --bg-color: hsl(0, 0%, 100%);
-  --color: hsl(0, 0%, 10%);
+
+  --bg-color-raw: 0, 0%, 100%;
+  --bg-color: hsl(var(--bg-color-raw));
+
+  --color-raw: 0, 0%, 10%;
+  --color: hsl(var(--color-raw));
 }
 
 *,

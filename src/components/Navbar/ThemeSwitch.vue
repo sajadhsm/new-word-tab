@@ -21,9 +21,6 @@ export default {
 
 <style>
 .theme-btn {
-  position: absolute;
-  right: 15px;
-  top: 15px;
   border: none;
   background: none;
   color: var(--color);
