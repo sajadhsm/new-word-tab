@@ -14,7 +14,12 @@ export async function getManifest() {
       newtab: './dist/newTab/index.html',
     },
 
-    options_page: './dist/options/index.html',
+    options_ui: {
+      page: './dist/options/index.html',
+      open_in_tab: true,
+      chrome_style: false,
+      browser_style: false,
+    },
 
     icons: {
       16: './assets/16.png',
