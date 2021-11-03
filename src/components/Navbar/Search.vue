@@ -6,6 +6,7 @@
 
     <form v-else class="search__form" @submit.prevent="handleSearch">
       <input
+        ref="inputRef"
         v-model="query"
         class="search__form__input"
         placeholder="Search word"
@@ -19,7 +20,7 @@
 </template>
 
 <script>
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 
 import NavButton from './NavButton.vue';
 
@@ -35,6 +36,7 @@ export default {
   setup() {
     const query = ref('');
     const lastQuery = ref('');
+    const inputRef = ref(null);
     const isVisible = ref(false);
     const { searchWord } = useWord();
 
@@ -53,9 +55,13 @@ export default {
       }
     }
 
+    // Auto focus on search input when it is visible
+    watch(inputRef, (el) => el?.focus());
+
     return {
       handleSearch,
       isVisible,
+      inputRef,
       query,
     };
   },
