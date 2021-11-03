@@ -27,7 +27,11 @@ export default function useLearnedWords() {
   function getLocalLearnedWords(asSet = false) {
     try {
       const localCommaSeparatedWords = storage.get(LEARNED_WORDS_STORAGE_KEY);
-      const wordsSet = new Set(localCommaSeparatedWords.split(','));
+      const parsedList = localCommaSeparatedWords.length
+        ? localCommaSeparatedWords.split(',')
+        : [];
+
+      const wordsSet = new Set(parsedList);
       const wordsList = Array.from(wordsSet);
 
       learnedWords.value = wordsList;
