@@ -1,5 +1,6 @@
 import { ref, computed } from 'vue';
 
+import { capitalizeFirstLetter } from '@/utils/string';
 import WORDS from '@/data/words';
 
 import useRandomWord from './useRandomWord';
@@ -29,7 +30,7 @@ export default function useWord() {
     () => WORDS.length <= learnedWords.value.length
   );
 
-  function getWord() {
+  async function getWord() {
     getLocalLearnedWords();
     word.value = getRandomWord().value;
 
@@ -39,7 +40,8 @@ export default function useWord() {
     }
 
     if (!isWordLearned(word.value)) {
-      getDefinitions(word.value);
+      await getDefinitions(word.value);
+      document.title = `NWT • ${capitalizeFirstLetter(word.value)}`;
       return;
     }
 
