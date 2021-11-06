@@ -1,5 +1,5 @@
 <template>
-  <aside class="shortcuts">
+  <aside v-if="isActive" class="shortcuts">
     <a
       v-for="(shortcut, index) of shortcuts"
       :key="index"
@@ -49,11 +49,12 @@ export default {
   setup() {
     const isAddShortcutModalVisible = ref(false);
 
-    const { shortcuts } = useShortcuts();
+    const { shortcuts, isActive } = useShortcuts();
 
     return {
       isAddShortcutModalVisible,
       shortcuts,
+      isActive,
     };
   },
 };
