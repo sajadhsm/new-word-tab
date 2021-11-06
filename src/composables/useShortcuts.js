@@ -1,13 +1,16 @@
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 
 import { getUrlHostname } from '@/utils/url';
 import storage from '@/modules/localStorage';
 
 const SHORTCUTS_STORAGE_KEY = 's';
+const IS_SHORTCUTS_DISABLE_STORAGE_KEY = 'sd';
 
 const shortcuts = ref([]);
+const isActive = ref(true);
 
 export default function useShortcuts() {
+  isActive.value = getShortcutsActiveStateFromStorage();
   shortcuts.value = getShortcutsFromStorage();
 
   function addShortcut(name, url) {
@@ -15,7 +18,10 @@ export default function useShortcuts() {
     saveShortcutsToStorage(shortcuts.value);
   }
 
+  watch(isActive, saveShortcutsActiveStateToStorage);
+
   return {
+    isActive,
     shortcuts,
     addShortcut,
   };
@@ -41,4 +47,16 @@ function parseSavedShortcuts(shortcutsString) {
     const [name, url] = shortcut.split(';');
     return { name, url, hostname: getUrlHostname(url) };
   });
+}
+
+function getShortcutsActiveStateFromStorage() {
+  return !storage.get(IS_SHORTCUTS_DISABLE_STORAGE_KEY);
+}
+
+function saveShortcutsActiveStateToStorage(active) {
+  if (active) {
+    storage.remove(IS_SHORTCUTS_DISABLE_STORAGE_KEY);
+  } else {
+    storage.set(IS_SHORTCUTS_DISABLE_STORAGE_KEY, 1);
+  }
 }
