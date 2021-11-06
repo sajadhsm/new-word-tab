@@ -1,5 +1,6 @@
 import { ref } from 'vue';
 
+import { getUrlHostname } from '@/utils/url';
 import storage from '@/modules/localStorage';
 
 const SHORTCUTS_STORAGE_KEY = 's';
@@ -10,7 +11,7 @@ export default function useShortcuts() {
   shortcuts.value = getShortcutsFromStorage();
 
   function addShortcut(name, url) {
-    shortcuts.value.push({ name, url });
+    shortcuts.value.push({ name, url, hostname: getUrlHostname(url) });
     saveShortcutsToStorage(shortcuts.value);
   }
 
@@ -38,6 +39,6 @@ function parseSavedShortcuts(shortcutsString) {
   // name;url|name;url|...
   return shortcutsString.split('|').map((shortcut) => {
     const [name, url] = shortcut.split(';');
-    return { name, url };
+    return { name, url, hostname: getUrlHostname(url) };
   });
 }

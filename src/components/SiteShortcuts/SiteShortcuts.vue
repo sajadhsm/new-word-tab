@@ -1,5 +1,5 @@
 <template>
-  <aside class="pages-shortcut">
+  <aside class="shortcuts">
     <a
       v-for="(shortcut, index) of shortcuts"
       :key="index"
@@ -7,7 +7,16 @@
       :title="shortcut.name"
       class="shortcut"
     >
-      {{ shortcut.name[0] }}
+      <img
+        v-if="shortcut.hostname"
+        :src="`https://icons.duckduckgo.com/ip2/${shortcut.hostname}.ico`"
+        :alt="shortcut.name"
+        width="16"
+        height="16"
+        class="shortcut__favicon"
+      />
+      <i-ph-circle-dashed-bold v-else class="shortcut__no-favicon" />
+      <small class="shortcut__text">{{ shortcut.name }}</small>
     </a>
 
     <button
@@ -51,42 +60,77 @@ export default {
 </script>
 
 <style>
-.pages-shortcut {
+.shortcuts {
   position: fixed;
   top: 0;
   left: 0;
   height: 100%;
-  padding: 10px;
+  padding: 10px 5px;
   background-color: hsla(var(--color-raw), 0.1);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(20px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+  /* firefox */
+  overflow-x: hidden;
+  scrollbar-color: hsla(var(--color-raw), 0.2) hsla(var(--color-raw), 0.1);
+  scrollbar-width: thin;
+}
+.shortcuts::-webkit-scrollbar {
+  width: 4px;
+}
+.shortcuts::-webkit-scrollbar-track {
+  background-color: hsla(var(--color-raw), 0.1);
+}
+.shortcuts::-webkit-scrollbar-thumb {
+  background-color: hsla(var(--color-raw), 0.2);
 }
 
+.shortcut,
 .shortcut-add {
   display: flex;
   align-items: center;
-  width: 25px;
-  height: 25px;
-  background-color: transparent;
-  border: 1px solid hsla(var(--color-raw), 0.3);
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  border: none;
   border-radius: 5px;
+  background-color: transparent;
   color: hsla(var(--color-raw), 0.5);
+  transition: background-color ease-in-out 0.1s;
 }
+.shortcut:hover,
 .shortcut-add:hover {
-  background-color: hsla(var(--color-raw), 0.1);
+  background-color: hsla(var(--color-raw), 0.15);
 }
 
 .shortcut {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 25px;
-  height: 25px;
-  border-radius: 5px;
+  flex-direction: column;
   margin-bottom: 10px;
-  border: 1px solid hsla(var(--color-raw), 0.3);
-  border-radius: 5px;
-  color: var(--color);
+  padding: 5px;
   text-decoration: none;
-  text-transform: uppercase;
+}
+
+.shortcut-add {
+  font-size: 2rem;
+}
+
+.shortcut__favicon {
+  margin-bottom: 4px;
+}
+.shortcut__no-favicon {
+  margin-bottom: 4px;
+  font-size: 16px;
+  color: hsla(var(--color-raw), 0.35);
+}
+
+.shortcut__text {
+  max-width: 40px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.6rem;
+  color: hsla(var(--color-raw), 0.75);
 }
 </style>
