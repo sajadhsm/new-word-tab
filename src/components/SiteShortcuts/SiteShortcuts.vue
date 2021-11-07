@@ -62,13 +62,10 @@ export default {
 
 <style>
 .shortcuts {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
+  flex-shrink: 0;
+  min-height: 100vh;
   padding: 10px 5px;
   background-color: hsla(var(--color-raw), 0.1);
-  backdrop-filter: blur(20px);
   display: flex;
   flex-direction: column;
   align-items: center;
