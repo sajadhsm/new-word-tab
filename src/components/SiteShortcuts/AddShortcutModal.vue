@@ -29,6 +29,7 @@ export default {
   height: 100%;
   width: 100%;
   background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(6px);
 }
 
 .modal {

@@ -70,6 +70,7 @@ export default {
 
 .title {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   margin-bottom: 20px;
 }
@@ -78,6 +79,12 @@ export default {
   margin: 0;
   font-size: 4rem;
   text-transform: capitalize;
+}
+
+@media all and (max-width: 450px) {
+  .word {
+    font-size: 2.5rem;
+  }
 }
 
 .meaning:not(:last-of-type) {
