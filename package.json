@@ -40,5 +40,8 @@
     "vite": "^2.6.7",
     "vue": "^3.2.20",
     "web-ext": "^6.5.0"
+  },
+  "dependencies": {
+    "vuedraggable": "^4.1.0"
   }
 }

@@ -1,23 +1,6 @@
 <template>
   <aside v-if="isActive" class="shortcuts">
-    <a
-      v-for="(shortcut, index) of shortcuts"
-      :key="index"
-      :href="shortcut.url"
-      :title="shortcut.name"
-      class="shortcut"
-    >
-      <img
-        v-if="shortcut.hostname"
-        :src="`https://icons.duckduckgo.com/ip2/${shortcut.hostname}.ico`"
-        :alt="shortcut.name"
-        width="16"
-        height="16"
-        class="shortcut__favicon"
-      />
-      <i-ph-circle-dashed-bold v-else class="shortcut__no-favicon" />
-      <small class="shortcut__text">{{ shortcut.name }}</small>
-    </a>
+    <Shortcuts />
 
     <button
       class="shortcut-add"
@@ -39,21 +22,23 @@ import { ref } from 'vue';
 
 import useShortcuts from '@/composables/useShortcuts';
 
+import Shortcuts from './Shortcuts.vue';
 import AddShortcutModal from './AddShortcutModal.vue';
 
 export default {
   name: 'SiteShortcuts',
 
-  components: { AddShortcutModal },
+  components: {
+    Shortcuts,
+    AddShortcutModal,
+  },
 
   setup() {
+    const { isActive } = useShortcuts();
     const isAddShortcutModalVisible = ref(false);
-
-    const { shortcuts, isActive } = useShortcuts();
 
     return {
       isAddShortcutModalVisible,
-      shortcuts,
       isActive,
     };
   },
@@ -103,32 +88,7 @@ export default {
   background-color: hsla(var(--color-raw), 0.15);
 }
 
-.shortcut {
-  flex-direction: column;
-  margin-bottom: 10px;
-  padding: 5px;
-  text-decoration: none;
-}
-
 .shortcut-add {
   font-size: 2rem;
-}
-
-.shortcut__favicon {
-  margin-bottom: 4px;
-}
-.shortcut__no-favicon {
-  margin-bottom: 4px;
-  font-size: 16px;
-  color: hsla(var(--color-raw), 0.35);
-}
-
-.shortcut__text {
-  max-width: 40px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-size: 0.6rem;
-  color: hsla(var(--color-raw), 0.75);
 }
 </style>

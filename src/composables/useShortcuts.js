@@ -14,8 +14,12 @@ export default function useShortcuts() {
   shortcuts.value = getShortcutsFromStorage();
 
   function addShortcut(name, url) {
-    shortcuts.value.push({ name, url, hostname: getUrlHostname(url) });
-    saveShortcutsToStorage(shortcuts.value);
+    shortcuts.value.push(shortcutFactory(name, url));
+    saveShortcutsToStorage();
+  }
+
+  function saveShortcutsToStorage() {
+    storage.set(SHORTCUTS_STORAGE_KEY, compressShortcuts(shortcuts.value));
   }
 
   watch(isActive, saveShortcutsActiveStateToStorage);
@@ -24,11 +28,8 @@ export default function useShortcuts() {
     isActive,
     shortcuts,
     addShortcut,
+    saveShortcutsToStorage,
   };
-}
-
-function saveShortcutsToStorage(shortcuts) {
-  storage.set(SHORTCUTS_STORAGE_KEY, compressShortcuts(shortcuts));
 }
 
 function compressShortcuts(shortcutsList) {
@@ -45,8 +46,12 @@ function parseSavedShortcuts(shortcutsString) {
   // name;url|name;url|...
   return shortcutsString.split('|').map((shortcut) => {
     const [name, url] = shortcut.split(';');
-    return { name, url, hostname: getUrlHostname(url) };
+    return shortcutFactory(name, url);
   });
+}
+
+function shortcutFactory(name, url) {
+  return { url, name, hostname: getUrlHostname(url) };
 }
 
 function getShortcutsActiveStateFromStorage() {
