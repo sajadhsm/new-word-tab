@@ -7,7 +7,7 @@
     @end="saveShortcutsToStorage"
   >
     <template #item="{ element }">
-      <Shortcut :shortcut="element" :on-context-menu="onContextMenu" />
+      <Shortcut :shortcut="element" :on-context-menu="openContextMenu" />
     </template>
   </Draggable>
 </template>
@@ -18,6 +18,7 @@ import Draggable from 'vuedraggable';
 import Shortcut from './Shortcut.vue';
 
 import useShortcuts from '@/composables/useShortcuts';
+import useShortcutContextMenu from '@/composables/useShortcutContextMenu';
 
 export default {
   name: 'Shortcuts',
@@ -27,18 +28,13 @@ export default {
     Shortcut,
   },
 
-  props: {
-    onContextMenu: {
-      type: Function,
-      required: true,
-    },
-  },
-
   setup() {
     const { shortcuts, saveShortcutsToStorage } = useShortcuts();
+    const { openContextMenu } = useShortcutContextMenu();
 
     return {
       shortcuts,
+      openContextMenu,
       saveShortcutsToStorage,
     };
   },

@@ -3,7 +3,7 @@
     :href="shortcut.url"
     :title="shortcut.name"
     class="shortcut"
-    @contextmenu.prevent="onContextMenu"
+    @contextmenu.prevent="(event) => onContextMenu(event, shortcut)"
   >
     <img
       v-if="shortcut.hostname"
