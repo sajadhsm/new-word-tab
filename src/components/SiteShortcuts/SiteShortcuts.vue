@@ -1,28 +1,20 @@
 <template>
   <aside class="shortcuts" @scroll="hideShortcutContextMenuOnScroll">
-    <Shortcuts :on-context-menu="openContextMenu" />
+    <Shortcuts />
 
-    <button
-      class="shortcut-add"
-      title="Add shortcut"
-      @click="isAddShortcutModalVisible = true"
-    >
+    <button class="shortcut-add" title="Add shortcut" @click="openModal(null)">
       <i-ic-round-plus />
     </button>
   </aside>
 
-  <ShortcutContextMenu v-show="isVisible" ref="contextMenuRef" />
+  <ShortcutContextMenu />
 
-  <AddShortcutModal
-    v-if="isAddShortcutModalVisible"
-    @close="isAddShortcutModalVisible = false"
-  />
+  <AddShortcutModal v-if="isModalVisible" />
 </template>
 
 <script>
-import { ref } from 'vue';
-
-import useShortcutContextMenu from '@/composables/useShortcutContextMenu';
+import useShortcutModal from '@/composables/useShortcutModal';
+import { isVisible } from '@/composables/useShortcutContextMenu';
 
 import Shortcuts from './Shortcuts.vue';
 import AddShortcutModal from './AddShortcutModal.vue';
@@ -38,12 +30,7 @@ export default {
   },
 
   setup() {
-    const contextMenuRef = ref(null);
-
-    const isAddShortcutModalVisible = ref(false);
-
-    const { isVisible, openContextMenu } =
-      useShortcutContextMenu(contextMenuRef);
+    const { isModalVisible, openModal } = useShortcutModal();
 
     function hideShortcutContextMenuOnScroll() {
       if (isVisible.value) {
@@ -52,11 +39,11 @@ export default {
     }
 
     return {
-      isAddShortcutModalVisible,
       hideShortcutContextMenuOnScroll,
-      openContextMenu,
-      contextMenuRef,
       isVisible,
+
+      isModalVisible,
+      openModal,
     };
   },
 };

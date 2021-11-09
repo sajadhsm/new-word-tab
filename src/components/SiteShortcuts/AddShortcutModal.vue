@@ -1,9 +1,15 @@
 <template>
   <div class="overlay">
     <div class="modal">
-      <h3 class="modal__title">Add shortcut</h3>
+      <h3 class="modal__title">
+        {{ selectedShortcut ? 'Edit shortcut' : 'Add shortcut' }}
+      </h3>
 
-      <AddShortcutForm @submit="$emit('close')" @cancel="$emit('close')" />
+      <AddShortcutForm
+        :shortcut="selectedShortcut"
+        @submit="closeModal"
+        @cancel="closeModal"
+      />
     </div>
   </div>
 </template>
@@ -11,14 +17,18 @@
 <script>
 import AddShortcutForm from './AddShortcutForm.vue';
 
+import useShortcutModal from '@/composables/useShortcutModal';
+
 export default {
   name: 'AddShortcutModal',
 
   components: { AddShortcutForm },
 
-  emits: ['close'],
+  setup() {
+    const { selectedShortcut, closeModal } = useShortcutModal();
 
-  setup() {},
+    return { selectedShortcut, closeModal };
+  },
 };
 </script>
 

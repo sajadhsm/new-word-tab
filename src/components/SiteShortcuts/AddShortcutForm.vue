@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { ref, computed } from 'vue';
+import { ref, unref, computed } from 'vue';
 
 import useShortcuts from '@/composables/useShortcuts';
 
@@ -34,14 +34,25 @@ const SHORTCUT_SCHEMA = {
 export default {
   name: 'AddShortcutForm',
 
+  props: {
+    shortcut: {
+      type: Object,
+      default: null,
+    },
+  },
+
   emits: ['cancel', 'submit'],
 
   setup(props, { emit }) {
-    const { addShortcut } = useShortcuts();
+    const { addShortcut, editShortcut } = useShortcuts();
 
-    const formModel = ref({
-      ...SHORTCUT_SCHEMA,
-    });
+    const formModel = ref(
+      props.shortcut
+        ? { ...unref(props.shortcut) }
+        : {
+            ...SHORTCUT_SCHEMA,
+          }
+    );
 
     const isFormValid = computed(
       () => formModel.value.name && formModel.value.url
@@ -55,7 +66,12 @@ export default {
     function handleSubmit() {
       if (isFormValid.value) {
         const { name, url } = formModel.value;
-        addShortcut(name, url);
+
+        if (props.shortcut) {
+          editShortcut(props.shortcut.value.url, name, url);
+        } else {
+          addShortcut(name, url);
+        }
 
         emit('submit');
         clearForm();

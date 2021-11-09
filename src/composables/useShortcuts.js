@@ -22,12 +22,36 @@ export default function useShortcuts() {
     storage.set(SHORTCUTS_STORAGE_KEY, compressShortcuts(shortcuts.value));
   }
 
+  function removeShortcut(url) {
+    const index = findShortcutIndexByUrl(url);
+
+    if (index !== -1) {
+      shortcuts.value.splice(index, 1);
+      saveShortcutsToStorage();
+    }
+  }
+
+  function editShortcut(oldUrl, newName, newUrl) {
+    const index = findShortcutIndexByUrl(oldUrl);
+
+    if (index !== -1) {
+      shortcuts.value.splice(index, 1, shortcutFactory(newName, newUrl));
+      saveShortcutsToStorage();
+    }
+  }
+
+  function findShortcutIndexByUrl(url) {
+    return shortcuts.value.findIndex((shortcut) => shortcut.url === url);
+  }
+
   watch(isActive, saveShortcutsActiveStateToStorage);
 
   return {
     isActive,
     shortcuts,
     addShortcut,
+    editShortcut,
+    removeShortcut,
     saveShortcutsToStorage,
   };
 }
