@@ -1,5 +1,10 @@
 <template>
-  <a :href="shortcut.url" :title="shortcut.name" class="shortcut">
+  <a
+    :href="shortcut.url"
+    :title="shortcut.name"
+    class="shortcut"
+    @contextmenu.prevent="onContextMenu"
+  >
     <img
       v-if="shortcut.hostname"
       :src="`https://icons.duckduckgo.com/ip2/${shortcut.hostname}.ico`"
@@ -20,6 +25,11 @@ export default {
   props: {
     shortcut: {
       type: Object,
+      required: true,
+    },
+
+    onContextMenu: {
+      type: Function,
       required: true,
     },
   },

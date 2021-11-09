@@ -1,6 +1,6 @@
 <template>
-  <aside v-if="isActive" class="shortcuts">
-    <Shortcuts />
+  <aside class="shortcuts" @scroll="hideShortcutContextMenuOnScroll">
+    <Shortcuts :on-context-menu="openContextMenu" />
 
     <button
       class="shortcut-add"
@@ -11,6 +11,8 @@
     </button>
   </aside>
 
+  <ShortcutContextMenu v-show="isVisible" ref="contextMenuRef" />
+
   <AddShortcutModal
     v-if="isAddShortcutModalVisible"
     @close="isAddShortcutModalVisible = false"
@@ -20,10 +22,11 @@
 <script>
 import { ref } from 'vue';
 
-import useShortcuts from '@/composables/useShortcuts';
+import useShortcutContextMenu from '@/composables/useShortcutContextMenu';
 
 import Shortcuts from './Shortcuts.vue';
 import AddShortcutModal from './AddShortcutModal.vue';
+import ShortcutContextMenu from './ShortcutContextMenu.vue';
 
 export default {
   name: 'SiteShortcuts',
@@ -31,15 +34,29 @@ export default {
   components: {
     Shortcuts,
     AddShortcutModal,
+    ShortcutContextMenu,
   },
 
   setup() {
-    const { isActive } = useShortcuts();
+    const contextMenuRef = ref(null);
+
     const isAddShortcutModalVisible = ref(false);
+
+    const { isVisible, openContextMenu } =
+      useShortcutContextMenu(contextMenuRef);
+
+    function hideShortcutContextMenuOnScroll() {
+      if (isVisible.value) {
+        isVisible.value = false;
+      }
+    }
 
     return {
       isAddShortcutModalVisible,
-      isActive,
+      hideShortcutContextMenuOnScroll,
+      openContextMenu,
+      contextMenuRef,
+      isVisible,
     };
   },
 };
@@ -47,8 +64,8 @@ export default {
 
 <style>
 .shortcuts {
-  flex-shrink: 0;
-  min-height: 100vh;
+  position: fixed;
+  height: 100%;
   padding: 10px 5px;
   background-color: hsla(var(--color-raw), 0.1);
   display: flex;

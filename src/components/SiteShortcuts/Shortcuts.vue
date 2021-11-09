@@ -7,7 +7,7 @@
     @end="saveShortcutsToStorage"
   >
     <template #item="{ element }">
-      <Shortcut :shortcut="element" />
+      <Shortcut :shortcut="element" :on-context-menu="onContextMenu" />
     </template>
   </Draggable>
 </template>
@@ -25,6 +25,13 @@ export default {
   components: {
     Draggable,
     Shortcut,
+  },
+
+  props: {
+    onContextMenu: {
+      type: Function,
+      required: true,
+    },
   },
 
   setup() {

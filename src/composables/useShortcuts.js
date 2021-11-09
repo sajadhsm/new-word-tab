@@ -7,7 +7,7 @@ const SHORTCUTS_STORAGE_KEY = 's';
 const IS_SHORTCUTS_DISABLE_STORAGE_KEY = 'sd';
 
 const shortcuts = ref([]);
-const isActive = ref(true);
+export const isActive = ref(true);
 
 export default function useShortcuts() {
   isActive.value = getShortcutsActiveStateFromStorage();
