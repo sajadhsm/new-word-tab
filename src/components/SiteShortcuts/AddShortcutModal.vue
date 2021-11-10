@@ -5,11 +5,7 @@
         {{ selectedShortcut ? 'Edit shortcut' : 'Add shortcut' }}
       </h3>
 
-      <AddShortcutForm
-        :shortcut="selectedShortcut"
-        @submit="closeModal"
-        @cancel="closeModal"
-      />
+      <AddShortcutForm @submit="closeModal" @cancel="closeModal" />
     </div>
   </div>
 </template>
@@ -18,6 +14,7 @@
 import AddShortcutForm from './AddShortcutForm.vue';
 
 import useShortcutModal from '@/composables/useShortcutModal';
+import { selectedShortcut } from '@/composables/useShortcutContextMenu';
 
 export default {
   name: 'AddShortcutModal',
@@ -25,7 +22,7 @@ export default {
   components: { AddShortcutForm },
 
   setup() {
-    const { selectedShortcut, closeModal } = useShortcutModal();
+    const { closeModal } = useShortcutModal();
 
     return { selectedShortcut, closeModal };
   },

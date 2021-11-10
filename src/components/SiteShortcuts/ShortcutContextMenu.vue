@@ -1,6 +1,6 @@
 <template>
   <ul v-show="isVisible" ref="contextMenuRef" class="shortcut-context-menu">
-    <li @click="handleEdit">Edit</li>
+    <li @click="handleEdit">Edit shortcut</li>
     <li @click="handleRemove">Remove</li>
   </ul>
 </template>
@@ -20,12 +20,13 @@ export default {
       useShortcutContextMenu();
 
     function handleRemove() {
-      removeShortcut(selectedShortcut.value.url);
+      removeShortcut(selectedShortcut.value.name);
       closeContextMenu();
     }
 
     function handleEdit() {
-      openModal(selectedShortcut);
+      openModal();
+      closeContextMenu({ clearShortcut: false });
     }
 
     return {
@@ -46,18 +47,19 @@ export default {
   left: 25px;
   list-style: none;
   margin: 0;
-  padding: 4px 0;
+  padding: 5px 0;
   border-radius: 5px;
   background: var(--bg-color);
   border: 1px solid hsla(var(--color-raw), 0.15);
+  box-shadow: 0 0 #0000, 0 0 #0000, 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 .shortcut-context-menu li {
-  min-width: 75px;
-  padding: 5px 10px;
+  padding: 7px 15px;
   font-size: 0.75rem;
   cursor: pointer;
 }
 .shortcut-context-menu li:hover {
-  background: hsla(var(--color-raw), 0.15);
+  background: hsla(var(--color-raw), 0.1);
 }
 </style>

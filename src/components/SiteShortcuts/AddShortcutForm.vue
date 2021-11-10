@@ -2,7 +2,15 @@
   <form class="form" @submit.prevent="handleSubmit">
     <label class="form__label">
       Name
-      <input v-model="formModel.name" class="form__input" />
+      <input
+        ref="urlInputRef"
+        v-model="formModel.name"
+        class="form__input"
+        :class="{ 'form__input--error': isNameDuplicated }"
+      />
+      <small v-if="isNameDuplicated" class="form__error">
+        Name is duplicated.
+      </small>
     </label>
 
     <label class="form__label">
@@ -22,9 +30,10 @@
 </template>
 
 <script>
-import { ref, unref, computed } from 'vue';
+import { ref, unref, computed, onMounted } from 'vue';
 
 import useShortcuts from '@/composables/useShortcuts';
+import { selectedShortcut } from '@/composables/useShortcutContextMenu';
 
 const SHORTCUT_SCHEMA = {
   name: '',
@@ -44,18 +53,38 @@ export default {
   emits: ['cancel', 'submit'],
 
   setup(props, { emit }) {
-    const { addShortcut, editShortcut } = useShortcuts();
+    const { addShortcut, editShortcut, shortcuts } = useShortcuts();
+
+    const urlInputRef = ref(null);
+    onMounted(() => urlInputRef.value.focus());
 
     const formModel = ref(
-      props.shortcut
-        ? { ...unref(props.shortcut) }
+      selectedShortcut.value
+        ? { ...unref(selectedShortcut) }
         : {
             ...SHORTCUT_SCHEMA,
           }
     );
 
+    const isNameDuplicated = computed(() => {
+      const shortcut = shortcuts.value.find(
+        ({ name }) => name === formModel.value.name
+      );
+
+      if (!shortcut) {
+        return false;
+      }
+
+      if (selectedShortcut.value) {
+        return !(selectedShortcut.value.name === shortcut.name);
+      }
+
+      return true;
+    });
+
     const isFormValid = computed(
-      () => formModel.value.name && formModel.value.url
+      () =>
+        formModel.value.name && formModel.value.url && !isNameDuplicated.value
     );
 
     function handleCancel() {
@@ -67,8 +96,8 @@ export default {
       if (isFormValid.value) {
         const { name, url } = formModel.value;
 
-        if (props.shortcut) {
-          editShortcut(props.shortcut.value.url, name, url);
+        if (selectedShortcut.value) {
+          editShortcut(selectedShortcut.value.name, name, url);
         } else {
           addShortcut(name, url);
         }
@@ -80,10 +109,13 @@ export default {
 
     function clearForm() {
       formModel.value = { ...SHORTCUT_SCHEMA };
+      selectedShortcut.value = null;
     }
 
     return {
       formModel,
+      isNameDuplicated,
+      urlInputRef,
       isFormValid,
       handleSubmit,
       handleCancel,
@@ -98,10 +130,11 @@ export default {
   flex-direction: column;
 }
 .form__label {
+  position: relative;
   display: flex;
   flex-direction: column;
-  margin-bottom: 15px;
-  font-size: 0.6rem;
+  margin-bottom: 25px;
+  font-size: 0.7rem;
   font-weight: bold;
   color: hsla(var(--color-raw), 0.7);
 }
@@ -111,11 +144,23 @@ export default {
   color: var(--color);
   border: none;
   outline: none;
+  font-size: 1rem;
   border-radius: 5px;
-  padding: 7px 10px;
+  padding: 6px 8px;
 }
 .form__input:focus {
   outline: 1px solid hsla(var(--color-raw), 0.3);
+}
+.form__input--error,
+.form__input--error:focus {
+  outline: 1px solid #f44336;
+}
+
+.form__error {
+  position: absolute;
+  bottom: -15px;
+  font-size: 0.6rem;
+  color: #f44336;
 }
 
 .form__footer {
