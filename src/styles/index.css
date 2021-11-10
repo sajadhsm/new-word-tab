@@ -6,6 +6,10 @@
 
   --color-raw: 0, 0%, 100%;
   --color: hsl(var(--color-raw));
+
+  /* Firefox */
+  scrollbar-color: hsla(0, 0%, 100%, 0.2) hsla(0, 0%, 100%, 0.1);
+  scrollbar-width: thin;
 }
 
 .light {
@@ -35,6 +39,16 @@ body {
 body {
   background-color: var(--bg-color);
   color: var(--color);
+}
+/* Chrome */
+body::-webkit-scrollbar {
+  width: 8px;
+}
+body::-webkit-scrollbar-track {
+  background-color: hsla(var(--color-raw), 0.1);
+}
+body::-webkit-scrollbar-thumb {
+  background-color: hsla(var(--color-raw), 0.2);
 }
 
 button {
