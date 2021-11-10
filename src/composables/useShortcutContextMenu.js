@@ -5,8 +5,8 @@ import { useClickOutside } from './useClickOutside';
 const contextMenuRef = ref(null);
 const isClickOutsideSet = ref(false);
 
-const selectedShortcut = ref(null);
 export const isVisible = ref(false);
+export const selectedShortcut = ref(null);
 
 export default function useShortcutContextMenu() {
   watchEffect(
@@ -30,9 +30,12 @@ export default function useShortcutContextMenu() {
     selectedShortcut.value = shortcut;
   }
 
-  function closeContextMenu() {
+  function closeContextMenu({ clearShortcut = true } = {}) {
     isVisible.value = false;
-    selectedShortcut.value = null;
+
+    if (clearShortcut) {
+      selectedShortcut.value = null;
+    }
   }
 
   return {

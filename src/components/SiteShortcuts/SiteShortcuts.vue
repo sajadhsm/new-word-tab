@@ -2,7 +2,7 @@
   <aside class="shortcuts" @scroll="hideShortcutContextMenuOnScroll">
     <Shortcuts />
 
-    <button class="shortcut-add" title="Add shortcut" @click="openModal(null)">
+    <button class="shortcut-add" title="Add shortcut" @click="openModal">
       <i-ic-round-plus />
     </button>
   </aside>

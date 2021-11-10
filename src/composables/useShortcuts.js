@@ -22,8 +22,8 @@ export default function useShortcuts() {
     storage.set(SHORTCUTS_STORAGE_KEY, compressShortcuts(shortcuts.value));
   }
 
-  function removeShortcut(url) {
-    const index = findShortcutIndexByUrl(url);
+  function removeShortcut(name) {
+    const index = findShortcutIndexByName(name);
 
     if (index !== -1) {
       shortcuts.value.splice(index, 1);
@@ -31,8 +31,8 @@ export default function useShortcuts() {
     }
   }
 
-  function editShortcut(oldUrl, newName, newUrl) {
-    const index = findShortcutIndexByUrl(oldUrl);
+  function editShortcut(oldName, newName, newUrl) {
+    const index = findShortcutIndexByName(oldName);
 
     if (index !== -1) {
       shortcuts.value.splice(index, 1, shortcutFactory(newName, newUrl));
@@ -40,8 +40,8 @@ export default function useShortcuts() {
     }
   }
 
-  function findShortcutIndexByUrl(url) {
-    return shortcuts.value.findIndex((shortcut) => shortcut.url === url);
+  function findShortcutIndexByName(name) {
+    return shortcuts.value.findIndex((shortcut) => shortcut.name === name);
   }
 
   watch(isActive, saveShortcutsActiveStateToStorage);
@@ -57,7 +57,7 @@ export default function useShortcuts() {
 }
 
 function compressShortcuts(shortcutsList) {
-  return shortcutsList.map(({ name, url }) => `${name};${url}`).join('|');
+  return shortcutsList.map(({ name, url }) => `${name}"${url}`).join('`');
 }
 
 function getShortcutsFromStorage() {
@@ -67,9 +67,9 @@ function getShortcutsFromStorage() {
 }
 
 function parseSavedShortcuts(shortcutsString) {
-  // name;url|name;url|...
-  return shortcutsString.split('|').map((shortcut) => {
-    const [name, url] = shortcut.split(';');
+  // name"url`name"url'...
+  return shortcutsString.split('`').map((shortcut) => {
+    const [name, url] = shortcut.split('"');
     return shortcutFactory(name, url);
   });
 }
