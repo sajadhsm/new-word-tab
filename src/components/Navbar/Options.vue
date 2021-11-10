@@ -5,6 +5,8 @@
 </template>
 
 <script>
+import { openOptionsPage } from '@/utils/browser';
+
 import NavButton from './NavButton.vue';
 
 export default {
@@ -15,14 +17,7 @@ export default {
   },
 
   setup() {
-    function openOptionsPage() {
-      const browser = chrome || browser;
-      browser.runtime.openOptionsPage();
-    }
-
-    return {
-      openOptionsPage,
-    };
+    return { openOptionsPage };
   },
 };
 </script>
