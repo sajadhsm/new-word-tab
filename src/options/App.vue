@@ -5,12 +5,14 @@
 
     <GoogleTranslate />
     <SiteShortcuts />
+    <VocabularyLists />
     <LearnedWords />
   </div>
 </template>
 
 <script>
 import GoogleTranslate from './Sections/GoogleTranslate.vue';
+import VocabularyLists from './Sections/VocabularyLists.vue';
 import SiteShortcuts from './Sections/SiteShortcuts.vue';
 import LearnedWords from './Sections/LearnedWords.vue';
 
@@ -19,6 +21,7 @@ export default {
 
   components: {
     GoogleTranslate,
+    VocabularyLists,
     SiteShortcuts,
     LearnedWords,
   },

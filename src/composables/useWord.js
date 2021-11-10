@@ -1,8 +1,8 @@
 import { ref, computed } from 'vue';
 
 import { capitalizeFirstLetter } from '@/utils/string';
-import WORDS from '@/data/words';
 
+import useWordLists from './useWordLists';
 import useRandomWord from './useRandomWord';
 import useLearnedWord from './useLearnedWords';
 import useWordDefinitions from './useWordDefinitions';
@@ -10,6 +10,8 @@ import useWordDefinitions from './useWordDefinitions';
 const word = ref('');
 
 export default function useWord() {
+  const { wordsPoll } = useWordLists();
+
   const {
     learnedWords,
     learnedWordsDict,
@@ -18,7 +20,7 @@ export default function useWord() {
   } = useLearnedWord();
 
   const unlearnedWords = computed(() =>
-    WORDS.filter((word) => !learnedWordsDict.value[word])
+    wordsPoll.value.filter((word) => !learnedWordsDict.value[word])
   );
 
   const { getRandomWord } = useRandomWord(unlearnedWords);
@@ -27,7 +29,7 @@ export default function useWord() {
     useWordDefinitions();
 
   const hasLearnedAllWords = computed(
-    () => WORDS.length <= learnedWords.value.length
+    () => wordsPoll.value.length <= learnedWords.value.length
   );
 
   async function getWord() {
@@ -58,6 +60,7 @@ export default function useWord() {
     definitions,
     searchWord,
     isLoading,
+    wordsPoll,
     getWord,
     error,
     word,

@@ -1,5 +1,6 @@
 <template>
-  <Loading v-if="isLoading" />
+  <NoWordList v-if="!wordsPoll.length" />
+  <Loading v-else-if="isLoading" />
   <Error v-else-if="error" @retry="getWord" />
   <LearnedAllWords v-else-if="hasLearnedAllWords" />
   <Word v-else :word="word" :definitions="definitions" @learned="getWord" />
@@ -7,6 +8,7 @@
 
 <script>
 import LearnedAllWords from './LearnedAllWords.vue';
+import NoWordList from './NoWordList.vue';
 import Loading from './Loading.vue';
 import Error from './Error.vue';
 import Word from './Word.vue';
@@ -18,14 +20,22 @@ export default {
 
   components: {
     LearnedAllWords,
+    NoWordList,
     Loading,
     Error,
     Word,
   },
 
   setup() {
-    const { hasLearnedAllWords, definitions, isLoading, getWord, error, word } =
-      useWord();
+    const {
+      hasLearnedAllWords,
+      definitions,
+      isLoading,
+      wordsPoll,
+      getWord,
+      error,
+      word,
+    } = useWord();
 
     getWord();
 
@@ -33,6 +43,7 @@ export default {
       hasLearnedAllWords,
       definitions,
       isLoading,
+      wordsPoll,
       getWord,
       error,
       word,
