@@ -10,23 +10,26 @@
 
 - [**Firefox Add-ons**](https://addons.mozilla.org/en-US/firefox/addon/new-word-tab/)
 
-## Description
+## Features
 
-Replace the new tab page with a new word definition and examples.
-
-### Features:
-
-- Listen to word pronunciation
-- Switch between Light & Dark themes that best suit your desktop
-- Mark words as "learned" so they will not show up in your new tabs
-- Search for custom words definitions
-- Quickly look up word in Google translate
-
-More features like _Favorite sites shortcuts_ will be added soon to give you more options on the new tab behavior.
+- 🔬 Word definition and examples
+- 🔊 Listen to word pronunciation
+- ✅ Mark words as "learned" so they will not show up in your new tabs
+- 🔍 Search for custom words definitions
+- 📘 Quickly look up word in Google translate
+- 📚 Includes +10,000 words from popular vocabulary lists:
+  - GMAT
+  - GRE
+  - Longman
+  - Oxford
+  - SAT
+  - TOEFL
+- 🌐 Define your favorite sites shortcuts to quickly access them on the same tab
+- 🌙 Switch between Light & Dark themes that best suit your desktop
 
 ## Contribution
 
-You can find the project roadmap [here](https://github.com/sajadhsm/new-word-tab/projects/1).
+You can find the project road map [here](https://github.com/sajadhsm/new-word-tab/projects/1).
 
 Feel free to suggest new ideas & report bugs. Pull requests are welcome.
 
