@@ -1,19 +1,19 @@
 <template>
-  <NavButton title="Options" @click="openOptionsPage">
+  <IconButton title="Options" @click="openOptionsPage">
     <i-ic-round-settings />
-  </NavButton>
+  </IconButton>
 </template>
 
 <script>
 import { openOptionsPage } from '@/utils/browser';
 
-import NavButton from './NavButton.vue';
+import IconButton from '@/components/shared/IconButton.vue';
 
 export default {
   name: 'Options',
 
   components: {
-    NavButton,
+    IconButton,
   },
 
   setup() {

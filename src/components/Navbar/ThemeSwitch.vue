@@ -1,12 +1,12 @@
 <template>
-  <NavButton title="Switch theme" @click="toggleTheme">
+  <IconButton title="Switch theme" @click="toggleTheme">
     <i-ic-round-dark-mode v-if="theme === 'dark'" />
     <i-ic-round-light-mode v-else />
-  </NavButton>
+  </IconButton>
 </template>
 
 <script>
-import NavButton from './NavButton.vue';
+import IconButton from '@/components/shared/IconButton.vue';
 
 import useTheme from '@/composables/useTheme';
 
@@ -14,7 +14,7 @@ export default {
   name: 'ThemeSwitch',
 
   components: {
-    NavButton,
+    IconButton,
   },
 
   setup() {

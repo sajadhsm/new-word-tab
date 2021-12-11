@@ -1,8 +1,8 @@
 <template>
   <div class="navbar">
     <Search />
-    <ThemeSwitch />
-    <Options />
+    <ThemeSwitch class="btn-gap" />
+    <Options class="btn-gap" />
   </div>
 </template>
 
@@ -22,12 +22,16 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .navbar {
   position: absolute;
-  right: 15px;
-  top: 15px;
+  right: 1rem;
+  top: 1rem;
   display: flex;
   align-items: center;
+}
+
+.btn-gap {
+  margin-left: 5px;
 }
 </style>
