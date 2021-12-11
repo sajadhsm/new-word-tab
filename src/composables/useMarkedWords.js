@@ -1,23 +1,12 @@
-import { ref, computed } from 'vue';
+import { ref } from 'vue';
 
 import storage from '@/modules/localStorage';
 
 const MARKED_WORDS_STORAGE_KEY = 'mw';
 
+const markedWords = ref([]);
+
 export default function useMarkedWords() {
-  const markedWords = ref([]);
-
-  const markedWordsDict = computed(() =>
-    markedWords.value.reduce((wordsDict, word) => {
-      wordsDict[word] = true;
-      return wordsDict;
-    }, {})
-  );
-
-  function isWordMarked(word) {
-    return markedWordsDict.value[word];
-  }
-
   function setWordAsMarked(word) {
     const localMarkedWords = getLocalMarkedWords(true);
     localMarkedWords.add(word);
@@ -59,8 +48,6 @@ export default function useMarkedWords() {
     getLocalMarkedWords,
     removeMarkedWord,
     setWordAsMarked,
-    isWordMarked,
-    markedWordsDict,
     markedWords,
   };
 }

@@ -50,9 +50,9 @@ export default {
   emits: ['marked'],
 
   setup(props, { emit }) {
-    const { setWordAsMarked } = useMarkedWords();
     const { setWordAsLearned } = useLearnedWords();
     const { targetLanguage } = useGoogleTranslate();
+    const { setWordAsMarked, removeMarkedWord } = useMarkedWords();
 
     function handleMarkWord() {
       setWordAsMarked(props.definition.word);
@@ -60,6 +60,7 @@ export default {
     }
 
     function handleMarkAsLearned() {
+      removeMarkedWord(props.definition.word);
       setWordAsLearned(props.definition.word);
       emit('marked');
     }
