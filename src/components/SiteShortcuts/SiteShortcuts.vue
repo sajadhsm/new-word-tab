@@ -1,5 +1,8 @@
 <template>
-  <aside class="shortcuts" @scroll="hideShortcutContextMenuOnScroll">
+  <aside
+    class="shortcuts tiny-scrollbar"
+    @scroll="hideShortcutContextMenuOnScroll"
+  >
     <Shortcuts />
 
     <button class="shortcut-add" title="Add shortcut" @click="openModal">
@@ -58,20 +61,8 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow-y: auto;
   /* firefox */
   overflow-x: hidden;
-  scrollbar-color: hsla(var(--color-raw), 0.2) hsla(var(--color-raw), 0.1);
-  scrollbar-width: thin;
-}
-.shortcuts::-webkit-scrollbar {
-  width: 4px;
-}
-.shortcuts::-webkit-scrollbar-track {
-  background-color: hsla(var(--color-raw), 0.1);
-}
-.shortcuts::-webkit-scrollbar-thumb {
-  background-color: hsla(var(--color-raw), 0.2);
 }
 
 .shortcut,

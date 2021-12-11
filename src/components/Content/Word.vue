@@ -6,7 +6,7 @@
       <Actions
         v-if="definition"
         :definition="definition"
-        @learned="$emit('learned')"
+        @marked="$emit('marked')"
       />
     </div>
 
@@ -51,7 +51,7 @@ export default {
     },
   },
 
-  emits: ['learned'],
+  emits: ['marked'],
 
   setup(props) {
     const definition = computed(() => props.definitions?.[0]);

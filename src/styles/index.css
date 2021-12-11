@@ -52,3 +52,18 @@ body::-webkit-scrollbar-thumb {
 button {
   cursor: pointer;
 }
+
+.tiny-scrollbar {
+  overflow-y: auto;
+  scrollbar-color: hsla(var(--color-raw), 0.2) hsla(var(--color-raw), 0.1);
+  scrollbar-width: thin;
+}
+.tiny-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+.tiny-scrollbar::-webkit-scrollbar-track {
+  background-color: hsla(var(--color-raw), 0.1);
+}
+.tiny-scrollbar::-webkit-scrollbar-thumb {
+  background-color: hsla(var(--color-raw), 0.2);
+}

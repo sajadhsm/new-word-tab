@@ -3,7 +3,7 @@
   <Loading v-else-if="isLoading" />
   <Error v-else-if="error" @retry="getWord" />
   <LearnedAllWords v-else-if="hasLearnedAllWords" />
-  <Word v-else :word="word" :definitions="definitions" @learned="getWord" />
+  <Word v-else :word="word" :definitions="definitions" @marked="getWord" />
 </template>
 
 <script>
