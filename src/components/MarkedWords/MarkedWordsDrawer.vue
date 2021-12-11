@@ -18,6 +18,7 @@
           <button
             class="btn sort-btn"
             :title="`Sort (${isAscending ? 'Ascending' : 'Descending'})`"
+            :disabled="!markedWords.length"
             @click="isAscending = !isAscending"
           >
             <i-fa-solid-sort-alpha-down v-if="isAscending" />
@@ -30,6 +31,7 @@
             type="search"
             placeholder="Search"
             class="search"
+            :disabled="!markedWords.length"
           />
         </div>
       </div>
@@ -52,15 +54,27 @@
           {{ word }}
 
           <div class="actions">
-            <button title="Check definition" class="btn">
+            <button
+              title="Check definition"
+              class="btn"
+              @click="handleCheckDefinition(word)"
+            >
               <i-ic-round-remove-red-eye />
             </button>
 
-            <button title="Mark as Learned" class="btn">
+            <button
+              title="Mark as Learned"
+              class="btn"
+              @click="handleMarkAsLearned(word)"
+            >
               <i-ic-round-check-circle-outline />
             </button>
 
-            <button title="Remove from list" class="btn">
+            <button
+              title="Remove from list"
+              class="btn"
+              @click="handleRemoveMarkedWord(word)"
+            >
               <i-ic-round-remove-circle-outline />
             </button>
           </div>
@@ -73,15 +87,20 @@
 <script>
 import { ref, computed, onMounted } from 'vue';
 
+import useWord from '@/composables/useWord';
 import useMarkedWords from '@/composables/useMarkedWords';
+import useLearnedWords from '@/composables/useLearnedWords';
 
 export default {
   name: 'MarkedWordsDrawer',
 
   emits: ['close'],
 
-  setup() {
-    const { getLocalMarkedWords, markedWords } = useMarkedWords();
+  setup(props, { emit }) {
+    const { searchWord } = useWord();
+    const { setWordAsLearned } = useLearnedWords();
+    const { getLocalMarkedWords, removeMarkedWord, markedWords } =
+      useMarkedWords();
 
     getLocalMarkedWords();
 
@@ -99,12 +118,30 @@ export default {
         );
     });
 
+    function handleCheckDefinition(word) {
+      searchWord(word);
+      emit('close');
+    }
+
+    function handleMarkAsLearned(word) {
+      setWordAsLearned(word);
+      handleRemoveMarkedWord(word);
+    }
+
+    function handleRemoveMarkedWord(word) {
+      removeMarkedWord(word);
+    }
+
     return {
       inputRef,
       isAscending,
       markedWords,
       searchQuery,
       filteredWords,
+
+      handleMarkAsLearned,
+      handleCheckDefinition,
+      handleRemoveMarkedWord,
     };
   },
 };
@@ -179,9 +216,13 @@ export default {
   font-size: 1rem;
   color: hsla(var(--color-raw), 0.5);
 }
-.sort-btn:hover {
+.sort-btn:hover:not(:disabled) {
   transition: color ease-in-out 0.1s;
   color: var(--color);
+}
+.sort-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
 }
 
 .search {
@@ -197,6 +238,10 @@ export default {
 }
 .search::placeholder {
   color: hsla(var(--color-raw), 0.6);
+}
+.search:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
 }
 
 .marked-words {
