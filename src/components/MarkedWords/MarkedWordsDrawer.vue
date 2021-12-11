@@ -5,23 +5,50 @@
         <div class="drawer__header">
           <h4 class="drawer__title">Marked Words</h4>
 
-          <button class="drawer__close btn" @click="$emit('close')">
+          <button
+            class="btn drawer__close"
+            title="Close"
+            @click="$emit('close')"
+          >
             <i-ic-round-close />
           </button>
         </div>
 
         <div class="drawer__filters">
-          <button class="sort-btn btn" title="Sort">
-            <i-fa-solid-sort-alpha-down />
-            <!-- <i-fa-solid-sort-alpha-down-alt /> -->
+          <button
+            class="btn sort-btn"
+            :title="`Sort (${isAscending ? 'Ascending' : 'Descending'})`"
+            @click="isAscending = !isAscending"
+          >
+            <i-fa-solid-sort-alpha-down v-if="isAscending" />
+            <i-fa-solid-sort-alpha-down-alt v-else />
           </button>
 
-          <input type="search" placeholder="Search" class="search" />
+          <input
+            ref="inputRef"
+            v-model="searchQuery"
+            type="search"
+            placeholder="Search"
+            class="search"
+          />
         </div>
       </div>
 
-      <ul class="marked-words tiny-scrollbar">
-        <li v-for="word of markedWords" :key="word" class="marked-word">
+      <p v-if="!markedWords.length" class="empty-state">
+        You don't have any marked words yet.
+        <br />
+        Mark a word using
+        <i-ic-round-bookmark-add class="empty-state-icon" /> icon.
+      </p>
+
+      <p v-else-if="!filteredWords.length" class="search-not-found">
+        <i-ic-round-search-off />
+        <br />
+        No word matched!
+      </p>
+
+      <ul v-else class="marked-words tiny-scrollbar">
+        <li v-for="word of filteredWords" :key="word" class="marked-word">
           {{ word }}
 
           <div class="actions">
@@ -44,6 +71,8 @@
 </template>
 
 <script>
+import { ref, computed, onMounted } from 'vue';
+
 import useMarkedWords from '@/composables/useMarkedWords';
 
 export default {
@@ -56,8 +85,26 @@ export default {
 
     getLocalMarkedWords();
 
+    const inputRef = ref(null);
+    onMounted(() => inputRef.value.focus());
+
+    const searchQuery = ref('');
+    const isAscending = ref(true);
+
+    const filteredWords = computed(() => {
+      return markedWords.value
+        .filter((word) => word.includes(searchQuery.value))
+        .sort((a, b) =>
+          isAscending.value ? a.localeCompare(b) : b.localeCompare(a)
+        );
+    });
+
     return {
+      inputRef,
+      isAscending,
       markedWords,
+      searchQuery,
+      filteredWords,
     };
   },
 };
@@ -76,7 +123,7 @@ export default {
   position: absolute;
   right: 0;
   height: 100vh;
-  padding: 5px 10px;
+  padding: 10px 15px;
   background-color: var(--bg-color);
   max-width: 350px;
   width: 100%;
@@ -113,6 +160,7 @@ export default {
 
 .drawer__close {
   font-size: 1.25rem;
+  color: hsla(var(--color-raw), 0.5);
   background-color: hsla(var(--color-raw), 0.1);
   border-radius: 4px;
 }
@@ -128,6 +176,12 @@ export default {
 
 .sort-btn {
   margin-right: 10px;
+  font-size: 1rem;
+  color: hsla(var(--color-raw), 0.5);
+}
+.sort-btn:hover {
+  transition: color ease-in-out 0.1s;
+  color: var(--color);
 }
 
 .search {
@@ -149,7 +203,7 @@ export default {
   padding: 0;
   list-style: none;
   font-size: 1rem;
-  max-height: calc(100vh - (var(--top-height) + 40px));
+  max-height: calc(100vh - (var(--top-height) + 45px));
 }
 
 .marked-word {
@@ -176,5 +230,24 @@ export default {
 
 .actions button:last-of-type {
   margin: 0;
+}
+
+.empty-state {
+  margin-top: 50px;
+  font-size: 1rem;
+  text-align: center;
+}
+.empty-state-icon {
+  position: relative;
+  top: 5px;
+}
+
+.search-not-found {
+  margin-top: 50px;
+  font-size: 1rem;
+  text-align: center;
+}
+.search-not-found svg {
+  font-size: 1.5rem;
 }
 </style>
