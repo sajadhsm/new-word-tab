@@ -98,6 +98,7 @@ export default {
   border-radius: 4px;
   background-color: hsl(0, 0%, 25%);
   color: hsl(0, 0%, 90%);
+  font-size: 0.75rem;
   text-transform: capitalize;
 }
 
@@ -110,6 +111,7 @@ export default {
 .meaning__example {
   margin: 0;
   color: hsl(0, 0%, 55%);
+  font-size: 0.75rem;
 }
 
 .meaning__def::first-letter,
