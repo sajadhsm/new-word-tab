@@ -1,91 +1,95 @@
 <template>
-  <div class="overlay" @click.self="$emit('close')">
-    <div class="drawer">
-      <div class="drawer__top">
-        <div class="drawer__header">
-          <h4 class="drawer__title">Marked Words</h4>
+  <transition name="fade" @after-enter="handleShowDrawer">
+    <div v-if="isOpen" class="overlay" @click.self="handleCloseDrawer">
+      <transition name="slide" @after-leave="$emit('close')">
+        <div v-show="isShowingDrawer" class="drawer">
+          <div class="drawer__top">
+            <div class="drawer__header">
+              <h4 class="drawer__title">Marked Words</h4>
 
-          <button
-            class="btn drawer__close"
-            title="Close"
-            @click="$emit('close')"
-          >
-            <i-ic-round-close />
-          </button>
-        </div>
+              <button
+                class="btn drawer__close"
+                title="Close"
+                @click="handleCloseDrawer"
+              >
+                <i-ic-round-close />
+              </button>
+            </div>
 
-        <div class="drawer__filters">
-          <button
-            class="btn sort-btn"
-            :title="`Sort (${isAscending ? 'Ascending' : 'Descending'})`"
-            :disabled="!markedWords.length"
-            @click="isAscending = !isAscending"
-          >
-            <i-fa-solid-sort-alpha-down v-if="isAscending" />
-            <i-fa-solid-sort-alpha-down-alt v-else />
-          </button>
+            <div class="drawer__filters">
+              <button
+                class="btn sort-btn"
+                :title="`Sort (${isAscending ? 'Ascending' : 'Descending'})`"
+                :disabled="!markedWords.length"
+                @click="isAscending = !isAscending"
+              >
+                <i-fa-solid-sort-alpha-down v-if="isAscending" />
+                <i-fa-solid-sort-alpha-down-alt v-else />
+              </button>
 
-          <input
-            ref="inputRef"
-            v-model="searchQuery"
-            type="search"
-            placeholder="Search"
-            class="search"
-            :disabled="!markedWords.length"
-          />
-        </div>
-      </div>
-
-      <p v-if="!markedWords.length" class="empty-state">
-        You don't have any marked words yet.
-        <br />
-        Mark a word using
-        <i-ic-round-bookmark-add class="empty-state-icon" /> icon.
-      </p>
-
-      <p v-else-if="!filteredWords.length" class="search-not-found">
-        <i-ic-round-search-off />
-        <br />
-        No word matched!
-      </p>
-
-      <ul v-else class="marked-words tiny-scrollbar">
-        <li v-for="word of filteredWords" :key="word" class="marked-word">
-          {{ word }}
-
-          <div class="actions">
-            <button
-              title="Check definition"
-              class="btn"
-              @click="handleCheckDefinition(word)"
-            >
-              <i-ic-round-remove-red-eye />
-            </button>
-
-            <button
-              title="Mark as Learned"
-              class="btn"
-              @click="handleMarkAsLearned(word)"
-            >
-              <i-ic-round-check-circle-outline />
-            </button>
-
-            <button
-              title="Remove from list"
-              class="btn"
-              @click="handleRemoveMarkedWord(word)"
-            >
-              <i-ic-round-remove-circle-outline />
-            </button>
+              <input
+                ref="inputRef"
+                v-model="searchQuery"
+                type="search"
+                placeholder="Search"
+                class="search"
+                :disabled="!markedWords.length"
+              />
+            </div>
           </div>
-        </li>
-      </ul>
+
+          <p v-if="!markedWords.length" class="empty-state">
+            You don't have any marked words yet.
+            <br />
+            Mark a word using
+            <i-ic-round-bookmark-add class="empty-state-icon" /> icon.
+          </p>
+
+          <p v-else-if="!filteredWords.length" class="search-not-found">
+            <i-ic-round-search-off />
+            <br />
+            No word matched!
+          </p>
+
+          <ul v-else class="marked-words tiny-scrollbar">
+            <li v-for="word of filteredWords" :key="word" class="marked-word">
+              {{ word }}
+
+              <div class="actions">
+                <button
+                  title="Check definition"
+                  class="btn"
+                  @click="handleCheckDefinition(word)"
+                >
+                  <i-ic-round-remove-red-eye />
+                </button>
+
+                <button
+                  title="Mark as Learned"
+                  class="btn"
+                  @click="handleMarkAsLearned(word)"
+                >
+                  <i-ic-round-check-circle-outline />
+                </button>
+
+                <button
+                  title="Remove from list"
+                  class="btn"
+                  @click="handleRemoveMarkedWord(word)"
+                >
+                  <i-ic-round-remove-circle-outline />
+                </button>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </transition>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed } from 'vue';
 
 import useWord from '@/composables/useWord';
 import useMarkedWords from '@/composables/useMarkedWords';
@@ -94,18 +98,23 @@ import useLearnedWords from '@/composables/useLearnedWords';
 export default {
   name: 'MarkedWordsDrawer',
 
+  props: {
+    isOpen: {
+      type: Boolean,
+      required: true,
+    },
+  },
+
   emits: ['close'],
 
-  setup(props, { emit }) {
+  setup() {
     const { searchWord } = useWord();
     const { setWordAsLearned } = useLearnedWords();
     const { getLocalMarkedWords, removeMarkedWord, markedWords } =
       useMarkedWords();
 
-    getLocalMarkedWords();
-
     const inputRef = ref(null);
-    onMounted(() => inputRef.value.focus());
+    const isShowingDrawer = ref(false);
 
     const searchQuery = ref('');
     const isAscending = ref(true);
@@ -120,7 +129,7 @@ export default {
 
     function handleCheckDefinition(word) {
       searchWord(word);
-      emit('close');
+      handleCloseDrawer();
     }
 
     function handleMarkAsLearned(word) {
@@ -132,13 +141,26 @@ export default {
       removeMarkedWord(word);
     }
 
+    function handleShowDrawer() {
+      getLocalMarkedWords();
+      isShowingDrawer.value = true;
+      setTimeout(() => inputRef.value.focus(), 0);
+    }
+
+    function handleCloseDrawer() {
+      isShowingDrawer.value = false;
+    }
+
     return {
       inputRef,
+      isShowingDrawer,
+      handleShowDrawer,
+      handleCloseDrawer,
+
       isAscending,
       markedWords,
       searchQuery,
       filteredWords,
-
       handleMarkAsLearned,
       handleCheckDefinition,
       handleRemoveMarkedWord,
@@ -164,10 +186,31 @@ export default {
   background-color: var(--bg-color);
   max-width: 350px;
   width: 100%;
-  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 40px 0px rgba(0, 0, 0, 0.3);
 
   --top-height: 65px;
 }
+
+/* START Animations */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.08s ease-in-out;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.slide-enter-active,
+.slide-leave-active {
+  transition: transform 0.1s ease-in-out;
+}
+.slide-enter-from,
+.slide-leave-to {
+  transform: translateX(100%);
+}
+/* END Animations */
 
 .btn {
   display: inline-flex;
