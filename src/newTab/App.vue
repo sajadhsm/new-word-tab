@@ -5,6 +5,8 @@
       <Content />
     </main>
 
+    <MarkedWords />
+
     <div v-if="isActive" class="sidebar">
       <SiteShortcuts />
     </div>
@@ -14,6 +16,7 @@
 <script>
 import Navbar from '@/components/Navbar';
 import Content from '@/components/Content';
+import MarkedWords from '@/components/MarkedWords';
 import SiteShortcuts from '@/components/SiteShortcuts';
 
 import { isActive } from '@/composables/useShortcuts';
@@ -22,6 +25,7 @@ export default {
   components: {
     Navbar,
     Content,
+    MarkedWords,
     SiteShortcuts,
   },
 

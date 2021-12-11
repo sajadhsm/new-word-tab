@@ -4,7 +4,7 @@
       <i-ic-round-check-circle />
     </IconButton>
 
-    <IconButton title="Mark Word" class="btn-gap">
+    <IconButton title="Mark Word" class="btn-gap" @click="handleMarkWord">
       <i-ic-round-bookmark-add />
     </IconButton>
 
@@ -31,7 +31,8 @@ import audio from '@/modules/audio';
 
 import IconButton from '@/components/shared/IconButton.vue';
 
-import useLearnedWord from '@/composables/useLearnedWords';
+import useMarkedWords from '@/composables/useMarkedWords';
+import useLearnedWords from '@/composables/useLearnedWords';
 import useGoogleTranslate from '@/composables/useGoogleTranslate';
 
 export default {
@@ -46,15 +47,21 @@ export default {
     },
   },
 
-  emits: ['learned'],
+  emits: ['marked'],
 
   setup(props, { emit }) {
-    const { setWordAsLearned } = useLearnedWord();
+    const { setWordAsMarked } = useMarkedWords();
+    const { setWordAsLearned } = useLearnedWords();
     const { targetLanguage } = useGoogleTranslate();
+
+    function handleMarkWord() {
+      setWordAsMarked(props.definition.word);
+      emit('marked');
+    }
 
     function handleMarkAsLearned() {
       setWordAsLearned(props.definition.word);
-      emit('learned');
+      emit('marked');
     }
 
     function handleListen() {
@@ -64,6 +71,7 @@ export default {
 
     return {
       handleMarkAsLearned,
+      handleMarkWord,
       targetLanguage,
       handleListen,
     };
