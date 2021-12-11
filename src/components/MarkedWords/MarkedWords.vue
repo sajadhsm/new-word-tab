@@ -7,7 +7,7 @@
     <i-ic-round-bookmarks />
   </IconButton>
 
-  <MarkedWordsDrawer v-if="isDrawerOpen" @close="isDrawerOpen = false" />
+  <MarkedWordsDrawer :is-open="isDrawerOpen" @close="isDrawerOpen = false" />
 </template>
 
 <script>
@@ -22,11 +22,7 @@ export default {
   components: { MarkedWordsDrawer, IconButton },
 
   setup() {
-    const isDrawerOpen = ref(false);
-
-    return {
-      isDrawerOpen,
-    };
+    return { isDrawerOpen: ref(false) };
   },
 };
 </script>
