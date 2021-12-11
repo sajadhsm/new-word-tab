@@ -1,8 +1,8 @@
 <template>
   <div class="search">
-    <NavButton v-if="!isVisible" title="Search word" @click="isVisible = true">
+    <IconButton v-if="!isVisible" title="Search word" @click="isVisible = true">
       <i-ic-round-search />
-    </NavButton>
+    </IconButton>
 
     <form v-else class="search__form" @submit.prevent="handleSearch">
       <input
@@ -22,7 +22,7 @@
 <script>
 import { ref, computed, watch } from 'vue';
 
-import NavButton from './NavButton.vue';
+import IconButton from '@/components/shared/IconButton.vue';
 
 import useWord from '@/composables/useWord';
 
@@ -30,7 +30,7 @@ export default {
   name: 'Search',
 
   components: {
-    NavButton,
+    IconButton,
   },
 
   setup() {
@@ -71,27 +71,27 @@ export default {
 <style>
 .search__form {
   display: flex;
-  background-color: hsla(var(--color-raw), 0.15);
   border-radius: 30px;
+  background-color: hsla(var(--color-raw), 0.15);
 }
 
 .search__form__input {
-  padding: 7px 10px;
-  background-color: transparent;
+  padding: 4px 10px;
+  max-width: 150px;
   border: none;
   outline: none;
-  font-size: 1rem;
-  max-width: 150px;
+  background-color: transparent;
   color: var(--color);
+  font-size: 1rem;
 }
 
 .search__form__btn {
   display: flex;
   align-items: center;
-  background-color: transparent;
   border: none;
-  font-size: 1rem;
+  background-color: transparent;
   color: var(--color);
+  font-size: 1rem;
   opacity: 0.5;
 }
 </style>

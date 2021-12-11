@@ -1,22 +1,27 @@
 <template>
   <div class="actions">
-    <button title="Mark as learned" @click="handleMarkAsLearned">
-      <i-ic-round-beenhere />
-    </button>
+    <IconButton title="Mark as learned" @click="handleMarkAsLearned">
+      <i-ic-round-check-circle />
+    </IconButton>
 
-    <a
+    <IconButton title="Mark Word" class="btn-gap">
+      <i-ic-round-bookmark-add />
+    </IconButton>
+
+    <IconButton
       :title="`Google translate (${targetLanguage.lang})`"
       :href="`https://translate.google.com/?sl=en&tl=${targetLanguage.code}&text=${definition.word}&op=translate`"
       target="_blank"
+      class="btn-gap"
     >
       <i-ic-round-g-translate />
-    </a>
+    </IconButton>
 
     <div v-if="definition?.phonetic" class="phonetic">
-      <small class="phonetic__text">{{ definition.phonetic }}</small>
-      <button title="Listen" @click="handleListen">
-        <i-ic:round-volume-up />
-      </button>
+      <small class="phonetic__text">/{{ definition.phonetic }}/</small>
+      <IconButton title="Listen" @click="handleListen">
+        <i-ic-round-volume-up />
+      </IconButton>
     </div>
   </div>
 </template>
@@ -24,11 +29,15 @@
 <script>
 import audio from '@/modules/audio';
 
+import IconButton from '@/components/shared/IconButton.vue';
+
 import useLearnedWord from '@/composables/useLearnedWords';
 import useGoogleTranslate from '@/composables/useGoogleTranslate';
 
 export default {
   name: 'Actions',
+
+  components: { IconButton },
 
   props: {
     definition: {
@@ -68,26 +77,17 @@ export default {
   align-items: center;
 }
 
-.actions button,
-.actions a {
-  background: transparent;
-  border: none;
-  outline: none;
-  color: var(--color);
-}
-
-.actions button svg,
-.actions a {
-  font-size: 1.25rem;
+.btn-gap {
+  margin-left: 8px;
 }
 
 .phonetic {
   display: flex;
   align-items: center;
-  margin-left: 10px;
+  margin-left: 12px;
   font-size: 1.25rem;
 }
 .phonetic__text {
-  margin-right: 5px;
+  margin-right: 6px;
 }
 </style>
