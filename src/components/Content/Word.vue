@@ -61,7 +61,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .content {
   margin: 100px auto 50px;
   padding: 0 15px;
