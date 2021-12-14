@@ -1,18 +1,21 @@
 <template>
   <NoWordList v-if="!wordsPoll.length" />
+  <OfflineState v-else-if="!isOnline" />
   <Loading v-else-if="isLoading" />
-  <Error v-else-if="error" @retry="getWord" />
+  <WordFetchError v-else-if="error" :word="word" @retry="getWord" />
   <LearnedAllWords v-else-if="hasLearnedAllWords" />
   <Word v-else :word="word" :definitions="definitions" @marked="getWord" />
 </template>
 
 <script>
 import LearnedAllWords from './LearnedAllWords.vue';
+import WordFetchError from './WordFetchError.vue';
+import OfflineState from './OfflineState.vue';
 import NoWordList from './NoWordList.vue';
 import Loading from './Loading.vue';
-import Error from './Error.vue';
 import Word from './Word.vue';
 
+import useOnline from '@/composables/useOnline';
 import useWord from '@/composables/useWord';
 
 export default {
@@ -20,9 +23,10 @@ export default {
 
   components: {
     LearnedAllWords,
+    WordFetchError,
+    OfflineState,
     NoWordList,
     Loading,
-    Error,
     Word,
   },
 
@@ -37,6 +41,8 @@ export default {
       word,
     } = useWord();
 
+    const { isOnline } = useOnline();
+
     getWord();
 
     return {
@@ -47,6 +53,8 @@ export default {
       getWord,
       error,
       word,
+
+      isOnline,
     };
   },
 };

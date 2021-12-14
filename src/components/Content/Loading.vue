@@ -1,6 +1,6 @@
 <template>
   <div class="loading">
-    <i-eos-icons:loading />
+    <i-eos-icons-loading />
   </div>
 </template>
 
