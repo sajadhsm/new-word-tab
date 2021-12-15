@@ -12,28 +12,40 @@
 
   <ShortcutContextMenu />
 
-  <AddShortcutModal v-if="isModalVisible" />
+  <Modal
+    v-model="isModalVisible"
+    :title="selectedShortcut ? 'Edit shortcut' : 'Add shortcut'"
+    :show-close="false"
+    :close-on-overlay="false"
+  >
+    <AddShortcutForm @submit="closeModal" @cancel="closeModal" />
+  </Modal>
 </template>
 
 <script>
-import useShortcutModal from '@/composables/useShortcutModal';
-import { isVisible } from '@/composables/useShortcutContextMenu';
-
+import Modal from '@/components/shared/Modal.vue';
 import Shortcuts from './Shortcuts.vue';
-import AddShortcutModal from './AddShortcutModal.vue';
+import AddShortcutForm from './AddShortcutForm.vue';
 import ShortcutContextMenu from './ShortcutContextMenu.vue';
+
+import {
+  isVisible,
+  selectedShortcut,
+} from '@/composables/useShortcutContextMenu';
+import useShortcutModal from '@/composables/useShortcutModal';
 
 export default {
   name: 'SiteShortcuts',
 
   components: {
+    Modal,
     Shortcuts,
-    AddShortcutModal,
+    AddShortcutForm,
     ShortcutContextMenu,
   },
 
   setup() {
-    const { isModalVisible, openModal } = useShortcutModal();
+    const { isModalVisible, openModal, closeModal } = useShortcutModal();
 
     function hideShortcutContextMenuOnScroll() {
       if (isVisible.value) {
@@ -45,7 +57,9 @@ export default {
       hideShortcutContextMenuOnScroll,
       isVisible,
 
+      selectedShortcut,
       isModalVisible,
+      closeModal,
       openModal,
     };
   },
