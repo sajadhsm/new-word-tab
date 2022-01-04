@@ -6,7 +6,6 @@
     </main>
 
     <MarkedWords />
-    <WordsInventory />
 
     <div v-if="isActive" class="sidebar">
       <SiteShortcuts />
@@ -19,7 +18,6 @@ import Navbar from '@/components/Navbar';
 import Content from '@/components/Content';
 import MarkedWords from '@/components/MarkedWords';
 import SiteShortcuts from '@/components/SiteShortcuts';
-import WordsInventory from '@/components/WordsInventory';
 
 import { isActive } from '@/composables/useShortcuts';
 
@@ -29,7 +27,6 @@ export default {
     Content,
     MarkedWords,
     SiteShortcuts,
-    WordsInventory,
   },
 
   setup() {
