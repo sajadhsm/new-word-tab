@@ -26,6 +26,7 @@
   - TOEFL
 - 🌐 Create shortcuts for your favorite sites so you can easily access them on the same tab
 - 🌙 Switch between Light & Dark themes that best suit your desktop
+- 📜 History of last displayed words to prevent missing a word by accidentally closing a tab
 
 ## Contribution
 
