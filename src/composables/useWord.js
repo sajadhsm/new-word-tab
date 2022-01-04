@@ -4,6 +4,7 @@ import { capitalizeFirstLetter } from '@/utils/string';
 
 import useWordLists from './useWordLists';
 import useRandomWord from './useRandomWord';
+import wordsHistory from './useWordsHistory';
 import useLearnedWord from './useLearnedWords';
 import useWordDefinitions from './useWordDefinitions';
 
@@ -18,6 +19,8 @@ export default function useWord() {
     isWordLearned,
     getLocalLearnedWords,
   } = useLearnedWord();
+
+  const { addWordToHistory } = wordsHistory();
 
   const unlearnedWords = computed(() =>
     wordsPoll.value.filter((word) => !learnedWordsDict.value[word])
@@ -34,25 +37,26 @@ export default function useWord() {
 
   async function getWord() {
     getLocalLearnedWords();
-    word.value = getRandomWord().value;
+    const randomWord = getRandomWord().value;
 
-    if (hasLearnedAllWords.value) {
-      word.value = 'end';
-      return;
-    }
-
-    if (!isWordLearned(word.value)) {
-      await getDefinitions(word.value);
-      document.title = `NWT • ${capitalizeFirstLetter(word.value)}`;
+    if (!isWordLearned(randomWord)) {
+      await searchWord(randomWord);
       return;
     }
 
     getWord();
   }
 
-  function searchWord(searchedWord) {
-    word.value = searchedWord;
-    getDefinitions(searchedWord);
+  async function searchWord(searchedWord) {
+    const lowerCaseWord = searchedWord.toLowerCase();
+    await getDefinitions(lowerCaseWord);
+    handleUpdateWord(lowerCaseWord);
+  }
+
+  function handleUpdateWord(value) {
+    word.value = value;
+    addWordToHistory(value);
+    document.title = `NWT • ${capitalizeFirstLetter(value)}`;
   }
 
   return {
