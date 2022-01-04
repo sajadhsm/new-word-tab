@@ -6,9 +6,9 @@
 </template>
 
 <script>
-import useShortcuts from '@/composables/useShortcuts';
-import useShortcutModal from '@/composables/useShortcutModal';
-import useShortcutContextMenu from '@/composables/useShortcutContextMenu';
+import useShortcuts from '@/composables/shortcuts/useShortcuts';
+import useShortcutModal from '@/composables/shortcuts/useShortcutModal';
+import useShortcutContextMenu from '@/composables/shortcuts/useShortcutContextMenu';
 
 export default {
   name: 'ShortcutContextMenu',

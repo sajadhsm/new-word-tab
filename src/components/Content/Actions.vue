@@ -31,8 +31,8 @@ import audio from '@/modules/audio';
 
 import IconButton from '@/components/shared/IconButton.vue';
 
-import useMarkedWords from '@/composables/useMarkedWords';
-import useLearnedWords from '@/composables/useLearnedWords';
+import useMarkedWords from '@/composables/words/useMarkedWords';
+import useLearnedWords from '@/composables/words/useLearnedWords';
 import useGoogleTranslate from '@/composables/useGoogleTranslate';
 
 export default {

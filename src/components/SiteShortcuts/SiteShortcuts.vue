@@ -31,8 +31,8 @@ import ShortcutContextMenu from './ShortcutContextMenu.vue';
 import {
   isVisible,
   selectedShortcut,
-} from '@/composables/useShortcutContextMenu';
-import useShortcutModal from '@/composables/useShortcutModal';
+} from '@/composables/shortcuts/useShortcutContextMenu';
+import useShortcutModal from '@/composables/shortcuts/useShortcutModal';
 
 export default {
   name: 'SiteShortcuts',

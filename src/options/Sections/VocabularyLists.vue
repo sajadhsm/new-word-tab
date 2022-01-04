@@ -28,7 +28,7 @@
 <script>
 import WORD_LISTS from '@/data/words';
 
-import useWordLists from '@/composables/useWordLists';
+import useWordLists from '@/composables/words/useWordLists';
 
 export default {
   name: 'VocabularyLists',

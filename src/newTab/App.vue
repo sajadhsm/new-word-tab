@@ -21,7 +21,7 @@ import MarkedWords from '@/components/MarkedWords';
 import WordsHistory from '@/components/WordsHistory';
 import SiteShortcuts from '@/components/SiteShortcuts';
 
-import { isActive } from '@/composables/useShortcuts';
+import { isActive } from '@/composables/shortcuts/useShortcuts';
 
 export default {
   components: {

@@ -17,8 +17,8 @@ import Draggable from 'vuedraggable';
 
 import Shortcut from './Shortcut.vue';
 
-import useShortcuts from '@/composables/useShortcuts';
-import useShortcutContextMenu from '@/composables/useShortcutContextMenu';
+import useShortcuts from '@/composables/shortcuts/useShortcuts';
+import useShortcutContextMenu from '@/composables/shortcuts/useShortcutContextMenu';
 
 export default {
   name: 'Shortcuts',

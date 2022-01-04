@@ -91,9 +91,9 @@
 <script>
 import { ref, computed } from 'vue';
 
-import useWord from '@/composables/useWord';
-import useMarkedWords from '@/composables/useMarkedWords';
-import useLearnedWords from '@/composables/useLearnedWords';
+import useWord from '@/composables/words/useWord';
+import useMarkedWords from '@/composables/words/useMarkedWords';
+import useLearnedWords from '@/composables/words/useLearnedWords';
 
 export default {
   name: 'MarkedWordsDrawer',

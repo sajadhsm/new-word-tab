@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import useLearnedWords from '@/composables/useLearnedWords';
+import useLearnedWords from '@/composables/words/useLearnedWords';
 
 export default {
   name: 'LearnedWords',

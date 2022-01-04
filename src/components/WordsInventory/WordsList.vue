@@ -32,7 +32,7 @@
 <script>
 import { ref } from 'vue';
 
-import useWord from '@/composables/useWord';
+import useWord from '@/composables/words/useWord';
 
 import WORD_LISTS from '@/data/words';
 

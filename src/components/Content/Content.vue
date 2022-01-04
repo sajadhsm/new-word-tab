@@ -16,7 +16,7 @@ import Loading from './Loading.vue';
 import Word from './Word.vue';
 
 import useOnline from '@/composables/useOnline';
-import useWord from '@/composables/useWord';
+import useWord from '@/composables/words/useWord';
 
 export default {
   name: 'Content',

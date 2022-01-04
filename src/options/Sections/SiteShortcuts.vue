@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import useShortcuts from '@/composables/useShortcuts';
+import useShortcuts from '@/composables/shortcuts/useShortcuts';
 
 export default {
   name: 'SiteShortcuts',

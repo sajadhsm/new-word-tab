@@ -13,8 +13,8 @@
 </template>
 
 <script>
-import useWordsHistory from '@/composables/useWordsHistory';
-import useWord from '@/composables/useWord';
+import useWordsHistory from '@/composables/words/useWordsHistory';
+import useWord from '@/composables/words/useWord';
 
 export default {
   name: 'WordsList',

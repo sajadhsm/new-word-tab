@@ -32,8 +32,8 @@
 <script>
 import { ref, unref, computed, onMounted } from 'vue';
 
-import useShortcuts from '@/composables/useShortcuts';
-import { selectedShortcut } from '@/composables/useShortcutContextMenu';
+import useShortcuts from '@/composables/shortcuts/useShortcuts';
+import { selectedShortcut } from '@/composables/shortcuts/useShortcutContextMenu';
 
 const SHORTCUT_SCHEMA = {
   name: '',

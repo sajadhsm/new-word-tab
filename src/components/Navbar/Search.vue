@@ -24,7 +24,7 @@ import { ref, computed, watch } from 'vue';
 
 import IconButton from '@/components/shared/IconButton.vue';
 
-import useWord from '@/composables/useWord';
+import useWord from '@/composables/words/useWord';
 
 export default {
   name: 'Search',

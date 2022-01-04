@@ -1,6 +1,6 @@
 import { ref, watchEffect } from 'vue';
 
-import { useClickOutside } from './useClickOutside';
+import { useClickOutside } from '../useClickOutside';
 
 const contextMenuRef = ref(null);
 const isClickOutsideSet = ref(false);
