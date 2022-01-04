@@ -32,6 +32,6 @@ export default {
 }
 
 .btn-gap {
-  margin-left: 5px;
+  margin-left: 0.5rem;
 }
 </style>

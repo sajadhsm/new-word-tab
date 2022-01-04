@@ -12,11 +12,11 @@
 
 ## Features
 
-- 🔬 Word definition and examples
-- 🔊 Listen to word pronunciation
-- ✅ Mark words as "learned" so they will not show up in your new tabs
+- 🔬 Examples and definitions of words
+- 🔊 Listen to the word pronunciation
+- ✅ Mark words for easier review
 - 🔍 Search for custom words definitions
-- 📘 Quickly look up word in Google translate
+- 📘 Quickly look up the word in Google translate
 - 📚 Includes +10,000 words from popular vocabulary lists:
   - GMAT
   - GRE
@@ -24,7 +24,7 @@
   - Oxford
   - SAT
   - TOEFL
-- 🌐 Define your favorite sites shortcuts to quickly access them on the same tab
+- 🌐 Create shortcuts for your favorite sites so you can easily access them on the same tab
 - 🌙 Switch between Light & Dark themes that best suit your desktop
 
 ## Contribution
