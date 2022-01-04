@@ -30,7 +30,7 @@ export default {
 <style scoped>
 .marked-words-btn {
   position: fixed;
-  bottom: 3.5rem;
+  bottom: 1rem;
   right: 1rem;
 }
 </style>
