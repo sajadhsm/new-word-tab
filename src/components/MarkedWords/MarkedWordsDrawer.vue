@@ -52,18 +52,15 @@
           </p>
 
           <ul v-else class="marked-words tiny-scrollbar">
-            <li v-for="word of filteredWords" :key="word" class="marked-word">
+            <li
+              v-for="word of filteredWords"
+              :key="word"
+              class="marked-word"
+              @click.self="handleCheckDefinition(word)"
+            >
               {{ word }}
 
               <div class="actions">
-                <button
-                  title="Check definition"
-                  class="btn"
-                  @click="handleCheckDefinition(word)"
-                >
-                  <i-ic-round-remove-red-eye />
-                </button>
-
                 <button
                   title="Mark as Learned"
                   class="btn"
@@ -301,6 +298,7 @@ export default {
   padding: 5px 10px;
   border-radius: 4px;
   text-transform: capitalize;
+  cursor: pointer;
 }
 .marked-word:hover {
   background: hsla(var(--color-raw), 0.05);
