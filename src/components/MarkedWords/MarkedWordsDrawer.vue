@@ -19,12 +19,11 @@
             <div class="drawer__filters">
               <button
                 class="btn sort-btn"
-                :title="`Sort (${isAscending ? 'Ascending' : 'Descending'})`"
+                :title="`Sort (${sortStateMeta.text})`"
                 :disabled="!markedWords.length"
-                @click="isAscending = !isAscending"
+                @click="setNextSortState"
               >
-                <i-fa-solid-sort-alpha-down v-if="isAscending" />
-                <i-fa-solid-sort-alpha-down-alt v-else />
+                <component :is="sortStateMeta.icon" />
               </button>
 
               <input
@@ -92,6 +91,8 @@ import useWord from '@/composables/words/useWord';
 import useMarkedWords from '@/composables/words/useMarkedWords';
 import useLearnedWords from '@/composables/words/useLearnedWords';
 
+import useSort from './useSort';
+
 export default {
   name: 'MarkedWordsDrawer',
 
@@ -107,22 +108,18 @@ export default {
   setup() {
     const { searchWord } = useWord();
     const { setWordAsLearned } = useLearnedWords();
+    const { sortStateMeta, setNextSortState } = useSort();
     const { getLocalMarkedWords, removeMarkedWord, markedWords } =
       useMarkedWords();
 
     const inputRef = ref(null);
     const isShowingDrawer = ref(false);
-
     const searchQuery = ref('');
-    const isAscending = ref(true);
-
-    const filteredWords = computed(() => {
-      return markedWords.value
-        .filter((word) => word.includes(searchQuery.value))
-        .sort((a, b) =>
-          isAscending.value ? a.localeCompare(b) : b.localeCompare(a)
-        );
-    });
+    const filteredWords = computed(() =>
+      sortStateMeta.value.sortMethod(
+        markedWords.value.filter((word) => word.includes(searchQuery.value))
+      )
+    );
 
     function handleCheckDefinition(word) {
       searchWord(word);
@@ -154,7 +151,9 @@ export default {
       handleShowDrawer,
       handleCloseDrawer,
 
-      isAscending,
+      sortStateMeta,
+      setNextSortState,
+
       markedWords,
       searchQuery,
       filteredWords,
@@ -253,7 +252,7 @@ export default {
 
 .sort-btn {
   margin-right: 10px;
-  font-size: 1rem;
+  font-size: 1.2rem;
   color: hsla(var(--color-raw), 0.5);
 }
 .sort-btn:hover:not(:disabled) {
