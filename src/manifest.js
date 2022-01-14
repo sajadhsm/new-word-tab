@@ -29,9 +29,14 @@ export async function getManifest() {
     },
   };
 
+  const FART_FIX_INLINE_SCRIPT_HASH =
+    'sha256-yipOR2BJj3VZDIBaEdL8ttsQlrfwgdNUpoQlgXuqzj0=';
+
+  manifest.content_security_policy = `object-src 'self'; script-src 'self' '${FART_FIX_INLINE_SCRIPT_HASH}'`;
+
   if (isDev) {
     // This is required on dev for Vite script to load
-    manifest.content_security_policy = `script-src 'self' http://localhost:${port}; object-src 'self'`;
+    manifest.content_security_policy += ` http://localhost:${port}`;
   }
 
   return manifest;

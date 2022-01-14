@@ -1,16 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>New Word Tab</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>New Word Tab</title>
-</head>
+  <body>
+    <script>
+      (function () {
+        window.__onThemeChange = function () {};
 
-<body>
-  <div id="app"></div>
-  <script type="module" src="./main.js"></script>
-</body>
+        function setTheme(newTheme) {
+          window.__theme = newTheme;
+          preferredTheme = newTheme;
+          document.body.className = newTheme;
+          window.__onThemeChange(newTheme);
+        }
 
+        var preferredTheme;
+        try {
+          preferredTheme = localStorage.getItem('theme');
+        } catch (e) {}
+
+        window.__setPreferredTheme = function (newTheme) {
+          setTheme(newTheme);
+          try {
+            localStorage.setItem('theme', newTheme);
+          } catch (e) {}
+        };
+
+        var darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        darkQuery.addEventListener('change', function (event) {
+          window.__setPreferredTheme(event.matches ? 'dark' : 'light');
+        });
+
+        setTheme(preferredTheme || (darkQuery.matches ? 'dark' : 'light'));
+      })();
+    </script>
+    <div id="app"></div>
+    <script type="module" src="./main.js"></script>
+  </body>
 </html>
