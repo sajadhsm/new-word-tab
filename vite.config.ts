@@ -21,7 +21,7 @@ export default defineConfig(({ command }) => ({
     },
   },
   optimizeDeps: {
-    include: ['vue'],
+    include: ['vue', 'webextension-polyfill'],
   },
   base: command === 'serve' ? `http://localhost:${port}/` : '/dist/',
   server: {
