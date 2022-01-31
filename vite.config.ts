@@ -10,7 +10,7 @@ export default defineConfig(({ command }) => ({
   plugins: [
     Vue(),
     Components({
-      resolvers: IconsResolver(),
+      resolvers: [IconsResolver()],
     }),
     Icons({ autoInstall: true }),
   ],
