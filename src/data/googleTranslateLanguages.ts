@@ -1,3 +1,8 @@
+export type GoogleTranslateCodeLang = {
+  code: string;
+  lang: string;
+}
+
 export default [
   {
     code: 'af',
