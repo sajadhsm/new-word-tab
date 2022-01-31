@@ -1,11 +1,12 @@
 import storage from '@/modules/localStorage';
 
 import GOOGLE_TRANSLATE_LANGUAGES from '@/data/googleTranslateLanguages';
+import type { GoogleTranslateCodeLang } from '@/data/googleTranslateLanguages';
 
 const GOOGLE_TRANSLATE_TARGET_LANGUAGE_CODE_STORAGE_KEY = 'gttl';
 
 function getTargetLanguageFromStorage(
-  fallbackTargetLanguage = {
+  fallbackTargetLanguage: GoogleTranslateCodeLang = {
     code: 'fa',
     lang: 'Persian',
   }
@@ -24,7 +25,7 @@ function getTargetLanguageFromStorage(
 export default function useGoogleTranslate() {
   const targetLanguage = getTargetLanguageFromStorage();
 
-  function storeTargetLanguageCode(code) {
+  function storeTargetLanguageCode(code: GoogleTranslateCodeLang['code']) {
     storage.set(GOOGLE_TRANSLATE_TARGET_LANGUAGE_CODE_STORAGE_KEY, code);
   }
 

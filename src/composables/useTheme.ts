@@ -1,5 +1,15 @@
 import { ref } from 'vue';
 
+type Theme = 'dark' | 'light'
+
+declare global {
+  interface Window {
+    __theme: any
+    __setPreferredTheme(theme: Theme): void
+    __onThemeChange(theme: Theme): void
+  }
+}
+
 // Theme logic is implemented inline in newTab/index.html
 export default function useTheme() {
   const theme = ref(window.__theme || 'light');
