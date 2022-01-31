@@ -6,7 +6,9 @@ import OXFORD_3000 from './OXFORD_3000';
 import OXFORD_2000 from './OXFORD_2000';
 import LONGMAN_3000 from './LONGMAN_3000';
 
-export default {
+export type WordList = keyof typeof WORDS;
+
+const WORDS = {
   GMAT: {
     name: 'GMAT',
     list: GMAT,
@@ -36,3 +38,5 @@ export default {
     list: LONGMAN_3000,
   },
 };
+
+export default WORDS;

@@ -5,10 +5,10 @@ import storage from '@/modules/localStorage';
 const WORDS_HISTORY_STORAGE_KEY = 'wh';
 const HISTORY_LIMIT = 10;
 
-const wordsHistory = ref([]);
+const wordsHistory = ref<string[]>([]);
 
 export default function useWordsHistory() {
-  function addWordToHistory(word) {
+  function addWordToHistory(word: string) {
     const localWordsHistory = getLocalWordsHistory();
 
     localWordsHistory.unshift(word);
@@ -18,15 +18,13 @@ export default function useWordsHistory() {
     }
 
     const wordsSet = new Set(localWordsHistory);
-    const wordsList = Array.from(wordsSet);
-
-    storeWordsList(wordsList);
+    storeWordsList(wordsSet);
   }
 
   function getLocalWordsHistory() {
     try {
       const localCommaSeparatedWords = storage.get(WORDS_HISTORY_STORAGE_KEY);
-      const parsedList = localCommaSeparatedWords.length
+      const parsedList = localCommaSeparatedWords?.length
         ? localCommaSeparatedWords.split(',')
         : [];
 
@@ -41,7 +39,7 @@ export default function useWordsHistory() {
     }
   }
 
-  function storeWordsList(wordsList) {
+  function storeWordsList(wordsList: Set<string>) {
     const list = Array.from(wordsList);
     wordsHistory.value = list;
     storage.set(WORDS_HISTORY_STORAGE_KEY, list.join());

@@ -4,11 +4,11 @@ import storage from '@/modules/localStorage';
 
 const MARKED_WORDS_STORAGE_KEY = 'mw';
 
-const markedWords = ref([]);
+const markedWords = ref<string[]>([]);
 
 export default function useMarkedWords() {
-  function setWordAsMarked(word) {
-    const localMarkedWords = getLocalMarkedWords(true);
+  function setWordAsMarked(word: string) {
+    const localMarkedWords = getLocalMarkedWords(true) as Set<string>;
     localMarkedWords.add(word);
     storeWordsList(localMarkedWords);
   }
@@ -16,7 +16,7 @@ export default function useMarkedWords() {
   function getLocalMarkedWords(asSet = false) {
     try {
       const localCommaSeparatedWords = storage.get(MARKED_WORDS_STORAGE_KEY);
-      const parsedList = localCommaSeparatedWords.length
+      const parsedList = localCommaSeparatedWords?.length
         ? localCommaSeparatedWords.split(',')
         : [];
 
@@ -28,17 +28,17 @@ export default function useMarkedWords() {
       return asSet ? wordsSet : wordsList;
     } catch {
       markedWords.value = [];
-      return asSet ? new Set() : [];
+      return asSet ? new Set<string>() : [];
     }
   }
 
-  function removeMarkedWord(word) {
-    const words = getLocalMarkedWords(true);
+  function removeMarkedWord(word: string) {
+    const words = getLocalMarkedWords(true) as Set<string>;
     words.delete(word);
     storeWordsList(words);
   }
 
-  function storeWordsList(wordsList) {
+  function storeWordsList(wordsList: Set<string>) {
     const list = Array.from(wordsList);
     markedWords.value = list;
     storage.set(MARKED_WORDS_STORAGE_KEY, list.join());
