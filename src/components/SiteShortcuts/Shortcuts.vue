@@ -12,7 +12,9 @@
   </Draggable>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue';
+
 import Draggable from 'vuedraggable';
 
 import Shortcut from './Shortcut.vue';
@@ -20,7 +22,7 @@ import Shortcut from './Shortcut.vue';
 import useShortcuts from '@/composables/shortcuts/useShortcuts';
 import useShortcutContextMenu from '@/composables/shortcuts/useShortcutContextMenu';
 
-export default {
+export default defineComponent({
   name: 'Shortcuts',
 
   components: {
@@ -38,7 +40,7 @@ export default {
       saveShortcutsToStorage,
     };
   },
-};
+});
 </script>
 
 <style scoped>

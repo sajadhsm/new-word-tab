@@ -22,7 +22,9 @@
   </Modal>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue';
+
 import Modal from '@/components/shared/Modal.vue';
 import Shortcuts from './Shortcuts.vue';
 import AddShortcutForm from './AddShortcutForm.vue';
@@ -34,7 +36,7 @@ import {
 } from '@/composables/shortcuts/useShortcutContextMenu';
 import useShortcutModal from '@/composables/shortcuts/useShortcutModal';
 
-export default {
+export default defineComponent({
   name: 'SiteShortcuts',
 
   components: {
@@ -55,7 +57,6 @@ export default {
 
     return {
       hideShortcutContextMenuOnScroll,
-      isVisible,
 
       selectedShortcut,
       isModalVisible,
@@ -63,7 +64,7 @@ export default {
       openModal,
     };
   },
-};
+});
 </script>
 
 <style>
