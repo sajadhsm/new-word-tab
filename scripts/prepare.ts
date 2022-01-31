@@ -11,7 +11,7 @@ async function stubIndexHtml() {
 
     let data = await fs.readFile(r(`src/${view}/index.html`), 'utf-8');
     data = data
-      .replace('"./main.js"', `"http://localhost:${port}/${view}/main.js"`)
+      .replace('"./main.ts"', `"http://localhost:${port}/${view}/main.ts"`)
       .replace(
         '<div id="app"></div>',
         '<div id="app">Vite server did not start</div>'
@@ -31,7 +31,7 @@ if (isDev) {
     stubIndexHtml();
   });
 
-  chokidar.watch([r('src/manifest.js'), r('package.json')]).on('change', () => {
+  chokidar.watch([r('src/manifest.ts'), r('package.json')]).on('change', () => {
     writeManifest();
   });
 }
