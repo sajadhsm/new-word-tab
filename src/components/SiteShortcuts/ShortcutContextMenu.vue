@@ -5,12 +5,14 @@
   </ul>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue';
+
 import useShortcuts from '@/composables/shortcuts/useShortcuts';
 import useShortcutModal from '@/composables/shortcuts/useShortcutModal';
 import useShortcutContextMenu from '@/composables/shortcuts/useShortcutContextMenu';
 
-export default {
+export default defineComponent({
   name: 'ShortcutContextMenu',
 
   setup() {
@@ -20,7 +22,9 @@ export default {
       useShortcutContextMenu();
 
     function handleRemove() {
-      removeShortcut(selectedShortcut.value.name);
+      if (selectedShortcut.value) {
+        removeShortcut(selectedShortcut.value.name);
+      }
       closeContextMenu();
     }
 
@@ -37,7 +41,7 @@ export default {
       isVisible,
     };
   },
-};
+});
 </script>
 
 <style scoped>

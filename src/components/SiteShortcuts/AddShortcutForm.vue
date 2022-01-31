@@ -29,8 +29,8 @@
   </form>
 </template>
 
-<script>
-import { ref, unref, computed, onMounted } from 'vue';
+<script lang="ts">
+import { defineComponent, ref, computed, onMounted } from 'vue';
 
 import useShortcuts from '@/composables/shortcuts/useShortcuts';
 import { selectedShortcut } from '@/composables/shortcuts/useShortcutContextMenu';
@@ -40,7 +40,7 @@ const SHORTCUT_SCHEMA = {
   url: '',
 };
 
-export default {
+export default defineComponent({
   name: 'AddShortcutForm',
 
   props: {
@@ -55,15 +55,16 @@ export default {
   setup(props, { emit }) {
     const { addShortcut, editShortcut, shortcuts } = useShortcuts();
 
-    const urlInputRef = ref(null);
-    onMounted(() => urlInputRef.value.focus());
+    const urlInputRef = ref<HTMLInputElement | null>(null);
+    onMounted(() => urlInputRef.value?.focus());
 
-    const formModel = ref(
+    const formModel = ref<typeof SHORTCUT_SCHEMA>(
       selectedShortcut.value
-        ? { ...unref(selectedShortcut) }
-        : {
-            ...SHORTCUT_SCHEMA,
+        ? {
+            name: selectedShortcut.value.name,
+            url: selectedShortcut.value.url,
           }
+        : { ...SHORTCUT_SCHEMA }
     );
 
     const isNameDuplicated = computed(() => {
@@ -82,9 +83,10 @@ export default {
       return true;
     });
 
-    const isFormValid = computed(
-      () =>
+    const isFormValid = computed(() =>
+      Boolean(
         formModel.value.name && formModel.value.url && !isNameDuplicated.value
+      )
     );
 
     function handleCancel() {
@@ -121,7 +123,7 @@ export default {
       handleCancel,
     };
   },
-};
+});
 </script>
 
 <style scoped>

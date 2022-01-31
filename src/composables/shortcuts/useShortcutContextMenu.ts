@@ -1,12 +1,14 @@
-import { ref, watchEffect } from 'vue';
+import { ref, Ref, watchEffect } from 'vue';
 
 import { useClickOutside } from '../useClickOutside';
 
-const contextMenuRef = ref(null);
+import type { Shortcut } from './useShortcuts';
+
+const contextMenuRef: Ref<HTMLElement | null> = ref(null);
 const isClickOutsideSet = ref(false);
 
 export const isVisible = ref(false);
-export const selectedShortcut = ref(null);
+export const selectedShortcut: Ref<Shortcut | null> = ref(null);
 
 export default function useShortcutContextMenu() {
   watchEffect(
@@ -19,12 +21,16 @@ export default function useShortcutContextMenu() {
     { flush: 'post' }
   );
 
-  function openContextMenu(event, shortcut) {
-    const target = getShortcutElement(event.target);
+  function openContextMenu(event: MouseEvent, shortcut: Shortcut) {
+    if (!event.target) return;
+
+    const target = getShortcutElement(event.target as HTMLElement);
     const { y } = target.getBoundingClientRect();
 
-    const offset = y + 15;
-    contextMenuRef.value.style.top = `${offset}px`;
+    if (contextMenuRef.value) {
+      const offset = y + 15;
+      contextMenuRef.value.style.top = `${offset}px`;
+    }
 
     isVisible.value = true;
     selectedShortcut.value = shortcut;
@@ -47,10 +53,10 @@ export default function useShortcutContextMenu() {
   };
 }
 
-function getShortcutElement(target) {
+function getShortcutElement(target: HTMLElement): HTMLElement {
   if (target && target.className === 'shortcut') {
     return target;
   }
 
-  return getShortcutElement(target.parentNode);
+  return getShortcutElement(target.parentNode as HTMLElement);
 }
