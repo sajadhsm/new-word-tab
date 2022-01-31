@@ -1,9 +1,9 @@
-import { ref } from 'vue';
+import { ref, Ref } from 'vue';
 
 import { randomNumberBetween } from '@/utils/number';
 
-export default function useRandomWord(wordsList) {
-  const randomWord = ref(null);
+export default function useRandomWord(wordsList: Ref<string[]>) {
+  const randomWord = ref('');
 
   function getRandomWord() {
     const randomWordIndex = randomNumberBetween(0, wordsList.value.length - 1);

@@ -5,21 +5,21 @@ import storage from '@/modules/localStorage';
 const LEARNED_WORDS_STORAGE_KEY = 'lw';
 
 export default function useLearnedWords() {
-  const learnedWords = ref([]);
+  const learnedWords = ref<string[]>([]);
 
   const learnedWordsDict = computed(() =>
-    learnedWords.value.reduce((wordsDict, word) => {
+    learnedWords.value.reduce((wordsDict: {[word: string]: boolean}, word) => {
       wordsDict[word] = true;
       return wordsDict;
     }, {})
   );
 
-  function isWordLearned(word) {
+  function isWordLearned(word: string) {
     return learnedWordsDict.value[word];
   }
 
-  function setWordAsLearned(word) {
-    const localLearnedWords = getLocalLearnedWords(true);
+  function setWordAsLearned(word: string) {
+    const localLearnedWords = getLocalLearnedWords(true) as Set<string>;
     localLearnedWords.add(word);
     storeWordsList(localLearnedWords);
   }
@@ -27,7 +27,7 @@ export default function useLearnedWords() {
   function getLocalLearnedWords(asSet = false) {
     try {
       const localCommaSeparatedWords = storage.get(LEARNED_WORDS_STORAGE_KEY);
-      const parsedList = localCommaSeparatedWords.length
+      const parsedList = localCommaSeparatedWords?.length
         ? localCommaSeparatedWords.split(',')
         : [];
 
@@ -39,17 +39,17 @@ export default function useLearnedWords() {
       return asSet ? wordsSet : wordsList;
     } catch {
       learnedWords.value = [];
-      return asSet ? new Set() : [];
+      return asSet ? new Set<string>() : [];
     }
   }
 
-  function removeLearnedWord(word) {
-    const words = getLocalLearnedWords(true);
+  function removeLearnedWord(word: string) {
+    const words = getLocalLearnedWords(true) as Set<string>;
     words.delete(word);
     storeWordsList(words);
   }
 
-  function storeWordsList(wordsList) {
+  function storeWordsList(wordsList: Set<string>) {
     const list = Array.from(wordsList);
     learnedWords.value = list;
     storage.set(LEARNED_WORDS_STORAGE_KEY, list.join());

@@ -1,11 +1,11 @@
 import { ref, computed, watch } from 'vue';
 
 import storage from '@/modules/localStorage';
-import WORD_LISTS from '@/data/words';
+import WORD_LISTS, { WordList } from '@/data/words';
 
 const SELECTED_WORD_LIST_KEYS_STORAGE_KEY = 'swl';
 
-export const selectedListKeys = ref(Object.keys(WORD_LISTS));
+export const selectedListKeys = ref(Object.keys(WORD_LISTS) as WordList[]);
 
 export default function useWordLists() {
   selectedListKeys.value = getSelectedWordListKeysFromStorage();
@@ -13,7 +13,7 @@ export default function useWordLists() {
   watch(selectedListKeys, saveSelectedWordListKeysToStorage);
 
   const wordsPoll = computed(() => {
-    let wordsSet = new Set();
+    let wordsSet = new Set<string>();
 
     selectedListKeys.value.forEach((listKey) => {
       if (WORD_LISTS[listKey]) {
@@ -30,7 +30,7 @@ export default function useWordLists() {
   };
 }
 
-function saveSelectedWordListKeysToStorage(list) {
+function saveSelectedWordListKeysToStorage(list: WordList[]) {
   storage.set(SELECTED_WORD_LIST_KEYS_STORAGE_KEY, list.join(','));
 }
 
@@ -38,8 +38,8 @@ function getSelectedWordListKeysFromStorage() {
   const keys = storage.get(SELECTED_WORD_LIST_KEYS_STORAGE_KEY);
 
   if (keys === null) {
-    return Object.keys(WORD_LISTS);
+    return Object.keys(WORD_LISTS) as WordList[];
   }
 
-  return keys.split(',');
+  return keys.split(',') as WordList[];
 }

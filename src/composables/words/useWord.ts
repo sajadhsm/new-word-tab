@@ -47,13 +47,13 @@ export default function useWord() {
     getWord();
   }
 
-  async function searchWord(searchedWord) {
+  async function searchWord(searchedWord: string) {
     const lowerCaseWord = searchedWord.toLowerCase();
     await getDefinitions(lowerCaseWord);
     handleUpdateWord(lowerCaseWord);
   }
 
-  function handleUpdateWord(value) {
+  function handleUpdateWord(value: string) {
     word.value = value;
     addWordToHistory(value);
     document.title = `NWT • ${capitalizeFirstLetter(value)}`;
