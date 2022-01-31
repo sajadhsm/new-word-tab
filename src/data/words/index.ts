@@ -27,7 +27,7 @@ export default {
     name: 'Oxford A1:B2',
     list: OXFORD_3000,
   },
-  OXFORD_‌BC: {
+  OXFORD_BC: {
     name: 'Oxford B2:C1',
     list: OXFORD_2000,
   },

@@ -1,4 +1,5 @@
+import browser from 'webextension-polyfill';
+
 export function openOptionsPage() {
-  const browser = chrome || browser;
   browser.runtime.openOptionsPage();
 }

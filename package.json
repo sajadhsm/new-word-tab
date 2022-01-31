@@ -47,7 +47,8 @@
     "vite": "^2.7.1",
     "vue": "^3.2.20",
     "vue-tsc": "^0.31.1",
-    "web-ext": "^6.6.0"
+    "web-ext": "^6.6.0",
+    "webextension-polyfill": "^0.8.0"
   },
   "dependencies": {
     "vuedraggable": "^4.1.0"
