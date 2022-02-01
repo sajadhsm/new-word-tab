@@ -10,16 +10,8 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
 import { openOptionsPage } from '@/utils/browser';
-
-export default {
-  name: 'NoWordList',
-
-  setup() {
-    return { openOptionsPage };
-  },
-};
 </script>
 
 <style scoped>

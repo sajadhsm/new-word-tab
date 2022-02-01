@@ -12,12 +12,6 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'OfflineState',
-};
-</script>
-
 <style scoped>
 .offline {
   position: absolute;

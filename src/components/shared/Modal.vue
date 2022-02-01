@@ -19,56 +19,45 @@
   </transition>
 </template>
 
-<script>
-export default {
-  name: 'Modal',
-
-  props: {
-    modelValue: {
-      type: Boolean,
-      required: true,
-    },
-
-    title: {
-      type: String,
-      default: '',
-    },
-
-    subtitle: {
-      type: String,
-      default: '',
-    },
-
-    showClose: {
-      type: Boolean,
-      default: true,
-    },
-
-    closeOnOverlay: {
-      type: Boolean,
-      default: true,
-    },
+<script setup lang="ts">
+const props = defineProps({
+  modelValue: {
+    type: Boolean,
+    required: true,
   },
 
-  emits: ['update:modelValue'],
-
-  setup(props, { emit }) {
-    function handleCloseOnOverlay() {
-      if (props.closeOnOverlay) {
-        handleClose();
-      }
-    }
-
-    function handleClose() {
-      emit('update:modelValue', false);
-    }
-
-    return {
-      handleCloseOnOverlay,
-      handleClose,
-    };
+  title: {
+    type: String,
+    default: '',
   },
-};
+
+  subtitle: {
+    type: String,
+    default: '',
+  },
+
+  showClose: {
+    type: Boolean,
+    default: true,
+  },
+
+  closeOnOverlay: {
+    type: Boolean,
+    default: true,
+  },
+});
+
+const emit = defineEmits(['update:modelValue']);
+
+function handleCloseOnOverlay() {
+  if (props.closeOnOverlay) {
+    handleClose();
+  }
+}
+
+function handleClose() {
+  emit('update:modelValue', false);
+}
 </script>
 
 <style scoped>

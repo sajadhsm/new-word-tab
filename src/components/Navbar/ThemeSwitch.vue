@@ -5,22 +5,9 @@
   </IconButton>
 </template>
 
-<script>
+<script setup lang="ts">
 import IconButton from '@/components/shared/IconButton.vue';
-
 import useTheme from '@/composables/useTheme';
 
-export default {
-  name: 'ThemeSwitch',
-
-  components: {
-    IconButton,
-  },
-
-  setup() {
-    const { theme, toggleTheme } = useTheme();
-
-    return { theme, toggleTheme };
-  },
-};
+const { theme, toggleTheme } = useTheme();
 </script>

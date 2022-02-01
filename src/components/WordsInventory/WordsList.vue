@@ -29,49 +29,36 @@
   </ul>
 </template>
 
-<script>
+<script setup lang="ts">
 import { ref } from 'vue';
 
 import useWord from '@/composables/words/useWord';
 
-import WORD_LISTS from '@/data/words';
+import wordLists, { WordList } from '@/data/words';
 
-export default {
-  name: 'WordsList',
+const emit = defineEmits(['check']);
 
-  emits: ['check'],
+const { searchWord } = useWord();
 
-  setup(props, { emit }) {
-    const openListName = ref(null);
-    const openList = ref([]);
+const openListName = ref<WordList | null>(null);
+const openList = ref<string[]>([]);
 
-    function handleOpenList(name) {
-      if (openListName.value === name) {
-        openListName.value = null;
-        openList.value = [];
-      } else {
-        openListName.value = name;
-        openList.value = WORD_LISTS[name].list;
-      }
+function handleOpenList(name: WordList | null) {
+  if (openListName.value === name) {
+    openListName.value = null;
+    openList.value = [];
+  } else {
+    openListName.value = name;
+    if (name) {
+      openList.value = wordLists[name].list;
     }
+  }
+}
 
-    const { searchWord } = useWord();
-
-    function handleCheckDefinition(word) {
-      searchWord(word);
-      emit('check');
-    }
-
-    return {
-      openList,
-      openListName,
-      handleOpenList,
-
-      wordLists: WORD_LISTS,
-      handleCheckDefinition,
-    };
-  },
-};
+function handleCheckDefinition(word: string) {
+  searchWord(word);
+  emit('check');
+}
 </script>
 
 <style scoped>

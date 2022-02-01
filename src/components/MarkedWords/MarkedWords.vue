@@ -10,21 +10,13 @@
   <MarkedWordsDrawer :is-open="isDrawerOpen" @close="isDrawerOpen = false" />
 </template>
 
-<script>
+<script setup lang="ts">
 import { ref } from 'vue';
 
 import MarkedWordsDrawer from './MarkedWordsDrawer.vue';
 import IconButton from '../shared/IconButton.vue';
 
-export default {
-  name: 'MarkedWords',
-
-  components: { MarkedWordsDrawer, IconButton },
-
-  setup() {
-    return { isDrawerOpen: ref(false) };
-  },
-};
+const isDrawerOpen = ref(false);
 </script>
 
 <style scoped>

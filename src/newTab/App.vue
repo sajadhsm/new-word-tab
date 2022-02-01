@@ -14,7 +14,7 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
 import Navbar from '@/components/Navbar';
 import Content from '@/components/Content';
 import MarkedWords from '@/components/MarkedWords';
@@ -22,20 +22,6 @@ import WordsHistory from '@/components/WordsHistory';
 import SiteShortcuts from '@/components/SiteShortcuts';
 
 import { isActive } from '@/composables/shortcuts/useShortcuts';
-
-export default {
-  components: {
-    Navbar,
-    Content,
-    MarkedWords,
-    WordsHistory,
-    SiteShortcuts,
-  },
-
-  setup() {
-    return { isActive };
-  },
-};
 </script>
 
 <style scoped>

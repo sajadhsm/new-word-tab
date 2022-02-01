@@ -26,7 +26,7 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
 import audio from '@/modules/audio';
 
 import IconButton from '@/components/shared/IconButton.vue';
@@ -35,49 +35,34 @@ import useMarkedWords from '@/composables/words/useMarkedWords';
 import useLearnedWords from '@/composables/words/useLearnedWords';
 import useGoogleTranslate from '@/composables/useGoogleTranslate';
 
-export default {
-  name: 'Actions',
-
-  components: { IconButton },
-
-  props: {
-    definition: {
-      type: Object,
-      required: true,
-    },
+const props = defineProps({
+  definition: {
+    type: Object,
+    required: true,
   },
+});
 
-  emits: ['marked'],
+const emit = defineEmits(['marked']);
 
-  setup(props, { emit }) {
-    const { setWordAsLearned } = useLearnedWords();
-    const { targetLanguage } = useGoogleTranslate();
-    const { setWordAsMarked, removeMarkedWord } = useMarkedWords();
+const { setWordAsLearned } = useLearnedWords();
+const { targetLanguage } = useGoogleTranslate();
+const { setWordAsMarked, removeMarkedWord } = useMarkedWords();
 
-    function handleMarkWord() {
-      setWordAsMarked(props.definition.word);
-      emit('marked');
-    }
+function handleMarkWord() {
+  setWordAsMarked(props.definition.word);
+  emit('marked');
+}
 
-    function handleMarkAsLearned() {
-      removeMarkedWord(props.definition.word);
-      setWordAsLearned(props.definition.word);
-      emit('marked');
-    }
+function handleMarkAsLearned() {
+  removeMarkedWord(props.definition.word);
+  setWordAsLearned(props.definition.word);
+  emit('marked');
+}
 
-    function handleListen() {
-      audio.setAudio(props.definition.phonetics[0].audio);
-      audio.playAudio();
-    }
-
-    return {
-      handleMarkAsLearned,
-      handleMarkWord,
-      targetLanguage,
-      handleListen,
-    };
-  },
-};
+function handleListen() {
+  audio.setAudio(props.definition.phonetics[0].audio);
+  audio.playAudio();
+}
 </script>
 
 <style>
