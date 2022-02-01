@@ -9,22 +9,22 @@ const SORT_STATES = [
   {
     text: 'Time - Ascending',
     icon: MdiSortClockAscending,
-    sortMethod: (list) => list,
+    sortMethod: (list: string[]) => list,
   },
   {
     text: 'Time - Descending',
     icon: MdiSortClockDescending,
-    sortMethod: (list) => list.reverse(),
+    sortMethod: (list: string[]) => list.reverse(),
   },
   {
     text: 'Alphabet - Ascending',
     icon: MdiSortAlphabeticalAscending,
-    sortMethod: (list) => list.sort((a, b) => a.localeCompare(b)),
+    sortMethod: (list: string[]) => list.sort((a, b) => a.localeCompare(b)),
   },
   {
     text: 'Alphabet - Descending',
     icon: MdiSortAlphabeticalDescending,
-    sortMethod: (list) => list.sort((a, b) => b.localeCompare(a)),
+    sortMethod: (list: string[]) => list.sort((a, b) => b.localeCompare(a)),
   },
 ];
 

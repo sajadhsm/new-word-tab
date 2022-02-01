@@ -4,20 +4,7 @@
   </IconButton>
 </template>
 
-<script>
-import { openOptionsPage } from '@/utils/browser';
-
+<script setup lang="ts">
 import IconButton from '@/components/shared/IconButton.vue';
-
-export default {
-  name: 'Options',
-
-  components: {
-    IconButton,
-  },
-
-  setup() {
-    return { openOptionsPage };
-  },
-};
+import { openOptionsPage } from '@/utils/browser';
 </script>

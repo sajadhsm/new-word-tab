@@ -29,36 +29,20 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
 import { computed } from 'vue';
-
 import Actions from './Actions.vue';
 
-export default {
-  name: 'Word',
+import type { IWordDefinition } from '@/composables/words/useWordDefinitions';
 
-  components: { Actions },
+const props = defineProps<{
+  word: string;
+  definitions: IWordDefinition[];
+}>();
 
-  props: {
-    word: {
-      type: String,
-      required: true,
-    },
+defineEmits(['marked']);
 
-    definitions: {
-      type: Array,
-      default: () => [],
-    },
-  },
-
-  emits: ['marked'],
-
-  setup(props) {
-    const definition = computed(() => props.definitions?.[0]);
-
-    return { definition };
-  },
-};
+const definition = computed(() => props.definitions?.[0]);
 </script>
 
 <style scoped>

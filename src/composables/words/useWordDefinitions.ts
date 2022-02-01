@@ -1,6 +1,6 @@
 import { ref } from 'vue';
 
-export interface WordDefinition {
+export interface IWordDefinition {
   word: string;
   phonetic: string;
   phonetics: { text: string, audio: string }[];
@@ -18,7 +18,7 @@ export interface WordDefinition {
 
 const API_URL = 'https://api.dictionaryapi.dev/api/v2/entries/en/';
 
-const definitions = ref<WordDefinition[] | null>(null);
+const definitions = ref<IWordDefinition[] | null>(null);
 const isLoading = ref(false);
 const error = ref<unknown>(null);
 
@@ -34,7 +34,7 @@ export default function useWordDefinitions() {
         throw new Error('Failed due to network response.');
       }
 
-      const data: WordDefinition[] = await response.json();
+      const data: IWordDefinition[] = await response.json();
 
       definitions.value = data;
     } catch (e: unknown) {

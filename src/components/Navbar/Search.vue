@@ -19,53 +19,34 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
 import { ref, computed, watch } from 'vue';
-
 import IconButton from '@/components/shared/IconButton.vue';
-
 import useWord from '@/composables/words/useWord';
 
-export default {
-  name: 'Search',
+const query = ref('');
+const lastQuery = ref('');
+const inputRef = ref<HTMLInputElement | null>(null);
+const isVisible = ref(false);
+const { searchWord } = useWord();
 
-  components: {
-    IconButton,
-  },
+const canSearch = computed(
+  () => query.value && query.value !== lastQuery.value
+);
 
-  setup() {
-    const query = ref('');
-    const lastQuery = ref('');
-    const inputRef = ref(null);
-    const isVisible = ref(false);
-    const { searchWord } = useWord();
+function handleSearch() {
+  if (canSearch.value) {
+    lastQuery.value = query.value;
+    searchWord(query.value);
+  }
 
-    const canSearch = computed(
-      () => query.value && query.value !== lastQuery.value
-    );
+  if (!query.value) {
+    isVisible.value = false;
+  }
+}
 
-    function handleSearch() {
-      if (canSearch.value) {
-        lastQuery.value = query.value;
-        searchWord(query.value);
-      }
-
-      if (!query.value) {
-        isVisible.value = false;
-      }
-    }
-
-    // Auto focus on search input when it is visible
-    watch(inputRef, (el) => el?.focus());
-
-    return {
-      handleSearch,
-      isVisible,
-      inputRef,
-      query,
-    };
-  },
-};
+// Auto focus on search input when it is visible
+watch(inputRef, (el) => el?.focus());
 </script>
 
 <style>

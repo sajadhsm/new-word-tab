@@ -84,7 +84,7 @@
   </transition>
 </template>
 
-<script>
+<script setup lang="ts">
 import { ref, computed } from 'vue';
 
 import useWord from '@/composables/words/useWord';
@@ -93,76 +93,48 @@ import useLearnedWords from '@/composables/words/useLearnedWords';
 
 import useSort from './useSort';
 
-export default {
-  name: 'MarkedWordsDrawer',
+defineProps<{ isOpen: boolean }>();
 
-  props: {
-    isOpen: {
-      type: Boolean,
-      required: true,
-    },
-  },
+defineEmits(['close']);
 
-  emits: ['close'],
+const { searchWord } = useWord();
+const { setWordAsLearned } = useLearnedWords();
+const { sortStateMeta, setNextSortState } = useSort();
+const { getLocalMarkedWords, removeMarkedWord, markedWords } = useMarkedWords();
 
-  setup() {
-    const { searchWord } = useWord();
-    const { setWordAsLearned } = useLearnedWords();
-    const { sortStateMeta, setNextSortState } = useSort();
-    const { getLocalMarkedWords, removeMarkedWord, markedWords } =
-      useMarkedWords();
+const inputRef = ref<HTMLInputElement | null>(null);
+const isShowingDrawer = ref(false);
+const searchQuery = ref('');
 
-    const inputRef = ref(null);
-    const isShowingDrawer = ref(false);
-    const searchQuery = ref('');
-    const filteredWords = computed(() =>
-      sortStateMeta.value.sortMethod(
-        markedWords.value.filter((word) => word.includes(searchQuery.value))
-      )
-    );
+const filteredWords = computed(() =>
+  sortStateMeta.value.sortMethod(
+    markedWords.value.filter((word) => word.includes(searchQuery.value))
+  )
+);
 
-    function handleCheckDefinition(word) {
-      searchWord(word);
-      handleCloseDrawer();
-    }
+function handleCheckDefinition(word: string) {
+  searchWord(word);
+  handleCloseDrawer();
+}
 
-    function handleMarkAsLearned(word) {
-      setWordAsLearned(word);
-      handleRemoveMarkedWord(word);
-    }
+function handleMarkAsLearned(word: string) {
+  setWordAsLearned(word);
+  handleRemoveMarkedWord(word);
+}
 
-    function handleRemoveMarkedWord(word) {
-      removeMarkedWord(word);
-    }
+function handleRemoveMarkedWord(word: string) {
+  removeMarkedWord(word);
+}
 
-    function handleShowDrawer() {
-      getLocalMarkedWords();
-      isShowingDrawer.value = true;
-      setTimeout(() => inputRef.value.focus(), 0);
-    }
+function handleShowDrawer() {
+  getLocalMarkedWords();
+  isShowingDrawer.value = true;
+  setTimeout(() => inputRef.value?.focus(), 0);
+}
 
-    function handleCloseDrawer() {
-      isShowingDrawer.value = false;
-    }
-
-    return {
-      inputRef,
-      isShowingDrawer,
-      handleShowDrawer,
-      handleCloseDrawer,
-
-      sortStateMeta,
-      setNextSortState,
-
-      markedWords,
-      searchQuery,
-      filteredWords,
-      handleMarkAsLearned,
-      handleCheckDefinition,
-      handleRemoveMarkedWord,
-    };
-  },
-};
+function handleCloseDrawer() {
+  isShowingDrawer.value = false;
+}
 </script>
 
 <style scoped>

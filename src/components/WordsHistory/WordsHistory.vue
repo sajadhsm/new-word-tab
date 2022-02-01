@@ -12,26 +12,14 @@
   </Modal>
 </template>
 
-<script>
+<script setup lang="ts">
 import { ref } from 'vue';
 
 import IconButton from '@/components/shared/IconButton.vue';
 import Modal from '@/components/shared/Modal.vue';
 import WordsList from './WordsList.vue';
 
-export default {
-  name: 'WordsInventory',
-
-  components: {
-    IconButton,
-    WordsList,
-    Modal,
-  },
-
-  setup() {
-    return { isModalOpen: ref(false) };
-  },
-};
+const isModalOpen = ref(false);
 </script>
 
 <style scoped>

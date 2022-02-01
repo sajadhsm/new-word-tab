@@ -12,30 +12,19 @@
   </ul>
 </template>
 
-<script>
+<script setup lang="ts">
 import useWordsHistory from '@/composables/words/useWordsHistory';
 import useWord from '@/composables/words/useWord';
 
-export default {
-  name: 'WordsList',
+const emit = defineEmits(['check']);
 
-  emits: ['check'],
+const { wordsHistory } = useWordsHistory();
+const { searchWord } = useWord();
 
-  setup(props, { emit }) {
-    const { wordsHistory } = useWordsHistory();
-    const { searchWord } = useWord();
-
-    function handleCheckDefinition(word) {
-      searchWord(word);
-      emit('check');
-    }
-
-    return {
-      handleCheckDefinition,
-      wordsHistory,
-    };
-  },
-};
+function handleCheckDefinition(word: string) {
+  searchWord(word);
+  emit('check');
+}
 </script>
 
 <style scoped>

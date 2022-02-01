@@ -8,12 +8,6 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'LearnedAllWords',
-};
-</script>
-
 <style>
 .learned-all {
   position: absolute;

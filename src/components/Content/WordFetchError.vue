@@ -23,34 +23,26 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
 import useGoogleTranslate from '@/composables/useGoogleTranslate';
 
 import { randomNumberBetween } from '@/utils/number';
 
 const EMOJIS = ['🥺', '😔', '☹️'];
 
-export default {
-  name: 'WordFetchError',
-
-  props: {
-    word: {
-      type: String,
-      required: true,
-    },
+defineProps({
+  word: {
+    type: String,
+    required: true,
   },
+});
 
-  emits: ['retry'],
+defineEmits(['retry']);
 
-  setup() {
-    const { targetLanguage } = useGoogleTranslate();
+const { targetLanguage } = useGoogleTranslate();
 
-    const randomEmojiIndex = randomNumberBetween(0, EMOJIS.length - 1);
-    const emoji = EMOJIS[randomEmojiIndex];
-
-    return { targetLanguage, emoji };
-  },
-};
+const randomEmojiIndex = randomNumberBetween(0, EMOJIS.length - 1);
+const emoji = EMOJIS[randomEmojiIndex];
 </script>
 
 <style scoped>

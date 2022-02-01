@@ -6,20 +6,10 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
 import ThemeSwitch from './ThemeSwitch.vue';
 import Options from './Options.vue';
 import Search from './Search.vue';
-
-export default {
-  name: 'Navbar',
-
-  components: {
-    ThemeSwitch,
-    Options,
-    Search,
-  },
-};
 </script>
 
 <style scoped>

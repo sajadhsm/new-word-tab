@@ -4,17 +4,13 @@
   </component>
 </template>
 
-<script>
-export default {
-  name: 'IconButton',
-
-  props: {
-    href: {
-      type: String,
-      default: null,
-    },
+<script setup lang="ts">
+defineProps({
+  href: {
+    type: String,
+    default: null,
   },
-};
+});
 </script>
 
 <style scoped>
