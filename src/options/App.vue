@@ -10,22 +10,11 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
 import GoogleTranslate from './Sections/GoogleTranslate.vue';
 import VocabularyLists from './Sections/VocabularyLists.vue';
 import SiteShortcuts from './Sections/SiteShortcuts.vue';
 import LearnedWords from './Sections/LearnedWords.vue';
-
-export default {
-  name: 'Options',
-
-  components: {
-    GoogleTranslate,
-    VocabularyLists,
-    SiteShortcuts,
-    LearnedWords,
-  },
-};
 </script>
 
 <style>

@@ -25,20 +25,12 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
 import WORD_LISTS from '@/data/words';
 
 import useWordLists from '@/composables/words/useWordLists';
 
-export default {
-  name: 'VocabularyLists',
-
-  setup() {
-    const { selectedListKeys } = useWordLists();
-
-    return { selectedListKeys, WORD_LISTS };
-  },
-};
+const { selectedListKeys } = useWordLists();
 </script>
 
 <style scoped>

@@ -14,20 +14,10 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
 import useShortcuts from '@/composables/shortcuts/useShortcuts';
 
-export default {
-  name: 'SiteShortcuts',
-
-  setup() {
-    const { isActive } = useShortcuts();
-
-    return {
-      isActive,
-    };
-  },
-};
+const { isActive } = useShortcuts();
 </script>
 
 <style scoped>
