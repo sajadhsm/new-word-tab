@@ -22,21 +22,13 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
 import useLearnedWords from '@/composables/words/useLearnedWords';
 
-export default {
-  name: 'LearnedWords',
+const { learnedWords, getLocalLearnedWords, removeLearnedWord } =
+  useLearnedWords();
 
-  setup() {
-    const { learnedWords, getLocalLearnedWords, removeLearnedWord } =
-      useLearnedWords();
-
-    getLocalLearnedWords();
-
-    return { learnedWords, removeLearnedWord };
-  },
-};
+getLocalLearnedWords();
 </script>
 
 <style>

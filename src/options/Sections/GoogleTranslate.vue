@@ -20,31 +20,19 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
 import { ref } from 'vue';
 
 import useGoogleTranslate from '@/composables/useGoogleTranslate';
 
-import GOOGLE_TRANSLATE_LANGUAGES from '@/data/googleTranslateLanguages';
+import languages from '@/data/googleTranslateLanguages';
 
-export default {
-  name: 'GoogleTranslate',
+const { targetLanguage, storeTargetLanguageCode } = useGoogleTranslate();
+const selectedTargetLanguage = ref(targetLanguage);
 
-  setup() {
-    const { targetLanguage, storeTargetLanguageCode } = useGoogleTranslate();
-    const selectedTargetLanguage = ref(targetLanguage);
-
-    function handleSaveGoogleTranslateLanguage() {
-      storeTargetLanguageCode(selectedTargetLanguage.value.code);
-    }
-
-    return {
-      languages: GOOGLE_TRANSLATE_LANGUAGES,
-      handleSaveGoogleTranslateLanguage,
-      selectedTargetLanguage,
-    };
-  },
-};
+function handleSaveGoogleTranslateLanguage() {
+  storeTargetLanguageCode(selectedTargetLanguage.value.code);
+}
 </script>
 
 <style>
