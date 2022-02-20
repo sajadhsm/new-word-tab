@@ -2,16 +2,15 @@ import { ref } from 'vue';
 
 export interface IWordDefinition {
   word: string;
-  phonetic: string;
-  phonetics: { text: string, audio: string }[];
-  origin: string;
+  phonetic?: string;
+  phonetics: { text?: string, audio?: string }[];
   meanings: {
     partOfSpeech: string,
     definitions: {
       definition: string,
-      example: string,
-      synonyms: string[],
-      antonyms: string[],
+      example?: string,
+      synonyms?: string[],
+      antonyms?: string[],
     }[],
   }[];
 }

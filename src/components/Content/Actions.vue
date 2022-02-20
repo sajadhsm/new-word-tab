@@ -17,9 +17,11 @@
       <i-ic-round-g-translate />
     </IconButton>
 
-    <div v-if="definition?.phonetic" class="phonetic">
-      <small class="phonetic__text">/{{ definition.phonetic }}/</small>
-      <IconButton title="Listen" @click="handleListen">
+    <div v-if="phonetic" class="phonetic">
+      <small v-if="phonetic.text" class="phonetic__text">
+        {{ phonetic.text }}
+      </small>
+      <IconButton v-if="phonetic.audio" title="Listen" @click="handleListen">
         <i-ic-round-volume-up />
       </IconButton>
     </div>
@@ -27,6 +29,8 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
+
 import audio from '@/modules/audio';
 
 import IconButton from '@/components/shared/IconButton.vue';
@@ -35,18 +39,27 @@ import useMarkedWords from '@/composables/words/useMarkedWords';
 import useLearnedWords from '@/composables/words/useLearnedWords';
 import useGoogleTranslate from '@/composables/useGoogleTranslate';
 
-const props = defineProps({
-  definition: {
-    type: Object,
-    required: true,
-  },
-});
+import { type IWordDefinition } from '@/composables/words/useWordDefinitions';
+
+const props = defineProps<{
+  definition: IWordDefinition;
+}>();
 
 const emit = defineEmits(['marked']);
 
 const { setWordAsLearned } = useLearnedWords();
 const { targetLanguage } = useGoogleTranslate();
 const { setWordAsMarked, removeMarkedWord } = useMarkedWords();
+
+const phonetic = computed(() => {
+  const { phonetics } = props.definition;
+
+  return (
+    phonetics.find((p) => p.audio && p.text) ||
+    phonetics.find((p) => p.audio) ||
+    phonetics.find((p) => p.text)
+  );
+});
 
 function handleMarkWord() {
   setWordAsMarked(props.definition.word);
@@ -60,8 +73,10 @@ function handleMarkAsLearned() {
 }
 
 function handleListen() {
-  audio.setAudio(props.definition.phonetics[0].audio);
-  audio.playAudio();
+  if (phonetic.value?.audio) {
+    audio.setAudio(phonetic.value.audio);
+    audio.playAudio();
+  }
 }
 </script>
 
