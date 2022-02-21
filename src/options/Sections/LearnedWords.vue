@@ -1,11 +1,9 @@
 <template>
-  <div class="op-section">
-    <h2 class="op-section__title">Learned words</h2>
-    <p class="op-section__subtitle">
-      These are the words that you have marked as "Learned". You can remove them
-      from the list, so they will reappear in a new tab.
-    </p>
-
+  <Section
+    title="Learned words"
+    description='These are the words that you have marked as "Learned". you can remove them from the list, so they will reappear in a new tab.'
+    column
+  >
     <ul v-if="learnedWords.length" class="learned-words">
       <li v-for="word of learnedWords" :key="word" class="word-row">
         <b class="word-row__word">{{ word }}</b>
@@ -19,10 +17,12 @@
       </li>
     </ul>
     <p v-else class="no-learned-word">No learned word yet! 📭</p>
-  </div>
+  </Section>
 </template>
 
 <script setup lang="ts">
+import Section from '../components/Section.vue';
+
 import useLearnedWords from '@/composables/words/useLearnedWords';
 
 const { learnedWords, getLocalLearnedWords, removeLearnedWord } =

@@ -1,20 +1,18 @@
 <template>
-  <div class="op-section g-translate">
-    <div>
-      <h2 class="op-section__title">Site shortcuts</h2>
-      <p class="op-section__subtitle">
-        Control the visibility of shortcuts sidebar.
-      </p>
-    </div>
-
+  <Section
+    title="Site shortcuts"
+    description="Control the visibility of shortcuts sidebar."
+  >
     <label class="switch">
       <input v-model="isActive" type="checkbox" />
       <span class="slider round" />
     </label>
-  </div>
+  </Section>
 </template>
 
 <script setup lang="ts">
+import Section from '../components/Section.vue';
+
 import useShortcuts from '@/composables/shortcuts/useShortcuts';
 
 const { isActive } = useShortcuts();
