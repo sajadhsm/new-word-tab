@@ -1,10 +1,9 @@
 <template>
-  <div class="op-section">
-    <h2 class="op-section__title">Vocabulary lists</h2>
-    <p class="op-section__subtitle">
-      Select the vocabulary lists that you would like to get a random word from.
-    </p>
-
+  <Section
+    title="Vocabulary lists"
+    description="Select the vocabulary lists that you would like to get a random word from."
+    column
+  >
     <ul class="vocab-list">
       <li
         v-for="(listValue, listKey) in WORD_LISTS"
@@ -22,11 +21,13 @@
         </label>
       </li>
     </ul>
-  </div>
+  </Section>
 </template>
 
 <script setup lang="ts">
 import WORD_LISTS from '@/data/words';
+
+import Section from '../components/Section.vue';
 
 import useWordLists from '@/composables/words/useWordLists';
 
