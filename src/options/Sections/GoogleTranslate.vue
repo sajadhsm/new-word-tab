@@ -7,21 +7,19 @@
       </p>
     </div>
 
-    <select
+    <Select
       v-model="selectedTargetLanguage"
-      class="g-translate__select"
       title="Select target language"
+      :options="options"
       @change="handleSaveGoogleTranslateLanguage"
-    >
-      <option v-for="lang of languages" :key="lang.code" :value="lang">
-        {{ lang.lang }}
-      </option>
-    </select>
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
+
+import Select from '../components/Select.vue';
 
 import useGoogleTranslate from '@/composables/useGoogleTranslate';
 
@@ -33,21 +31,15 @@ const selectedTargetLanguage = ref(targetLanguage);
 function handleSaveGoogleTranslateLanguage() {
   storeTargetLanguageCode(selectedTargetLanguage.value.code);
 }
+
+const options = languages.map((lang) => ({ text: lang.lang, value: lang }));
 </script>
 
-<style>
+<style scoped>
 .g-translate {
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-}
-
-.g-translate__select {
-  cursor: pointer;
-  padding: 5px;
-  font-size: 0.9rem;
-  border-radius: 4px;
-  border: 1px solid hsl(0, 0%, 75%);
 }
 </style>
