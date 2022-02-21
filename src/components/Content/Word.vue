@@ -1,6 +1,6 @@
 <template>
   <div class="content">
-    <div class="title">
+    <div :class="['title', `title--${actionsPosition}`]">
       <h1 class="word">{{ word }}</h1>
 
       <Actions
@@ -33,6 +33,7 @@
 import { computed } from 'vue';
 import Actions from './Actions.vue';
 
+import useWordActionsPosition from '@/composables/useWordActionsPosition';
 import type { IWordDefinition } from '@/composables/words/useWordDefinitions';
 
 const props = defineProps<{
@@ -41,6 +42,8 @@ const props = defineProps<{
 }>();
 
 defineEmits(['marked']);
+
+const { actionsPosition } = useWordActionsPosition();
 
 const definition = computed(() => props.definitions?.[0]);
 </script>
@@ -57,6 +60,9 @@ const definition = computed(() => props.definitions?.[0]);
   flex-wrap: wrap;
   justify-content: space-between;
   margin-bottom: 20px;
+}
+.title--V {
+  flex-direction: column;
 }
 
 .word {

@@ -1,10 +1,10 @@
 <template>
-  <div class="actions">
+  <div :class="['actions', `actions--${actionsPosition}`]">
     <IconButton title="Mark as learned" @click="handleMarkAsLearned">
       <i-ic-round-check-circle />
     </IconButton>
 
-    <IconButton title="Mark Word" class="btn-gap" @click="handleMarkWord">
+    <IconButton title="Mark Word" @click="handleMarkWord">
       <i-ic-round-bookmark-add />
     </IconButton>
 
@@ -12,7 +12,6 @@
       :title="`Google translate (${targetLanguage.lang})`"
       :href="`https://translate.google.com/?sl=en&tl=${targetLanguage.code}&text=${definition.word}&op=translate`"
       target="_blank"
-      class="btn-gap"
     >
       <i-ic-round-g-translate />
     </IconButton>
@@ -38,6 +37,7 @@ import IconButton from '@/components/shared/IconButton.vue';
 import useMarkedWords from '@/composables/words/useMarkedWords';
 import useLearnedWords from '@/composables/words/useLearnedWords';
 import useGoogleTranslate from '@/composables/useGoogleTranslate';
+import useWordActionsPosition from '@/composables/useWordActionsPosition';
 
 import { type IWordDefinition } from '@/composables/words/useWordDefinitions';
 
@@ -49,6 +49,7 @@ const emit = defineEmits(['marked']);
 
 const { setWordAsLearned } = useLearnedWords();
 const { targetLanguage } = useGoogleTranslate();
+const { actionsPosition } = useWordActionsPosition();
 const { setWordAsMarked, removeMarkedWord } = useMarkedWords();
 
 const phonetic = computed(() => {
@@ -84,19 +85,23 @@ function handleListen() {
 .actions {
   display: flex;
   align-items: center;
+  gap: 8px;
+  margin: 8px 0;
 }
-
-.btn-gap {
-  margin-left: 8px;
+.actions--HR {
+  flex-direction: row-reverse;
 }
 
 .phonetic {
   display: flex;
   align-items: center;
   margin-left: 12px;
+  gap: 6px;
   font-size: 1.25rem;
 }
-.phonetic__text {
-  margin-right: 6px;
+.actions--HR .phonetic {
+  flex-direction: row-reverse;
+  margin-left: 0;
+  margin-right: 12px;
 }
 </style>
