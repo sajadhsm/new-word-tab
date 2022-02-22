@@ -1,8 +1,6 @@
 <template>
   <div class="options">
-    <h1>Options</h1>
-    <hr />
-
+    <Header />
     <GoogleTranslate />
     <SiteShortcuts />
     <WordActionsPosition />
@@ -17,6 +15,7 @@ import GoogleTranslate from './Sections/GoogleTranslate.vue';
 import VocabularyLists from './Sections/VocabularyLists.vue';
 import SiteShortcuts from './Sections/SiteShortcuts.vue';
 import LearnedWords from './Sections/LearnedWords.vue';
+import Header from './Sections/Header.vue';
 </script>
 
 <style>
