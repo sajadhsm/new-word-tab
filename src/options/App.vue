@@ -3,14 +3,12 @@
     <Header />
     <GoogleTranslate />
     <SiteShortcuts />
-    <WordActionsPosition />
     <VocabularyLists />
     <LearnedWords />
   </div>
 </template>
 
 <script setup lang="ts">
-import WordActionsPosition from './Sections/WordActionsPosition.vue';
 import GoogleTranslate from './Sections/GoogleTranslate.vue';
 import VocabularyLists from './Sections/VocabularyLists.vue';
 import SiteShortcuts from './Sections/SiteShortcuts.vue';
