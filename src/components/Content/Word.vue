@@ -1,13 +1,17 @@
 <template>
   <div class="content">
-    <div :class="['title', `title--${actionsPosition}`]">
-      <h1 class="word">{{ word }}</h1>
+    <div class="title">
+      <div class="title__word-actions">
+        <h1 class="word">{{ word }}</h1>
 
-      <Actions
-        v-if="definition"
-        :definition="definition"
-        @marked="$emit('marked')"
-      />
+        <Actions
+          v-if="definition"
+          :definition="definition"
+          @marked="$emit('marked')"
+        />
+      </div>
+
+      <Phonetic :definition="definition" />
     </div>
 
     <div v-if="definition" class="meanings">
@@ -31,9 +35,10 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import Actions from './Actions.vue';
 
-import useWordActionsPosition from '@/composables/useWordActionsPosition';
+import Actions from './Actions.vue';
+import Phonetic from './Phonetic.vue';
+
 import type { IWordDefinition } from '@/composables/words/useWordDefinitions';
 
 const props = defineProps<{
@@ -42,8 +47,6 @@ const props = defineProps<{
 }>();
 
 defineEmits(['marked']);
-
-const { actionsPosition } = useWordActionsPosition();
 
 const definition = computed(() => props.definitions?.[0]);
 </script>
@@ -56,13 +59,13 @@ const definition = computed(() => props.definitions?.[0]);
 }
 
 .title {
+  margin-bottom: 20px;
+}
+
+.title__word-actions {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin-bottom: 20px;
-}
-.title--V {
-  flex-direction: column;
 }
 
 .word {
