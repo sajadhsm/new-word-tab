@@ -45,5 +45,6 @@ function handleListen() {
   gap: 6px;
   font-size: 1.25rem;
   padding: 0 4px;
+  margin-top: 5px;
 }
 </style>
