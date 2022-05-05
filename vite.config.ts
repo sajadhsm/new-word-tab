@@ -34,6 +34,7 @@ export default defineConfig(({ command }) => ({
     outDir: r('extension/dist'),
     emptyOutDir: false,
     sourcemap: isDev ? 'inline' : false,
+    minify: 'terser',
     terserOptions: {
       mangle: false,
     },
