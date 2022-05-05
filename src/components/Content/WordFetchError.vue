@@ -78,6 +78,7 @@ const emoji = EMOJIS[randomEmojiIndex];
 .actions {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .retry-btn {
