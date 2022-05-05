@@ -20,10 +20,26 @@
       />
     </div>
 
-    <ul>
-      <li v-for="word of filteredWords" :key="word">
+    <slot v-if="!list.length" name="empty">
+      <p class="state-message">
+        <i-ic-round-inbox />
+        <br />
+        There is nothing to show
+      </p>
+    </slot>
+
+    <p v-else-if="!filteredWords.length" class="state-message">
+      <i-ic-round-search-off />
+      <br />
+      No word matched
+    </p>
+
+    <ul v-else class="list">
+      <li v-for="word of filteredWords" :key="word" class="row">
         {{ word }}
-        <div class="actions"></div>
+        <div class="actions">
+          <slot name="actions" :word="word" />
+        </div>
       </li>
     </ul>
   </div>
@@ -93,5 +109,38 @@ const filteredWords = computed(() =>
 .search:disabled {
   cursor: not-allowed;
   opacity: 0.5;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1rem;
+  padding: 10px;
+  border-radius: 4px;
+  text-transform: capitalize;
+}
+
+.row:hover {
+  background-color: hsla(var(--color-raw), 0.1);
+}
+
+.actions {
+  display: flex;
+  gap: 5px;
+}
+
+.state-message {
+  margin-top: 50px;
+  font-size: 1rem;
+  text-align: center;
+}
+.state-message svg {
+  font-size: 1.5rem;
 }
 </style>
