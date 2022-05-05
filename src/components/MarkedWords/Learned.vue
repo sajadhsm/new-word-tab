@@ -8,7 +8,7 @@
         <i-ic-round-radar />
       </ActionButton>
 
-      <ActionButton title="Ignore word">
+      <ActionButton title="Ignore word" @click="handleMarkAsIgnored(word)">
         <i-ic-outline-visibility-off />
       </ActionButton>
 
@@ -21,17 +21,24 @@
 
 <script lang="ts" setup>
 import useLearnedWords from '@/composables/words/useLearnedWords';
+import useIgnoredWords from '@/composables/words/useIgnoredWords';
 import useLearningWords from '@/composables/words/useLearningWords';
 
 import WordList from '@/components/shared/WordList.vue';
 import ActionButton from './ActionButton.vue';
 
+const { setWordAsIgnored } = useIgnoredWords();
 const { setWordAsLearning } = useLearningWords();
 const { learnedWords, getLocalLearnedWords, removeLearnedWord } =
   useLearnedWords();
 
 function handleMarkAsLearning(word: string) {
   setWordAsLearning(word);
+  removeLearnedWord(word);
+}
+
+function handleMarkAsIgnored(word: string) {
+  setWordAsIgnored(word);
   removeLearnedWord(word);
 }
 

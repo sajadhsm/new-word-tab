@@ -8,17 +8,13 @@
       <i-ic-round-g-translate />
     </IconButton>
 
-    <IconButton title="Ignore word">
+    <IconButton title="Ignore word" @click="handleMarkAsIgnored">
       <i-ic-round-visibility-off />
     </IconButton>
 
     <IconButton title="Mark as Learning" @click="handleMarkAsLearning">
       <i-ic-round-bookmark-add />
     </IconButton>
-
-    <!-- <IconButton title="Mark as learned" @click="handleMarkAsLearned">
-      <i-ic-round-check-circle />
-    </IconButton> -->
   </div>
 </template>
 
@@ -26,7 +22,7 @@
 import IconButton from '@/components/shared/IconButton.vue';
 
 import useLearningWords from '@/composables/words/useLearningWords';
-import useLearnedWords from '@/composables/words/useLearnedWords';
+import useIgnoredWords from '@/composables/words/useIgnoredWords';
 import useGoogleTranslate from '@/composables/useGoogleTranslate';
 
 import { type IWordDefinition } from '@/composables/words/useWordDefinitions';
@@ -37,8 +33,8 @@ const props = defineProps<{
 
 const emit = defineEmits(['marked']);
 
-const { setWordAsLearned } = useLearnedWords();
 const { targetLanguage } = useGoogleTranslate();
+const { setWordAsIgnored } = useIgnoredWords();
 const { setWordAsLearning, removeLearningWord } = useLearningWords();
 
 function handleMarkAsLearning() {
@@ -46,9 +42,9 @@ function handleMarkAsLearning() {
   emit('marked');
 }
 
-function handleMarkAsLearned() {
+function handleMarkAsIgnored() {
   removeLearningWord(props.definition.word);
-  setWordAsLearned(props.definition.word);
+  setWordAsIgnored(props.definition.word);
   emit('marked');
 }
 </script>
