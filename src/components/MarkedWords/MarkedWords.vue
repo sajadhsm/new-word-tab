@@ -7,14 +7,21 @@
     <i-ic-round-bookmarks />
   </IconButton>
 
-  <MarkedWordsDrawer :is-open="isDrawerOpen" @close="isDrawerOpen = false" />
+  <Drawer
+    title="Marked Words"
+    :is-open="isDrawerOpen"
+    @close="isDrawerOpen = false"
+  >
+    <Tabs />
+  </Drawer>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
 
-import MarkedWordsDrawer from './MarkedWordsDrawer.vue';
 import IconButton from '../shared/IconButton.vue';
+import Drawer from '../shared/Drawer.vue';
+import Tabs from './Tabs.vue';
 
 const isDrawerOpen = ref(false);
 </script>
