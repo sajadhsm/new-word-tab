@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="top">
+    <div v-if="!noFilters" class="top">
       <div class="filters" :style="{ flex: stretch ? '1' : '0' }">
         <button
           class="sort-btn"
@@ -75,6 +75,7 @@ const props = defineProps<{
   stretch?: boolean;
   pointer?: boolean;
   maxHeight?: string;
+  noFilters?: boolean;
 }>();
 
 defineEmits<{

@@ -1,7 +1,7 @@
 <template>
   <transition name="fade">
     <div v-if="modelValue" class="overlay" @click.self="handleCloseOnOverlay">
-      <div class="modal">
+      <div class="modal" :style="{ maxWidth }">
         <div class="modal__header">
           <div>
             <h3 v-if="title" class="title">{{ title }}</h3>
@@ -20,31 +20,21 @@
 </template>
 
 <script setup lang="ts">
-const props = defineProps({
-  modelValue: {
-    type: Boolean,
-    required: true,
-  },
+interface Props {
+  modelValue: boolean;
+  title?: string;
+  subtitle?: string;
+  showClose?: boolean;
+  closeOnOverlay?: boolean;
+  maxWidth?: string;
+}
 
-  title: {
-    type: String,
-    default: '',
-  },
-
-  subtitle: {
-    type: String,
-    default: '',
-  },
-
-  showClose: {
-    type: Boolean,
-    default: true,
-  },
-
-  closeOnOverlay: {
-    type: Boolean,
-    default: true,
-  },
+const props = withDefaults(defineProps<Props>(), {
+  title: '',
+  subtitle: '',
+  showClose: true,
+  closeOnOverlay: true,
+  maxWidth: '500px',
 });
 
 const emit = defineEmits(['update:modelValue']);
@@ -86,7 +76,6 @@ function handleClose() {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  max-width: 500px;
   width: 95%;
   padding: 20px;
   border: 1px solid hsla(var(--color-raw), 0.1);
