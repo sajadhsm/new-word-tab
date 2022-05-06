@@ -5,7 +5,7 @@ import { capitalizeFirstLetter } from '@/utils/string';
 import useWordLists from './useWordLists';
 import useRandomWord from './useRandomWord';
 import wordsHistory from './useWordsHistory';
-import useLearnedWord from './useLearnedWords';
+import useIgnoredWords from './useIgnoredWords';
 import useWordDefinitions from './useWordDefinitions';
 
 const word = ref('');
@@ -14,32 +14,32 @@ export default function useWord() {
   const { wordsPoll } = useWordLists();
 
   const {
-    learnedWords,
-    learnedWordsDict,
-    isWordLearned,
-    getLocalLearnedWords,
-  } = useLearnedWord();
+    ignoredWords,
+    ignoredWordsDict,
+    isWordIgnored,
+    getLocalIgnoredWords,
+  } = useIgnoredWords();
 
   const { addWordToHistory } = wordsHistory();
 
-  const unlearnedWords = computed(() =>
-    wordsPoll.value.filter((word) => !learnedWordsDict.value[word])
+  const unIgnoredWords = computed(() =>
+    wordsPoll.value.filter((word) => !ignoredWordsDict.value[word])
   );
 
-  const { getRandomWord } = useRandomWord(unlearnedWords);
+  const { getRandomWord } = useRandomWord(unIgnoredWords);
 
   const { isLoading, definitions, error, getDefinitions } =
     useWordDefinitions();
 
   const hasLearnedAllWords = computed(
-    () => wordsPoll.value.length <= learnedWords.value.length
+    () => wordsPoll.value.length <= ignoredWords.value.length
   );
 
   async function getWord() {
-    getLocalLearnedWords();
+    getLocalIgnoredWords();
     const randomWord = getRandomWord().value;
 
-    if (!isWordLearned(randomWord)) {
+    if (!isWordIgnored(randomWord)) {
       await searchWord(randomWord);
       return;
     }
