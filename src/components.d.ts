@@ -8,6 +8,7 @@ declare module '@vue/runtime-core' {
     IEosIconsLoading: typeof import('~icons/eos-icons/loading')['default']
     IIcOutlineSchool: typeof import('~icons/ic/outline-school')['default']
     IIcOutlineVisibilityOff: typeof import('~icons/ic/outline-visibility-off')['default']
+    IIcRoundAutorenew: typeof import('~icons/ic/round-autorenew')['default']
     IIcRoundBookmarkAdd: typeof import('~icons/ic/round-bookmark-add')['default']
     IIcRoundBookmarks: typeof import('~icons/ic/round-bookmarks')['default']
     IIcRoundCheckCircle: typeof import('~icons/ic/round-check-circle')['default']

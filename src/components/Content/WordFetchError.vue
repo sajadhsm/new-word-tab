@@ -6,40 +6,50 @@
       Ops! Couldn't find any definitions for <i class="word">"{{ word }}"</i>
     </h2>
 
-    <p class="error__subtitle">
-      You may check Google Translate or try another word.
-    </p>
+    <p class="error__subtitle">Well, what now? Use the actions below...!</p>
 
     <div class="actions">
-      <button class="retry-btn" @click="$emit('retry')">Get new word</button>
-      <a
-        :href="`https://translate.google.com/?sl=en&tl=${targetLanguage.code}&text=${word}&op=translate`"
-        target="_blank"
-        class="gt-link"
-      >
-        Google Translate
-      </a>
+      <div class="actions__secondary">
+        <button class="action secondary-action" @click="handleIgnoreWord">
+          <i-ic-round-visibility-off /> Ignore word
+        </button>
+        <a
+          :href="`https://translate.google.com/?sl=en&tl=${targetLanguage.code}&text=${word}&op=translate`"
+          target="_blank"
+          class="action secondary-action"
+        >
+          <i-ic-round-g-translate /> Google Translate
+        </a>
+      </div>
+
+      <button class="action main-action" @click="$emit('retry')">
+        <i-ic-round-autorenew /> Get new word
+      </button>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import useGoogleTranslate from '@/composables/useGoogleTranslate';
+import useIgnoredWords from '@/composables/words/useIgnoredWords';
 
 import { randomNumberBetween } from '@/utils/number';
 
 const EMOJIS = ['🥺', '😔', '☹️'];
 
-defineProps({
-  word: {
-    type: String,
-    required: true,
-  },
-});
+const props = defineProps<{
+  word: string;
+}>();
 
-defineEmits(['retry']);
+const emit = defineEmits(['retry']);
 
+const { setWordAsIgnored } = useIgnoredWords();
 const { targetLanguage } = useGoogleTranslate();
+
+const handleIgnoreWord = () => {
+  setWordAsIgnored(props.word);
+  emit('retry');
+};
 
 const randomEmojiIndex = randomNumberBetween(0, EMOJIS.length - 1);
 const emoji = EMOJIS[randomEmojiIndex];
@@ -71,18 +81,30 @@ const emoji = EMOJIS[randomEmojiIndex];
 }
 
 .error__subtitle {
-  margin-bottom: 30px;
-  color: hsla(var(--color-raw), 0.75);
+  color: hsla(var(--color-raw), 0.8);
+  margin-bottom: 20px;
 }
 
 .actions {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 15px;
 }
 
-.retry-btn {
-  margin-bottom: 15px;
+.actions__secondary {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.action {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.main-action {
   padding: 10px 15px;
   border-radius: 8px;
   border: none;
@@ -91,18 +113,22 @@ const emoji = EMOJIS[randomEmojiIndex];
   font-size: 1rem;
   font-weight: bold;
 }
-.retry-btn:hover {
+.main-action:hover {
   transition: background-color 0.13s ease-in-out;
   background-color: hsla(var(--color-raw), 0.85);
 }
 
-.gt-link {
+.secondary-action {
+  background: hsla(var(--color-raw), 0.1);
+  padding: 6px 10px;
+  border-radius: 4px;
+  border: none;
   color: var(--color);
   font-size: 0.8rem;
   text-decoration: none;
 }
-.gt-link:hover {
+.secondary-action:hover {
   transition: background-color 0.13s ease-in-out;
-  color: hsla(var(--color-raw), 0.85);
+  background: hsla(var(--color-raw), 0.2);
 }
 </style>
