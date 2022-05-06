@@ -39,7 +39,8 @@ const { isActive } = useShortcuts();
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ccc;
+  border: 1px solid hsla(var(--color-raw), 0.4);
+  background-color: var(--bg-color);
   -webkit-transition: 0.4s;
   transition: 0.4s;
 }
@@ -51,23 +52,24 @@ const { isActive } = useShortcuts();
   width: 20px;
   left: 4px;
   bottom: 4px;
-  background-color: white;
+  background-color: var(--color);
   -webkit-transition: 0.4s;
   transition: 0.4s;
 }
 
 input:checked + .slider {
-  background-color: #191919;
+  background-color: var(--color);
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #191919;
+  box-shadow: 0 0 2px var(--color);
 }
 
 input:checked + .slider:before {
   -webkit-transform: translateX(25px);
   -ms-transform: translateX(25px);
   transform: translateX(25px);
+  background-color: var(--bg-color);
 }
 
 .slider.round {

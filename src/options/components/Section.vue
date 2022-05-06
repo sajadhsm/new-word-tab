@@ -39,7 +39,7 @@ withDefaults(defineProps<Props>(), {
 }
 
 .section:not(:last-of-type) {
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid hsla(var(--color-raw), 0.25);
 }
 
 .section__title {
@@ -47,7 +47,7 @@ withDefaults(defineProps<Props>(), {
   font-size: 1rem;
 }
 .section__description {
-  color: #666;
+  color: hsla(var(--color-raw), 0.7);
   font-size: 0.75rem;
   margin-top: 0;
 }

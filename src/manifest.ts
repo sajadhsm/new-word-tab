@@ -5,7 +5,7 @@ import type PkgType from '../package.json';
 import type { Manifest } from 'webextension-polyfill';
 
 export async function getManifest() {
-  const pkg = await fs.readJSON(r('package.json')) as typeof PkgType
+  const pkg = (await fs.readJSON(r('package.json'))) as typeof PkgType;
 
   const manifest: Manifest.WebExtensionManifest = {
     manifest_version: 2,
@@ -30,12 +30,9 @@ export async function getManifest() {
       48: './assets/48.png',
       128: './assets/128.png',
     },
+
+    content_security_policy: "object-src 'self'; script-src 'self'",
   };
-
-  const FART_FIX_INLINE_SCRIPT_HASH =
-    'sha256-yipOR2BJj3VZDIBaEdL8ttsQlrfwgdNUpoQlgXuqzj0=';
-
-  manifest.content_security_policy = `object-src 'self'; script-src 'self' '${FART_FIX_INLINE_SCRIPT_HASH}'`;
 
   if (isDev) {
     // This is required on dev for Vite script to load
