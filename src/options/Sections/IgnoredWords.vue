@@ -1,10 +1,10 @@
 <template>
   <Section
     title="Ignored words"
-    description='These are the words that you have marked as "Ignored". you can remove them from the list, so they will reappear in a new tab.'
+    description="Ignored words don't show up in new tabs. You can remove them from the list, so they will reappear in a new tab."
     column
   >
-    <WordList :list="ignoredWords">
+    <WordList :list="ignoredWords" max-height="250px" dense border>
       <template #actions="{ word }">
         <button
           class="remove-btn"
@@ -13,6 +13,13 @@
         >
           <i-ic-round-remove-circle-outline />
         </button>
+      </template>
+
+      <template #empty>
+        <p class="empty-state">
+          Add a word to ignore list using
+          <i-ic-round-visibility-off class="empty-state__icon" /> icon
+        </p>
       </template>
     </WordList>
   </Section>
@@ -32,18 +39,27 @@ getLocalIgnoredWords();
 
 <style scoped>
 .remove-btn {
-  display: flex;
-  justify-content: center;
+  display: inline-flex;
   align-items: center;
-  padding: 5px;
-  background: transparent;
+  justify-content: center;
+  padding: 0;
   border: none;
-  outline: none;
-  cursor: pointer;
-  font-size: 1rem;
-  opacity: 0.25;
+  color: hsla(var(--color-raw), 0.25);
+  background-color: transparent;
+  transition: color ease-in-out 0.1s;
 }
+
 .remove-btn:hover {
-  opacity: 1;
+  color: var(--color);
+}
+
+.empty-state {
+  padding: 30px 5px;
+  text-align: center;
+}
+
+.empty-state__icon {
+  display: inline-block;
+  margin-bottom: -5px;
 }
 </style>
