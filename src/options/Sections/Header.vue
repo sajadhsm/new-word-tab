@@ -19,7 +19,7 @@ import { version } from '@/../package.json';
   justify-content: space-between;
   margin-bottom: 1rem;
   padding: 1rem 0;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid hsla(var(--color-raw), 0.5);
 }
 
 .title {
@@ -30,9 +30,9 @@ import { version } from '@/../package.json';
 .version {
   font-size: 0.8rem;
   text-decoration: none;
-  color: #666;
+  color: hsla(var(--color-raw), 0.7);
 }
 .version:hover {
-  color: #aaa;
+  color: hsla(var(--color-raw), 0.5);
 }
 </style>

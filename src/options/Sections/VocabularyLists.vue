@@ -59,7 +59,7 @@ const { selectedListKeys } = useWordLists();
 }
 
 .vocab-list__item__count {
-  color: #666;
+  color: hsla(var(--color-raw), 0.75);
 }
 
 .checkbox {
@@ -89,16 +89,16 @@ const { selectedListKeys } = useWordLists();
   left: 0;
   height: 18px;
   width: 18px;
-  background-color: #eee;
+  background-color: hsla(var(--color-raw), 0.2);
   border-radius: 5px;
 }
 
 .checkbox:hover input ~ .checkmark {
-  background-color: #ccc;
+  background-color: hsla(var(--color-raw), 0.3);
 }
 
 .checkbox input:checked ~ .checkmark {
-  background-color: #191919;
+  background-color: var(--color);
 }
 
 .checkmark:after {
@@ -116,10 +116,14 @@ const { selectedListKeys } = useWordLists();
   top: 4px;
   width: 5px;
   height: 10px;
-  border: solid white;
+  border: solid var(--bg-color);
   border-width: 0 3px 3px 0;
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
+}
+
+.checkbox input:focus ~ .checkmark {
+  box-shadow: 0 0 3px var(--color);
 }
 </style>

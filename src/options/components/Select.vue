@@ -1,5 +1,5 @@
 <template>
-  <select v-model="value" :title="title" class="select">
+  <select v-model="value" :title="title" class="select tiny-scrollbar">
     <option v-for="option of options" :key="option.value" :value="option.value">
       {{ option.text }}
     </option>
@@ -46,7 +46,9 @@ const value = computed({
 .select {
   padding: 5px;
   border-radius: 4px;
-  border: 1px solid hsl(0, 0%, 75%);
+  border: 1px solid hsla(var(--color-raw), 0.4);
+  background: var(--bg-color);
+  color: var(--color);
   font-size: 0.9rem;
   cursor: pointer;
 }
