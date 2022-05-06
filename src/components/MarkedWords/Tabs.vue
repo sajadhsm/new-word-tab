@@ -5,7 +5,7 @@
         :class="{ active: activeTab === 'learning' }"
         @click="activeTab = 'learning'"
       >
-        <i-ic-round-radar /> Learning
+        <i-ic-round-school /> Learning
       </li>
       <li
         :class="{ active: activeTab === 'learned' }"
@@ -15,8 +15,14 @@
       </li>
     </ul>
 
-    <Learned v-if="activeTab === 'learned'" />
-    <Learning v-if="activeTab === 'learning'" />
+    <Learned
+      v-if="activeTab === 'learned'"
+      @show-definition="$emit('show-definition', $event)"
+    />
+    <Learning
+      v-if="activeTab === 'learning'"
+      @show-definition="$emit('show-definition', $event)"
+    />
   </div>
 </template>
 
@@ -25,6 +31,10 @@ import { ref } from 'vue';
 
 import Learned from './Learned.vue';
 import Learning from './Learning.vue';
+
+defineEmits<{
+  (e: 'show-definition', word: string): void;
+}>();
 
 const activeTab = ref('learning');
 </script>

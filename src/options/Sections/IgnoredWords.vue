@@ -6,18 +6,14 @@
   >
     <WordList :list="ignoredWords" max-height="250px" dense border>
       <template #actions="{ word }">
-        <button
-          class="remove-btn"
-          title="Remove from list"
-          @click="removeIgnoredWord(word)"
-        >
+        <ActionButton title="Remove from list" @click="removeIgnoredWord(word)">
           <i-ic-round-remove-circle-outline />
-        </button>
+        </ActionButton>
       </template>
 
       <template #empty>
         <p class="empty-state">
-          Add a word to ignore list using
+          Add a word to ignored list using
           <i-ic-round-visibility-off class="empty-state__icon" /> icon
         </p>
       </template>
@@ -26,10 +22,10 @@
 </template>
 
 <script setup lang="ts">
-import Section from '../components/Section.vue';
-
 import useIgnoredWords from '@/composables/words/useIgnoredWords';
-import WordList from '@/components/shared/WordList.vue';
+
+import Section from '../components/Section.vue';
+import WordList, { ActionButton } from '@/components/shared/WordList';
 
 const { ignoredWords, getLocalIgnoredWords, removeIgnoredWord } =
   useIgnoredWords();
@@ -38,22 +34,8 @@ getLocalIgnoredWords();
 </script>
 
 <style scoped>
-.remove-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  border: none;
-  color: hsla(var(--color-raw), 0.25);
-  background-color: transparent;
-  transition: color ease-in-out 0.1s;
-}
-
-.remove-btn:hover {
-  color: var(--color);
-}
-
 .empty-state {
+  font-size: 0.9rem;
   padding: 30px 5px;
   text-align: center;
 }

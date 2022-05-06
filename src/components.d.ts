@@ -6,6 +6,7 @@ import '@vue/runtime-core'
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     IEosIconsLoading: typeof import('~icons/eos-icons/loading')['default']
+    IIcOutlineSchool: typeof import('~icons/ic/outline-school')['default']
     IIcOutlineVisibilityOff: typeof import('~icons/ic/outline-visibility-off')['default']
     IIcRoundBookmarkAdd: typeof import('~icons/ic/round-bookmark-add')['default']
     IIcRoundBookmarks: typeof import('~icons/ic/round-bookmarks')['default']
@@ -18,9 +19,9 @@ declare module '@vue/runtime-core' {
     IIcRoundInbox: typeof import('~icons/ic/round-inbox')['default']
     IIcRoundLightMode: typeof import('~icons/ic/round-light-mode')['default']
     IIcRoundPlus: typeof import('~icons/ic/round-plus')['default']
-    IIcRoundRadar: typeof import('~icons/ic/round-radar')['default']
     IIcRoundRemoveCircleOutline: typeof import('~icons/ic/round-remove-circle-outline')['default']
     IIcRoundRemoveRedEye: typeof import('~icons/ic/round-remove-red-eye')['default']
+    IIcRoundSchool: typeof import('~icons/ic/round-school')['default']
     IIcRoundSearch: typeof import('~icons/ic/round-search')['default']
     IIcRoundSearchOff: typeof import('~icons/ic/round-search-off')['default']
     IIcRoundSettings: typeof import('~icons/ic/round-settings')['default']

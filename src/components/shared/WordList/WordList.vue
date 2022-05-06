@@ -49,8 +49,10 @@
         :style="{
           padding: dense ? '5px 10px' : '10px',
           borderRadius: border ? '0' : '4px',
+          cursor: pointer ? 'pointer' : 'default',
         }"
         class="row"
+        @click.self="$emit('row-click', word)"
       >
         {{ word }}
         <div class="actions">
@@ -70,8 +72,13 @@ const props = defineProps<{
   list: string[];
   dense?: boolean;
   border?: boolean;
-  maxHeight?: string;
   stretch?: boolean;
+  pointer?: boolean;
+  maxHeight?: string;
+}>();
+
+defineEmits<{
+  (e: 'row-click', word: string): void;
 }>();
 
 const { sortStateMeta, setNextSortState } = useSort();
@@ -80,7 +87,9 @@ const searchQuery = ref('');
 
 const filteredWords = computed(() =>
   sortStateMeta.value.sortMethod(
-    props.list.filter((word) => word.includes(searchQuery.value))
+    props.list.filter((word) =>
+      word.toLowerCase().includes(searchQuery.value.toLowerCase())
+    )
   )
 );
 </script>
