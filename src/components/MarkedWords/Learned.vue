@@ -1,5 +1,5 @@
 <template>
-  <WordList :list="learnedWords">
+  <WordList :list="learnedWords" max-height="calc(100vh - 165px)" stretch>
     <template #actions="{ word }">
       <ActionButton
         title="Mark as Learning"

@@ -1,23 +1,26 @@
 <template>
   <div>
-    <div class="filters">
-      <button
-        class="sort-btn"
-        :title="`Sort (${sortStateMeta.text})`"
-        :disabled="!list.length"
-        @click="setNextSortState"
-      >
-        <component :is="sortStateMeta.icon" />
-      </button>
+    <div class="top">
+      <div class="filters" :style="{ flex: stretch ? '1' : '0' }">
+        <button
+          class="sort-btn"
+          :title="`Sort (${sortStateMeta.text})`"
+          :disabled="!list.length"
+          @click="setNextSortState"
+        >
+          <component :is="sortStateMeta.icon" />
+        </button>
 
-      <input
-        ref="inputRef"
-        v-model="searchQuery"
-        type="search"
-        placeholder="Filter"
-        class="search"
-        :disabled="!list.length"
-      />
+        <input
+          v-model="searchQuery"
+          type="search"
+          placeholder="Filter"
+          class="search"
+          :disabled="!list.length"
+        />
+      </div>
+
+      <slot name="top-action" />
     </div>
 
     <slot v-if="!list.length" name="empty">
@@ -34,8 +37,21 @@
       No word matched
     </p>
 
-    <ul v-else class="list">
-      <li v-for="word of filteredWords" :key="word" class="row">
+    <ul
+      v-else
+      class="list tiny-scrollbar"
+      :class="{ 'list--border': border }"
+      :style="{ maxHeight }"
+    >
+      <li
+        v-for="word of filteredWords"
+        :key="word"
+        :style="{
+          padding: dense ? '5px 10px' : '10px',
+          borderRadius: border ? '0' : '4px',
+        }"
+        class="row"
+      >
         {{ word }}
         <div class="actions">
           <slot name="actions" :word="word" />
@@ -52,11 +68,14 @@ import useSort from '@/composables/useSort';
 
 const props = defineProps<{
   list: string[];
+  dense?: boolean;
+  border?: boolean;
+  maxHeight?: string;
+  stretch?: boolean;
 }>();
 
 const { sortStateMeta, setNextSortState } = useSort();
 
-const inputRef = ref<HTMLInputElement | null>(null);
 const searchQuery = ref('');
 
 const filteredWords = computed(() =>
@@ -67,9 +86,14 @@ const filteredWords = computed(() =>
 </script>
 
 <style scoped>
+.top,
 .filters {
   display: flex;
   align-items: center;
+  gap: 10px;
+}
+.top {
+  justify-content: space-between;
 }
 
 .sort-btn {
@@ -80,7 +104,6 @@ const filteredWords = computed(() =>
   border: none;
   color: var(--color);
   background-color: transparent;
-  margin-right: 10px;
   font-size: 1.2rem;
   color: hsla(var(--color-raw), 0.5);
 }
@@ -95,13 +118,18 @@ const filteredWords = computed(() =>
 
 .search {
   flex-grow: 1;
-  background: hsla(var(--color-raw), 0.15);
+  background-color: hsla(var(--color-raw), 0.15);
   border: none;
   border-radius: 4px;
   padding: 5px 10px;
   color: var(--color);
   font-size: 1rem;
   outline: none;
+  transition: background-color ease-in-out 0.13s;
+}
+.search:focus,
+.search:hover:not(:disabled) {
+  background-color: hsla(var(--color-raw), 0.2);
 }
 .search::placeholder {
   color: hsla(var(--color-raw), 0.6);
@@ -112,8 +140,15 @@ const filteredWords = computed(() =>
 }
 
 .list {
-  list-style: none;
   padding: 0;
+  list-style: none;
+  overflow-y: auto;
+}
+
+.list--border {
+  padding: 5px 0;
+  border-radius: 6px;
+  border: 1px solid hsla(var(--color-raw), 0.25);
 }
 
 .row {
@@ -121,8 +156,6 @@ const filteredWords = computed(() =>
   justify-content: space-between;
   align-items: center;
   font-size: 1rem;
-  padding: 10px;
-  border-radius: 4px;
   text-transform: capitalize;
 }
 
