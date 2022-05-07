@@ -5,6 +5,10 @@
     column
   >
     <WordList :list="ignoredWords" max-height="250px" dense border>
+      <template #top-action>
+        <ImportFile @import="handleImportFile" />
+      </template>
+
       <template #actions="{ word }">
         <ActionButton title="Remove from list" @click="removeIgnoredWord(word)">
           <i-ic-round-remove-circle-outline />
@@ -24,13 +28,22 @@
 <script setup lang="ts">
 import useIgnoredWords from '@/composables/words/useIgnoredWords';
 
-import Section from '../components/Section.vue';
 import WordList, { ActionButton } from '@/components/shared/WordList';
+import Section from '@/options/components/Section.vue';
+import ImportFile from './ImportFile.vue';
 
-const { ignoredWords, getLocalIgnoredWords, removeIgnoredWord } =
-  useIgnoredWords();
+const {
+  ignoredWords,
+  getLocalIgnoredWords,
+  removeIgnoredWord,
+  setWordAsIgnored,
+} = useIgnoredWords();
 
 getLocalIgnoredWords();
+
+function handleImportFile(words: string[]) {
+  setWordAsIgnored(words);
+}
 </script>
 
 <style scoped>

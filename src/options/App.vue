@@ -12,7 +12,7 @@
 import GoogleTranslate from './Sections/GoogleTranslate.vue';
 import VocabularyLists from './Sections/VocabularyLists.vue';
 import SiteShortcuts from './Sections/SiteShortcuts.vue';
-import IgnoredWords from './Sections/IgnoredWords.vue';
+import IgnoredWords from './Sections/IgnoredWords';
 import Header from './Sections/Header.vue';
 </script>
 

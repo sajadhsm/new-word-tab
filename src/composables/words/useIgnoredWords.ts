@@ -21,10 +21,17 @@ export default function useIgnoredWords() {
     return ignoredWordsDict.value[word];
   }
 
-  function setWordAsIgnored(word: string) {
-    const localIgnoredWords = getLocalIgnoredWords(true) as Set<string>;
-    localIgnoredWords.add(word);
-    storeWordsList(localIgnoredWords);
+  // TODO: Implement this better
+  function setWordAsIgnored(word: string | string[]) {
+    let localIgnoredWords = getLocalIgnoredWords() as string[];
+
+    if (Array.isArray(word)) {
+      localIgnoredWords = localIgnoredWords.concat(word);
+    } else {
+      localIgnoredWords.push(word);
+    }
+
+    storeWordsList(new Set(localIgnoredWords));
   }
 
   function getLocalIgnoredWords(asSet = false) {
