@@ -1,36 +1,47 @@
 <template>
   <button class="import-btn" @click="isModalOpen = true">
-    <i-ic-round-upload-file /> Import
+    <i-ic-round-upload-file /> Import file
   </button>
 
-  <Modal v-model="isModalOpen" title="Import words from file">
+  <Modal
+    v-model="isModalOpen"
+    title="Import file"
+    subtitle="Easily expand ignored words by importing a file containing a list of words"
+  >
     <div class="description">
-      <p>
-        You can import a custom list of files to be added to the ignored words
-        list.
-      </p>
       <b>Constraints:</b>
       <ul>
         <li>
-          Only the words that are available in NWT inventory will be included
+          Only the words that are available in our vocabulary lists will be
+          matched
         </li>
         <li>
-          Words can be separated using <i>space</i>, <i>tab</i>, <i>comma</i> or
-          <i>new line</i>
+          Words can be separated using <b>space</b>, <b>tab</b>, <b>comma</b>,
+          or
+          <b>newline</b>
         </li>
-        <li>Words longer than <b>30</b> characters won't include</li>
-        <li>Words will be auto imported as lowercase</li>
-        <li>Only <code>.txt</code> file format is allowed</li>
+        <li>Only words with less than <b>30</b> characters will be included</li>
+        <li>All words will be auto-converted to <b>lowercase</b></li>
+        <li>A <b>plain text</b> file will do the job</li>
       </ul>
     </div>
 
     <FileSelector accept="text/plain" @file="handleFile" />
 
-    <div v-if="importedWords.length">
-      <p>Found {{ importedWords.length }} word(s)</p>
+    <div v-if="importedWords.length" class="footer">
+      <p class="success-msg">
+        <i-ic-round-check-circle />
+        <span>
+          Found <b>{{ importedWords.length }}</b> word{{
+            importedWords.length > 1 ? 's' : ''
+          }}
+        </span>
+      </p>
 
-      <button @click="handleCancel">Cancel</button>
-      <button @click="handleImport">Import</button>
+      <div class="actions">
+        <button class="btn" @click="handleCancel">Cancel</button>
+        <button class="btn btn--primary" @click="handleImport">Import</button>
+      </div>
     </div>
   </Modal>
 </template>
@@ -92,6 +103,61 @@ function handleCancel() {
 
 .description {
   font-size: 0.85rem;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
+}
+
+ul {
+  padding-left: 25px;
+}
+ul li {
+  margin: 0 0 5px;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid hsla(var(--color-raw), 0.2);
+  padding-top: 15px;
+  margin-top: 15px;
+  font-size: 1rem;
+}
+
+.footer p {
+  margin: 0;
+}
+
+.actions {
+  display: flex;
+  gap: 4px;
+}
+
+.btn {
+  padding: 6px 15px;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 0.75rem;
+  border: 1px solid hsla(var(--color-raw), 0.3);
+  background-color: transparent;
+  color: var(--color);
+}
+.btn:hover {
+  background-color: hsla(var(--color-raw), 0.05);
+}
+
+.btn--primary {
+  margin-left: 10px;
+  border: 1px solid var(--color);
+  background-color: var(--color);
+  color: var(--bg-color);
+}
+.btn--primary:hover {
+  background-color: hsla(var(--color-raw), 0.9);
+}
+
+.success-msg {
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 </style>
