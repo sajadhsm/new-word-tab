@@ -25,6 +25,7 @@ declare module '@vue/runtime-core' {
     IIcRoundSearch: typeof import('~icons/ic/round-search')['default']
     IIcRoundSearchOff: typeof import('~icons/ic/round-search-off')['default']
     IIcRoundSettings: typeof import('~icons/ic/round-settings')['default']
+    IIcRoundUploadFile: typeof import('~icons/ic/round-upload-file')['default']
     IIcRoundVisibilityOff: typeof import('~icons/ic/round-visibility-off')['default']
     IIcRoundVolumeUp: typeof import('~icons/ic/round-volume-up')['default']
     IIcRoundWifiOff: typeof import('~icons/ic/round-wifi-off')['default']

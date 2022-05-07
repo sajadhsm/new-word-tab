@@ -1,5 +1,7 @@
 import { ref, computed, watch } from 'vue';
 
+import { intersect } from '@/utils/array';
+
 import storage from '@/modules/localStorage';
 import WORD_LISTS, { WordList } from '@/data/words';
 
@@ -24,8 +26,13 @@ export default function useWordLists() {
     return Array.from(wordsSet);
   });
 
+  function getIntersection(words: string[]) {
+    return intersect(wordsPoll.value, words);
+  }
+
   return {
     selectedListKeys,
+    getIntersection,
     wordsPoll,
   };
 }
