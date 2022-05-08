@@ -21,7 +21,6 @@ declare module '@vue/runtime-core' {
     IIcRoundLightMode: typeof import('~icons/ic/round-light-mode')['default']
     IIcRoundPlus: typeof import('~icons/ic/round-plus')['default']
     IIcRoundRemoveCircleOutline: typeof import('~icons/ic/round-remove-circle-outline')['default']
-    IIcRoundRemoveRedEye: typeof import('~icons/ic/round-remove-red-eye')['default']
     IIcRoundSchool: typeof import('~icons/ic/round-school')['default']
     IIcRoundSearch: typeof import('~icons/ic/round-search')['default']
     IIcRoundSearchOff: typeof import('~icons/ic/round-search-off')['default']
