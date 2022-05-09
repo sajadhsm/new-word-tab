@@ -20,6 +20,8 @@
 </template>
 
 <script setup lang="ts">
+import { watch } from 'vue';
+
 interface Props {
   modelValue: boolean;
   title?: string;
@@ -42,6 +44,15 @@ const emit = defineEmits<{
   (e: 'close'): void;
 }>();
 
+watch(
+  () => props.modelValue,
+  (value) => {
+    if (!value) {
+      emit('close');
+    }
+  }
+);
+
 function handleCloseOnOverlay() {
   if (props.closeOnOverlay) {
     handleClose();
@@ -50,7 +61,6 @@ function handleCloseOnOverlay() {
 
 function handleClose() {
   emit('update:modelValue', false);
-  emit('close');
 }
 </script>
 

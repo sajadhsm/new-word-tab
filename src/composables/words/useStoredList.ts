@@ -12,7 +12,7 @@ export function useStoredList(storageKey: string) {
 
   function add(items: string | string[]) {
     if (Array.isArray(items)) {
-      items.forEach(_listSet.value.add);
+      items.forEach((item) => _listSet.value.add(item));
     } else {
       _listSet.value.add(items);
     }

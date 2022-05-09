@@ -27,7 +27,13 @@ export default function useWordLists() {
   });
 
   function getIntersection(words: string[]) {
-    return intersect(wordsPoll.value, words);
+    let allWordsSet = new Set<string>();
+    Object.values(WORD_LISTS).forEach((wordList) => {
+      allWordsSet = new Set([...allWordsSet, ...wordList.list]);
+    });
+    const allWords = Array.from(allWordsSet);
+
+    return intersect(allWords, words);
   }
 
   return {

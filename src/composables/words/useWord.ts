@@ -32,14 +32,11 @@ export default function useWord() {
 
   async function getWord() {
     reloadIgnoredWords();
+
     const randomWord = getRandomWord().value;
+    if (!randomWord) return;
 
-    if (!isIgnoredWord(randomWord)) {
-      await searchWord(randomWord);
-      return;
-    }
-
-    getWord();
+    searchWord(randomWord);
   }
 
   async function searchWord(searchedWord: string) {
