@@ -34,17 +34,17 @@ const props = defineProps<{
 const emit = defineEmits(['marked']);
 
 const { targetLanguage } = useGoogleTranslate();
-const { setWordAsIgnored } = useIgnoredWords();
-const { setWordAsLearning, removeLearningWord } = useLearningWords();
+const { setAsIgnored } = useIgnoredWords();
+const { setAsLearning, removeLearningWords } = useLearningWords();
 
 function handleMarkAsLearning() {
-  setWordAsLearning(props.definition.word);
+  setAsLearning(props.definition.word);
   emit('marked');
 }
 
 function handleMarkAsIgnored() {
-  removeLearningWord(props.definition.word);
-  setWordAsIgnored(props.definition.word);
+  removeLearningWords(props.definition.word);
+  setAsIgnored(props.definition.word);
   emit('marked');
 }
 </script>

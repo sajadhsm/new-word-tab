@@ -10,7 +10,10 @@
       </template>
 
       <template #actions="{ word }">
-        <ActionButton title="Remove from list" @click="removeIgnoredWord(word)">
+        <ActionButton
+          title="Remove from list"
+          @click="removeIgnoredWords(word)"
+        >
           <i-ic-round-remove-circle-outline />
         </ActionButton>
       </template>
@@ -32,17 +35,10 @@ import WordList, { ActionButton } from '@/components/shared/WordList';
 import Section from '@/options/components/Section.vue';
 import ImportFile from './ImportFile.vue';
 
-const {
-  ignoredWords,
-  getLocalIgnoredWords,
-  removeIgnoredWord,
-  setWordAsIgnored,
-} = useIgnoredWords();
-
-getLocalIgnoredWords();
+const { ignoredWords, removeIgnoredWords, setAsIgnored } = useIgnoredWords();
 
 function handleImportFile(words: string[]) {
-  setWordAsIgnored(words);
+  setAsIgnored(words);
 }
 </script>
 

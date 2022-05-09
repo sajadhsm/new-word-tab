@@ -18,7 +18,7 @@
         <i-ic-outline-visibility-off />
       </ActionButton>
 
-      <ActionButton title="Remove from list" @click="removeLearnedWord(word)">
+      <ActionButton title="Remove from list" @click="removeLearnedWords(word)">
         <i-ic-round-remove-circle-outline />
       </ActionButton>
     </template>
@@ -45,22 +45,19 @@ defineEmits<{
   (e: 'show-definition', word: string): void;
 }>();
 
-const { setWordAsIgnored } = useIgnoredWords();
-const { setWordAsLearning } = useLearningWords();
-const { learnedWords, getLocalLearnedWords, removeLearnedWord } =
-  useLearnedWords();
+const { setAsIgnored } = useIgnoredWords();
+const { setAsLearning } = useLearningWords();
+const { learnedWords, removeLearnedWords } = useLearnedWords();
 
 function handleMarkAsLearning(word: string) {
-  setWordAsLearning(word);
-  removeLearnedWord(word);
+  setAsLearning(word);
+  removeLearnedWords(word);
 }
 
 function handleMarkAsIgnored(word: string) {
-  setWordAsIgnored(word);
-  removeLearnedWord(word);
+  setAsIgnored(word);
+  removeLearnedWords(word);
 }
-
-getLocalLearnedWords();
 </script>
 
 <style scoped>
