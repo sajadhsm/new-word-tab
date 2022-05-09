@@ -7,6 +7,7 @@
     v-model="isModalOpen"
     title="Import file"
     subtitle="Easily expand ignored words by importing a file containing a list of words"
+    @close="handleCleanUp"
   >
     <div class="description">
       <b>Constraints:</b>
@@ -28,20 +29,25 @@
 
     <FileSelector accept="text/plain" @file="handleFile" />
 
-    <div v-if="importedWords.length" class="footer">
-      <p class="success-msg">
-        <i-ic-round-check-circle />
-        <span>
+    <div v-if="isFileSelected" class="footer">
+      <template v-if="importedWords.length">
+        <p class="footer-msg">
+          <i-ic-round-check-circle />
           Found <b>{{ importedWords.length }}</b> word{{
             importedWords.length > 1 ? 's' : ''
           }}
-        </span>
-      </p>
+        </p>
 
-      <div class="actions">
-        <button class="btn" @click="handleCancel">Cancel</button>
-        <button class="btn btn--primary" @click="handleImport">Import</button>
-      </div>
+        <div class="actions">
+          <button class="btn" @click="handleClose">Cancel</button>
+          <button class="btn btn--primary" @click="handleImport">Import</button>
+        </div>
+      </template>
+      <template v-else>
+        <p class="footer-msg">
+          <i-ic-round-error /> No word found! Select another file.
+        </p>
+      </template>
     </div>
   </Modal>
 </template>
@@ -63,6 +69,7 @@ const emit = defineEmits<{
 const { getIntersection } = useWordLists();
 
 const isModalOpen = ref(false);
+const isFileSelected = ref(false);
 const importedWords = ref<string[]>([]);
 
 async function handleFile(file: File) {
@@ -71,16 +78,21 @@ async function handleFile(file: File) {
   const intersect = getIntersection(words);
 
   importedWords.value = intersect;
+  isFileSelected.value = true;
 }
 
 function handleImport() {
   emit('import', importedWords.value);
-  handleCancel();
+  handleClose();
 }
 
-function handleCancel() {
-  importedWords.value = [];
+function handleClose() {
   isModalOpen.value = false;
+}
+
+function handleCleanUp() {
+  importedWords.value = [];
+  isFileSelected.value = false;
 }
 </script>
 
@@ -155,7 +167,7 @@ ul li {
   background-color: hsla(var(--color-raw), 0.9);
 }
 
-.success-msg {
+.footer-msg {
   display: flex;
   align-items: center;
   gap: 6px;

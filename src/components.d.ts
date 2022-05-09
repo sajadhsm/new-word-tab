@@ -15,6 +15,7 @@ declare module '@vue/runtime-core' {
     IIcRoundCheckCircleOutline: typeof import('~icons/ic/round-check-circle-outline')['default']
     IIcRoundClose: typeof import('~icons/ic/round-close')['default']
     IIcRoundDarkMode: typeof import('~icons/ic/round-dark-mode')['default']
+    IIcRoundError: typeof import('~icons/ic/round-error')['default']
     IIcRoundGTranslate: typeof import('~icons/ic/round-g-translate')['default']
     IIcRoundHistory: typeof import('~icons/ic/round-history')['default']
     IIcRoundInbox: typeof import('~icons/ic/round-inbox')['default']
