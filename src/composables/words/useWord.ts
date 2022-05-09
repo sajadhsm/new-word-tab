@@ -13,17 +13,12 @@ const word = ref('');
 export default function useWord() {
   const { wordsPoll } = useWordLists();
 
-  const {
-    ignoredWords,
-    ignoredWordsDict,
-    isWordIgnored,
-    getLocalIgnoredWords,
-  } = useIgnoredWords();
+  const { ignoredWords, isIgnoredWord, reloadIgnoredWords } = useIgnoredWords();
 
   const { addWordToHistory } = wordsHistory();
 
   const unIgnoredWords = computed(() =>
-    wordsPoll.value.filter((word) => !ignoredWordsDict.value[word])
+    wordsPoll.value.filter((word) => !isIgnoredWord(word))
   );
 
   const { getRandomWord } = useRandomWord(unIgnoredWords);
@@ -36,10 +31,10 @@ export default function useWord() {
   );
 
   async function getWord() {
-    getLocalIgnoredWords();
+    reloadIgnoredWords();
     const randomWord = getRandomWord().value;
 
-    if (!isWordIgnored(randomWord)) {
+    if (!isIgnoredWord(randomWord)) {
       await searchWord(randomWord);
       return;
     }

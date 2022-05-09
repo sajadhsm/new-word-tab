@@ -43,11 +43,11 @@ const props = defineProps<{
 
 const emit = defineEmits(['retry']);
 
-const { setWordAsIgnored } = useIgnoredWords();
+const { setAsIgnored } = useIgnoredWords();
 const { targetLanguage } = useGoogleTranslate();
 
 const handleIgnoreWord = () => {
-  setWordAsIgnored(props.word);
+  setAsIgnored(props.word);
   emit('retry');
 };
 
