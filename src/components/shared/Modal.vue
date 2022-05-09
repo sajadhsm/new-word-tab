@@ -37,7 +37,10 @@ const props = withDefaults(defineProps<Props>(), {
   maxWidth: '500px',
 });
 
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits<{
+  (e: 'update:modelValue', value: boolean): void;
+  (e: 'close'): void;
+}>();
 
 function handleCloseOnOverlay() {
   if (props.closeOnOverlay) {
@@ -47,6 +50,7 @@ function handleCloseOnOverlay() {
 
 function handleClose() {
   emit('update:modelValue', false);
+  emit('close');
 }
 </script>
 
