@@ -2,7 +2,6 @@
   <Section
     title="Ignored words"
     description="Ignored words don't show up in new tabs. You can remove them from the list, so they will reappear in a new tab."
-    column
   >
     <WordList :list="ignoredWords" max-height="250px" dense border>
       <template #top-action>

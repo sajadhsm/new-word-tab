@@ -10,7 +10,7 @@
     />
 
     <label for="file">
-      {{ fileName ? fileName : 'Select a file' }}
+      {{ fileName ? fileName : label }}
     </label>
   </div>
 </template>
@@ -18,9 +18,12 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 
-defineProps<{
+interface Props {
   accept: string;
-}>();
+  label?: string;
+}
+
+withDefaults(defineProps<Props>(), { label: 'Select a file' });
 
 const emit = defineEmits<{
   (e: 'file', file: File): void;
@@ -53,6 +56,7 @@ const handleFile = async () => {
 label {
   display: flex;
   justify-content: center;
+  text-align: center;
   padding: 10px;
   border-radius: 6px;
   font-size: 0.9rem;

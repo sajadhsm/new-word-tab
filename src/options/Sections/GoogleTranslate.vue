@@ -3,12 +3,14 @@
     title="Google Translate"
     description="Change Google translate target language."
   >
-    <Select
-      v-model="selectedTargetLanguage"
-      title="Select target language"
-      :options="options"
-      @change="handleSaveGoogleTranslateLanguage"
-    />
+    <template #bar>
+      <Select
+        v-model="selectedTargetLanguage"
+        title="Select target language"
+        :options="options"
+        @change="handleSaveGoogleTranslateLanguage"
+      />
+    </template>
   </Section>
 </template>
 

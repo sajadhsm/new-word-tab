@@ -2,7 +2,6 @@
   <Section
     title="Vocabulary lists"
     description="Select the vocabulary lists that you would like to get a random word from."
-    column
   >
     <ul class="vocab-list">
       <li

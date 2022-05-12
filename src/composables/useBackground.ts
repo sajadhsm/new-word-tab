@@ -31,6 +31,7 @@ export default function useBackground({ initialize = false } = {}) {
   async function handleModeChange(newMode: BackgroundMode) {
     if (newMode === 'theme') {
       storage.remove(BACKGROUND_STORAGE_KEY);
+      setBodyBackgroundImage(null);
     }
   }
 
@@ -39,8 +40,8 @@ export default function useBackground({ initialize = false } = {}) {
     setBodyBackgroundImage(base64);
   }
 
-  function setBodyBackgroundImage(imageURL: string) {
-    document.body.style.backgroundImage = `url(${imageURL})`;
+  function setBodyBackgroundImage(imageURL: string | null) {
+    document.body.style.backgroundImage = imageURL ? `url(${imageURL})` : '';
   }
 
   return {
