@@ -1,14 +1,16 @@
 <template>
   <Section title="Background" description="Customize page background">
-    <div>
+    <template #bar>
       <Select v-model="mode" :options="options" />
+    </template>
 
-      <FileSelector
-        v-if="mode === 'file'"
-        accept="image/*"
-        @file="handleFileSelect"
-      />
-    </div>
+    <FileSelector
+      v-if="mode === 'file'"
+      class="file"
+      label="Select an image to set as background"
+      accept="image/*"
+      @file="handleFileSelect"
+    />
   </Section>
 </template>
 
@@ -39,3 +41,9 @@ const handleFileSelect = async (f: File) => {
   saveImageBase64(base64);
 };
 </script>
+
+<style scoped>
+.file {
+  margin-top: 10px;
+}
+</style>

@@ -3,10 +3,12 @@
     title="Site shortcuts"
     description="Control the visibility of shortcuts sidebar."
   >
-    <label class="switch">
-      <input v-model="isActive" type="checkbox" />
-      <span class="slider round" />
-    </label>
+    <template #bar>
+      <label class="switch">
+        <input v-model="isActive" type="checkbox" />
+        <span class="slider round" />
+      </label>
+    </template>
   </Section>
 </template>
 
