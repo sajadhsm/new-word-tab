@@ -35,8 +35,13 @@ html {
 }
 
 body {
-  background-color: var(--bg-color);
   color: var(--color);
+  background-color: var(--bg-color);
+  /* if background-image is set */
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
 }
 /* Chrome */
 body::-webkit-scrollbar {

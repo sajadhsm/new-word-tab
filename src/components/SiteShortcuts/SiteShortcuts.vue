@@ -1,5 +1,6 @@
 <template>
   <aside
+    :class="backgroundClass"
     class="shortcuts tiny-scrollbar"
     @scroll="hideShortcutContextMenuOnScroll"
   >
@@ -22,8 +23,8 @@
   </Modal>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script lang="ts" setup>
+import { computed } from 'vue';
 
 import Modal from '@/components/shared/Modal.vue';
 import Shortcuts from './Shortcuts.vue';
@@ -35,36 +36,21 @@ import {
   selectedShortcut,
 } from '@/composables/shortcuts/useShortcutContextMenu';
 import useShortcutModal from '@/composables/shortcuts/useShortcutModal';
+import useBackground from '@/composables/useBackground';
 
-export default defineComponent({
-  name: 'SiteShortcuts',
+const { isModalVisible, openModal, closeModal } = useShortcutModal();
 
-  components: {
-    Modal,
-    Shortcuts,
-    AddShortcutForm,
-    ShortcutContextMenu,
-  },
+const { shouldModifyUI } = useBackground();
 
-  setup() {
-    const { isModalVisible, openModal, closeModal } = useShortcutModal();
+const backgroundClass = computed(() => ({
+  'shortcuts--filled': shouldModifyUI.value,
+}));
 
-    function hideShortcutContextMenuOnScroll() {
-      if (isVisible.value) {
-        isVisible.value = false;
-      }
-    }
-
-    return {
-      hideShortcutContextMenuOnScroll,
-
-      selectedShortcut,
-      isModalVisible,
-      closeModal,
-      openModal,
-    };
-  },
-});
+function hideShortcutContextMenuOnScroll() {
+  if (isVisible.value) {
+    isVisible.value = false;
+  }
+}
 </script>
 
 <style>
@@ -73,11 +59,17 @@ export default defineComponent({
   height: 100%;
   padding: 10px 5px;
   background-color: hsla(var(--color-raw), 0.1);
+  backdrop-filter: blur(5px);
   display: flex;
   flex-direction: column;
   align-items: center;
   /* firefox */
   overflow-x: hidden;
+}
+
+.shortcuts--filled {
+  background-color: hsla(var(--bg-color-raw), 0.8);
+  backdrop-filter: blur(5px);
 }
 
 .shortcut,

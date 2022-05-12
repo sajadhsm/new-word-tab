@@ -3,6 +3,7 @@
     <Header />
     <GoogleTranslate />
     <SiteShortcuts />
+    <Background />
     <VocabularyLists />
     <IgnoredWords />
   </div>
@@ -12,6 +13,7 @@
 import GoogleTranslate from './Sections/GoogleTranslate.vue';
 import VocabularyLists from './Sections/VocabularyLists.vue';
 import SiteShortcuts from './Sections/SiteShortcuts.vue';
+import Background from './Sections/Background.vue';
 import IgnoredWords from './Sections/IgnoredWords';
 import Header from './Sections/Header.vue';
 </script>
@@ -30,8 +32,12 @@ html {
 }
 
 .options {
-  max-width: 700px;
+  max-width: 725px;
   margin: 0 auto;
-  padding: 0 10px;
+  padding: 0 25px;
+
+  background-color: hsla(var(--bg-color-raw), 0.9);
+  backdrop-filter: blur(5px);
+  min-height: 100vh;
 }
 </style>

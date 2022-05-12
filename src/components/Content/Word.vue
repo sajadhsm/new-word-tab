@@ -1,6 +1,6 @@
 <template>
   <div class="content">
-    <div class="title">
+    <div class="title" :class="backgroundClass">
       <div class="title__word-actions">
         <h1 class="word">{{ word }}</h1>
 
@@ -18,6 +18,7 @@
       <div
         v-for="(meaning, index) of definition.meanings"
         :key="index"
+        :class="backgroundClass"
         class="meaning"
       >
         <b class="meaning__pts">
@@ -39,6 +40,7 @@ import { computed } from 'vue';
 import Actions from './Actions.vue';
 import Phonetic from './Phonetic.vue';
 
+import useBackground from '@/composables/useBackground';
 import type { IWordDefinition } from '@/composables/words/useWordDefinitions';
 
 const props = defineProps<{
@@ -48,7 +50,11 @@ const props = defineProps<{
 
 defineEmits(['marked']);
 
+const { shouldModifyUI } = useBackground();
+
 const definition = computed(() => props.definitions?.[0]);
+
+const backgroundClass = computed(() => ({ boxed: shouldModifyUI.value }));
 </script>
 
 <style scoped>
@@ -110,5 +116,12 @@ const definition = computed(() => props.definitions?.[0]);
 .meaning__def::first-letter,
 .meaning__example::first-letter {
   text-transform: uppercase;
+}
+
+.boxed {
+  padding: 15px 20px;
+  border-radius: 10px;
+  background-color: hsla(var(--bg-color-raw), 0.9);
+  backdrop-filter: blur(5px);
 }
 </style>
