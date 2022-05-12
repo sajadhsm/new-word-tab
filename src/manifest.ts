@@ -31,13 +31,12 @@ export async function getManifest() {
       128: './assets/128.png',
     },
 
-    content_security_policy: "object-src 'self'; script-src 'self'",
+    content_security_policy: [
+      'img-src * data:',
+      "object-src 'self'",
+      `script-src 'self' ${isDev ? `http://localhost:${port}` : ''}`.trim(),
+    ].join(';'),
   };
-
-  if (isDev) {
-    // This is required on dev for Vite script to load
-    manifest.content_security_policy += ` http://localhost:${port}`;
-  }
 
   return manifest;
 }

@@ -22,6 +22,9 @@ import WordsHistory from '@/components/WordsHistory';
 import SiteShortcuts from '@/components/SiteShortcuts';
 
 import { isActive } from '@/composables/shortcuts/useShortcuts';
+import useBackground from '@/composables/useBackground';
+
+useBackground({ initialize: true });
 </script>
 
 <style scoped>
