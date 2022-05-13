@@ -17,8 +17,8 @@ import { ref } from 'vue';
 
 import useWord from '@/composables/words/useWord';
 
-import IconButton from '../shared/IconButton.vue';
-import Drawer from '../shared/Drawer.vue';
+import IconButton from '@/components/shared/IconButton.vue';
+import Drawer from '@/components/shared/Drawer.vue';
 import Tabs from './Tabs.vue';
 
 const { searchWord } = useWord();
@@ -32,11 +32,3 @@ const handleShowDefinition = (word: string) => {
 
 const closeDrawer = () => (isDrawerOpen.value = false);
 </script>
-
-<style scoped>
-.marked-words-btn {
-  position: fixed;
-  bottom: 1rem;
-  right: 1rem;
-}
-</style>

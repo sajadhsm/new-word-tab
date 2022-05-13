@@ -5,8 +5,7 @@
       <Content />
     </main>
 
-    <MarkedWords />
-    <WordsHistory />
+    <NavbarBottom />
 
     <div v-if="isActive" class="sidebar">
       <SiteShortcuts />
@@ -17,8 +16,7 @@
 <script setup lang="ts">
 import Navbar from '@/components/Navbar';
 import Content from '@/components/Content';
-import MarkedWords from '@/components/MarkedWords';
-import WordsHistory from '@/components/WordsHistory';
+import NavbarBottom from '@/components/NavbarBottom';
 import SiteShortcuts from '@/components/SiteShortcuts';
 
 import { isActive } from '@/composables/shortcuts/useShortcuts';

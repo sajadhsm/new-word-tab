@@ -53,7 +53,7 @@ const { isActive } = useShortcuts();
   height: 20px;
   width: 20px;
   left: 4px;
-  bottom: 4px;
+  bottom: 3px;
   background-color: var(--color);
   -webkit-transition: 0.4s;
   transition: 0.4s;

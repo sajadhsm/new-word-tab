@@ -1,5 +1,5 @@
 <template>
-  <div class="error">
+  <div class="error" :class="backgroundClass">
     <span class="icon">{{ emoji }}</span>
 
     <h2 class="error__title">
@@ -30,8 +30,11 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
+
 import useGoogleTranslate from '@/composables/useGoogleTranslate';
 import useIgnoredWords from '@/composables/words/useIgnoredWords';
+import useBackground from '@/composables/useBackground';
 
 import { randomNumberBetween } from '@/utils/number';
 
@@ -42,6 +45,12 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits(['retry']);
+
+const { shouldModifyUI } = useBackground();
+
+const backgroundClass = computed(() => ({
+  'error--boxed': shouldModifyUI.value,
+}));
 
 const { setAsIgnored } = useIgnoredWords();
 const { targetLanguage } = useGoogleTranslate();
@@ -65,6 +74,14 @@ const emoji = EMOJIS[randomEmojiIndex];
   padding: 0 15px;
   text-align: center;
   font-size: 1rem;
+}
+
+.error--boxed {
+  background-color: hsla(var(--bg-color-raw), 0.9);
+  backdrop-filter: blur(5px);
+  border-radius: 10px;
+  padding: 40px 5px;
+  max-width: 650px;
 }
 
 .icon {

@@ -12,6 +12,12 @@
   transform: translate(-50%, -50%);
   font-size: 2.5rem;
   animation: defer-blink ease-in 1s;
+
+  display: inline-flex;
+  background-color: hsla(var(--bg-color-raw), 0.75);
+  backdrop-filter: blur(5px);
+  border-radius: 100%;
+  padding: 5px;
 }
 
 @keyframes defer-blink {
