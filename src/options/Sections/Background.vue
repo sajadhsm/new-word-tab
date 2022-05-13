@@ -18,8 +18,9 @@
       <FileSelector
         id="bg-file"
         label="Select a local file"
-        max-width="150px"
         accept="image/*"
+        :max-size="2100000"
+        max-width="150px"
         @file="handleFileSelect"
       />
     </div>
