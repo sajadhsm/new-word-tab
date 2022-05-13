@@ -9,6 +9,8 @@ const BACKGROUND_STORAGE_KEY = 'bg';
 const mode = ref<BackgroundMode>('theme');
 
 export default function useBackground({ initialize = false } = {}) {
+  const url = ref('');
+
   if (initialize) init();
 
   function init() {
@@ -22,6 +24,9 @@ export default function useBackground({ initialize = false } = {}) {
       if (type === 'file') {
         mode.value = 'file';
         setBodyBackgroundImage(value);
+
+        const isBase64 = value.startsWith('data:');
+        if (!isBase64) url.value = value;
       }
     }
   }
@@ -32,12 +37,16 @@ export default function useBackground({ initialize = false } = {}) {
     if (newMode === 'theme') {
       storage.remove(BACKGROUND_STORAGE_KEY);
       setBodyBackgroundImage(null);
+      url.value = '';
     }
   }
 
-  function saveImageBase64(base64: string) {
-    storage.set(BACKGROUND_STORAGE_KEY, `file|${base64}`);
-    setBodyBackgroundImage(base64);
+  function saveImageDataURL(imageDataURL: string) {
+    storage.set(BACKGROUND_STORAGE_KEY, `file|${imageDataURL}`);
+    setBodyBackgroundImage(imageDataURL);
+
+    const isBase64 = imageDataURL.startsWith('data:');
+    if (isBase64) url.value = '';
   }
 
   function setBodyBackgroundImage(imageURL: string | null) {
@@ -46,7 +55,8 @@ export default function useBackground({ initialize = false } = {}) {
 
   return {
     shouldModifyUI: computed(() => mode.value === 'file'),
-    saveImageBase64,
+    saveImageDataURL,
     mode,
+    url,
   };
 }

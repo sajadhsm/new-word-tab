@@ -4,13 +4,23 @@
       <Select v-model="mode" :options="options" />
     </template>
 
-    <FileSelector
-      v-if="mode === 'file'"
-      class="file"
-      label="Select an image to set as background"
-      accept="image/*"
-      @file="handleFileSelect"
-    />
+    <div v-if="mode === 'file'" class="actions">
+      <input
+        v-model="url"
+        class="url"
+        type="url"
+        placeholder="Enter an image URL"
+        @change="handleURLChange"
+      />
+
+      <span>or</span>
+
+      <FileSelector
+        label="Select a local file"
+        accept="image/*"
+        @file="handleFileSelect"
+      />
+    </div>
   </Section>
 </template>
 
@@ -23,7 +33,7 @@ import Select from '@/options/components/Select.vue';
 import FileSelector from '@/components/shared/FileSelector.vue';
 import useBackground from '@/composables/useBackground';
 
-const { mode, saveImageBase64 } = useBackground({ initialize: true });
+const { url, mode, saveImageDataURL } = useBackground({ initialize: true });
 
 const options = [
   {
@@ -36,14 +46,40 @@ const options = [
   },
 ];
 
-const handleFileSelect = async (f: File) => {
-  const base64 = (await readFile(f, 'dataURL')) as string;
-  saveImageBase64(base64);
+const handleFileSelect = async (file: File) => {
+  const base64 = (await readFile(file, 'dataURL')) as string;
+  saveImageDataURL(base64);
 };
+
+const handleURLChange = () => saveImageDataURL(url.value);
 </script>
 
 <style scoped>
-.file {
+.actions {
   margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.url {
+  flex-grow: 1;
+  background-color: hsla(var(--color-raw), 0.15);
+  color: var(--color);
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  outline: none;
+  transition: background-color ease-in-out 0.13s;
+}
+.url:hover,
+.url:focus {
+  background-color: hsla(var(--color-raw), 0.25);
+}
+.url::placeholder {
+  color: hsla(var(--color-raw), 0.6);
 }
 </style>
