@@ -27,7 +27,7 @@
       </ul>
     </div>
 
-    <FileSelector accept="text/plain" @file="handleFile" />
+    <FileSelector id="ignore-file" accept="text/plain" @file="handleFile" />
 
     <div v-if="isFileSelected" class="footer">
       <template v-if="importedWords.length">

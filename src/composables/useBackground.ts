@@ -2,11 +2,14 @@ import { computed, ref, watch } from 'vue';
 
 import storage from '@/modules/localStorage';
 
-type BackgroundMode = 'theme' | 'file';
+export enum BackgroundMode {
+  NO_BG = 'NO_BG',
+  IMAGE = 'IMAGE',
+}
 
 const BACKGROUND_STORAGE_KEY = 'bg';
 
-const mode = ref<BackgroundMode>('theme');
+const mode = ref<BackgroundMode>(BackgroundMode.NO_BG);
 
 export default function useBackground({ initialize = false } = {}) {
   const url = ref('');
@@ -17,12 +20,12 @@ export default function useBackground({ initialize = false } = {}) {
     const storedValue = storage.get(BACKGROUND_STORAGE_KEY);
 
     if (!storedValue) {
-      mode.value = 'theme';
+      mode.value = BackgroundMode.NO_BG;
     } else {
       const [type, value] = storedValue.split('|');
 
-      if (type === 'file') {
-        mode.value = 'file';
+      if (type === BackgroundMode.IMAGE) {
+        mode.value = BackgroundMode.IMAGE;
         setBodyBackgroundImage(value);
 
         const isBase64 = value.startsWith('data:');
@@ -34,7 +37,7 @@ export default function useBackground({ initialize = false } = {}) {
   watch(mode, handleModeChange);
 
   async function handleModeChange(newMode: BackgroundMode) {
-    if (newMode === 'theme') {
+    if (newMode === BackgroundMode.NO_BG) {
       storage.remove(BACKGROUND_STORAGE_KEY);
       setBodyBackgroundImage(null);
       url.value = '';
@@ -42,7 +45,10 @@ export default function useBackground({ initialize = false } = {}) {
   }
 
   function saveImageDataURL(imageDataURL: string) {
-    storage.set(BACKGROUND_STORAGE_KEY, `file|${imageDataURL}`);
+    storage.set(
+      BACKGROUND_STORAGE_KEY,
+      `${BackgroundMode.IMAGE}|${imageDataURL}`
+    );
     setBodyBackgroundImage(imageDataURL);
 
     const isBase64 = imageDataURL.startsWith('data:');
@@ -50,11 +56,22 @@ export default function useBackground({ initialize = false } = {}) {
   }
 
   function setBodyBackgroundImage(imageURL: string | null) {
-    document.body.style.backgroundImage = imageURL ? `url(${imageURL})` : '';
+    const BACKGROUND_STYLE_TAG_ID = 'bdy-bg-img';
+    let styleTag = document.getElementById(BACKGROUND_STYLE_TAG_ID);
+
+    if (!styleTag) {
+      styleTag = document.createElement('style');
+      styleTag.id = BACKGROUND_STYLE_TAG_ID;
+      document.head.appendChild(styleTag);
+    }
+
+    styleTag.innerText = imageURL
+      ? `body { background-image: url(${imageURL}); }`
+      : '';
   }
 
   return {
-    shouldModifyUI: computed(() => mode.value === 'file'),
+    shouldModifyUI: computed(() => mode.value === BackgroundMode.IMAGE),
     saveImageDataURL,
     mode,
     url,
