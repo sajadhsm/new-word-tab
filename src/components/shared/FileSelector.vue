@@ -1,7 +1,7 @@
 <template>
   <div class="file-input">
     <input
-      id="file"
+      :id="id"
       ref="input"
       class="input"
       type="file"
@@ -9,7 +9,7 @@
       @change="handleFile"
     />
 
-    <label for="file">
+    <label :for="id" :style="{ maxWidth }">
       {{ fileName ? fileName : label }}
     </label>
   </div>
@@ -19,11 +19,16 @@
 import { ref } from 'vue';
 
 interface Props {
+  id: string;
   accept: string;
   label?: string;
+  maxWidth?: string;
 }
 
-withDefaults(defineProps<Props>(), { label: 'Select a file' });
+withDefaults(defineProps<Props>(), {
+  label: 'Select a file',
+  maxWidth: undefined,
+});
 
 const emit = defineEmits<{
   (e: 'file', file: File): void;
@@ -54,8 +59,7 @@ const handleFile = async () => {
 }
 
 label {
-  display: flex;
-  justify-content: center;
+  display: block;
   text-align: center;
   padding: 10px;
   border-radius: 6px;
@@ -65,6 +69,9 @@ label {
   background: hsla(var(--color-raw), 0.15);
   cursor: pointer;
   transition: background-color ease-in-out 0.13s;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .input:hover + label,
