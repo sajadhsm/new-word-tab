@@ -1,22 +1,24 @@
 <template>
-  <transition name="fade">
-    <div v-if="modelValue" class="overlay" @click.self="handleCloseOnOverlay">
-      <div class="modal" :style="{ maxWidth }">
-        <div class="modal__header">
-          <div>
-            <h3 v-if="title" class="title">{{ title }}</h3>
-            <small v-if="subtitle" class="subtitle">{{ subtitle }}</small>
+  <Teleport to="body">
+    <transition name="fade">
+      <div v-if="modelValue" class="overlay" @click.self="handleCloseOnOverlay">
+        <div class="modal" :style="{ maxWidth }">
+          <div class="modal__header">
+            <div>
+              <h3 v-if="title" class="title">{{ title }}</h3>
+              <small v-if="subtitle" class="subtitle">{{ subtitle }}</small>
+            </div>
+
+            <button v-if="showClose" class="close-btn" @click="handleClose">
+              <i-ic-round-close />
+            </button>
           </div>
 
-          <button v-if="showClose" class="close-btn" @click="handleClose">
-            <i-ic-round-close />
-          </button>
+          <slot />
         </div>
-
-        <slot />
       </div>
-    </div>
-  </transition>
+    </transition>
+  </Teleport>
 </template>
 
 <script setup lang="ts">

@@ -27,6 +27,7 @@ const backgroundClass = computed(() => ({
   position: fixed;
   right: 1rem;
   top: 1rem;
+  z-index: 2;
   display: flex;
   align-items: center;
 }

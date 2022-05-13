@@ -39,11 +39,3 @@ const handleShowDefinition = (word: string) => {
   isModalOpen.value = false;
 };
 </script>
-
-<style scoped>
-.open-btn {
-  position: fixed;
-  bottom: 3.5rem;
-  right: 1rem;
-}
-</style>

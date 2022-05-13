@@ -1,25 +1,27 @@
 <template>
-  <transition name="fade" @after-enter="handleShowDrawer">
-    <div v-if="isOpen" class="overlay" @click.self="handleCloseDrawer">
-      <transition name="slide" @after-leave="$emit('close')">
-        <div v-show="isShowingDrawer" class="drawer">
-          <div class="drawer__header">
-            <h4 class="drawer__title">{{ title }}</h4>
+  <Teleport to="body">
+    <transition name="fade" @after-enter="handleShowDrawer">
+      <div v-if="isOpen" class="overlay" @click.self="handleCloseDrawer">
+        <transition name="slide" @after-leave="$emit('close')">
+          <div v-show="isShowingDrawer" class="drawer">
+            <div class="drawer__header">
+              <h4 class="drawer__title">{{ title }}</h4>
 
-            <button
-              class="btn drawer__close"
-              title="Close"
-              @click="handleCloseDrawer"
-            >
-              <i-ic-round-close />
-            </button>
+              <button
+                class="btn drawer__close"
+                title="Close"
+                @click="handleCloseDrawer"
+              >
+                <i-ic-round-close />
+              </button>
+            </div>
+
+            <slot />
           </div>
-
-          <slot />
-        </div>
-      </transition>
-    </div>
-  </transition>
+        </transition>
+      </div>
+    </transition>
+  </Teleport>
 </template>
 
 <script setup lang="ts">
@@ -44,6 +46,8 @@ function handleCloseDrawer() {
 <style scoped>
 .overlay {
   position: fixed;
+  top: 0;
+  right: 0;
   height: 100%;
   width: 100%;
   background: rgba(0, 0, 0, 0.75);

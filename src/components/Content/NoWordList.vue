@@ -1,5 +1,5 @@
 <template>
-  <div class="no-word-list">
+  <div class="no-word-list" :class="backgroundClass">
     <span class="no-word-list__emoji">😐</span>
     <h1 class="no-word-list__title">There's nothing to show!</h1>
     <p class="no-word-list__subtitle">
@@ -11,7 +11,17 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
+
 import { openOptionsPage } from '@/utils/browser';
+
+import useBackground from '@/composables/useBackground';
+
+const { shouldModifyUI } = useBackground();
+
+const backgroundClass = computed(() => ({
+  'no-word-list--boxed': shouldModifyUI.value,
+}));
 </script>
 
 <style scoped>
@@ -26,18 +36,26 @@ import { openOptionsPage } from '@/utils/browser';
   font-size: 1rem;
 }
 
+.no-word-list--boxed {
+  background-color: hsla(var(--bg-color-raw), 0.9);
+  backdrop-filter: blur(5px);
+  border-radius: 10px;
+  padding: 40px 5px;
+  max-width: 650px;
+}
+
 .no-word-list__emoji {
-  font-size: 5rem;
+  font-size: 3rem;
 }
 
 .no-word-list__title {
-  margin: 10px 0;
-  font-size: 2rem;
+  margin: 20px 0 10px;
+  font-size: 1.25rem;
 }
 
 .no-word-list__subtitle {
   margin: 0;
-  font-size: 1.25rem;
+  font-size: 1rem;
 }
 
 .options-page-link {
