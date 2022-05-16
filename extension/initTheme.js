@@ -2,7 +2,7 @@
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   window.__onThemeChange = function () {};
 
-  function setTheme(newTheme: 'dark' | 'light') {
+  function setTheme(newTheme) {
     window.__theme = newTheme;
     preferredTheme = newTheme;
     document.body.className = newTheme;
@@ -11,7 +11,7 @@
 
   let preferredTheme;
   try {
-    preferredTheme = localStorage.getItem('theme') as 'dark' | 'light';
+    preferredTheme = localStorage.getItem('theme');
     // eslint-disable-next-line no-empty
   } catch (e) {}
 
