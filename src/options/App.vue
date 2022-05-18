@@ -4,6 +4,7 @@
     <GoogleTranslate />
     <SiteShortcuts />
     <Background />
+    <Theme />
     <VocabularyLists />
     <IgnoredWords />
   </div>
@@ -16,6 +17,7 @@ import SiteShortcuts from './Sections/SiteShortcuts.vue';
 import Background from './Sections/Background.vue';
 import IgnoredWords from './Sections/IgnoredWords';
 import Header from './Sections/Header.vue';
+import Theme from './Sections/Theme.vue';
 </script>
 
 <style>
