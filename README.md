@@ -24,15 +24,16 @@
   - Oxford
   - SAT
   - TOEFL
+- 📜 History of last displayed words to prevent missing a word by accidentally closing a tab
 - 🌐 Create shortcuts for your favorite sites so you can easily access them on the same tab
 - 🌙 Switch between Light & Dark themes that best suit your desktop
-- 📜 History of last displayed words to prevent missing a word by accidentally closing a tab
+- 🖼 Customize the tabs' background image
 
 ## Contribution
 
-You can find the project road map [here](https://github.com/sajadhsm/new-word-tab/projects/1).
+You can find the project roadmap [here](https://github.com/sajadhsm/new-word-tab/projects/1).
 
-Feel free to suggest new ideas & report bugs. Pull requests are welcome.
+Feel free to [suggest new ideas](https://github.com/sajadhsm/new-word-tab/discussions/categories/ideas) & [report bugs](https://github.com/sajadhsm/new-word-tab/issues). Pull requests are welcome.
 
 ### Special thanks to
 
