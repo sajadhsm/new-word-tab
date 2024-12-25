@@ -1,3 +1,18 @@
+<script setup lang="ts">
+import useBackground from '@/composables/useBackground'
+
+import { computed } from 'vue'
+import Options from './Options.vue'
+import Search from './Search.vue'
+import ThemeSwitch from './ThemeSwitch.vue'
+
+const { shouldModifyUI } = useBackground()
+
+const backgroundClass = computed(() => ({
+  'navbar--boxed': shouldModifyUI.value,
+}))
+</script>
+
 <template>
   <div class="navbar" :class="backgroundClass">
     <Search />
@@ -5,22 +20,6 @@
     <Options class="btn-gap" />
   </div>
 </template>
-
-<script setup lang="ts">
-import { computed } from 'vue';
-
-import useBackground from '@/composables/useBackground';
-
-import ThemeSwitch from './ThemeSwitch.vue';
-import Options from './Options.vue';
-import Search from './Search.vue';
-
-const { shouldModifyUI } = useBackground();
-
-const backgroundClass = computed(() => ({
-  'navbar--boxed': shouldModifyUI.value,
-}));
-</script>
 
 <style scoped>
 .navbar {

@@ -570,4 +570,4 @@ export default [
   'zealot',
   'zealous',
   'zenith',
-];
+]

@@ -1,15 +1,15 @@
-import { ref } from 'vue';
+import { ref } from 'vue'
 
 export default function useOnline() {
-  const isOnline = ref(navigator.onLine);
+  const isOnline = ref(navigator.onLine)
 
   window.addEventListener('offline', () => {
-    isOnline.value = false;
-  });
+    isOnline.value = false
+  })
 
   window.addEventListener('online', () => {
-    isOnline.value = true;
-  });
+    isOnline.value = true
+  })
 
-  return { isOnline };
+  return { isOnline }
 }

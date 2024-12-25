@@ -1,24 +1,24 @@
+<script lang="ts" setup>
+import useBackground from '@/composables/useBackground'
+
+import { computed } from 'vue'
+import MarkedWords from './MarkedWords'
+
+import WordsHistory from './WordsHistory'
+
+const { shouldModifyUI } = useBackground()
+
+const backgroundClass = computed(() => ({
+  'navbar--boxed': shouldModifyUI.value,
+}))
+</script>
+
 <template>
   <nav class="navbar" :class="backgroundClass">
     <WordsHistory />
     <MarkedWords />
   </nav>
 </template>
-
-<script lang="ts" setup>
-import { computed } from 'vue';
-
-import MarkedWords from './MarkedWords';
-import WordsHistory from './WordsHistory';
-
-import useBackground from '@/composables/useBackground';
-
-const { shouldModifyUI } = useBackground();
-
-const backgroundClass = computed(() => ({
-  'navbar--boxed': shouldModifyUI.value,
-}));
-</script>
 
 <style scoped>
 .navbar {

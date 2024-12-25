@@ -12,4 +12,6 @@ dist
 dist-ssr
 extension/manifest.json
 node_modules
+src/components.d.ts
+.eslintcache
 pack

@@ -1,3 +1,47 @@
+<script lang="ts" setup>
+import FileSelector from '@/components/shared/FileSelector.vue'
+
+import Modal from '@/components/shared/Modal.vue'
+import useWordLists from '@/composables/words/useWordLists'
+import { readFile } from '@/utils/file'
+
+import { getWordsOfText } from '@/utils/string'
+import { ref } from 'vue'
+
+const emit = defineEmits<{
+  (e: 'import', words: string[]): void
+}>()
+
+const { getIntersection } = useWordLists()
+
+const isModalOpen = ref(false)
+const isFileSelected = ref(false)
+const importedWords = ref<string[]>([])
+
+async function handleFile(file: File) {
+  const content = (await readFile(file)) as string
+  const words = getWordsOfText(content, 30).map(w => w.toLowerCase())
+  const intersect = getIntersection(words)
+
+  importedWords.value = intersect
+  isFileSelected.value = true
+}
+
+function handleImport() {
+  emit('import', importedWords.value)
+  handleClose()
+}
+
+function handleClose() {
+  isModalOpen.value = false
+}
+
+function handleCleanUp() {
+  importedWords.value = []
+  isFileSelected.value = false
+}
+</script>
+
 <template>
   <button class="import-btn" @click="isModalOpen = true">
     <i-ic-round-upload-file /> Import file
@@ -39,8 +83,12 @@
         </p>
 
         <div class="actions">
-          <button class="btn" @click="handleClose">Cancel</button>
-          <button class="btn btn--primary" @click="handleImport">Import</button>
+          <button class="btn" @click="handleClose">
+            Cancel
+          </button>
+          <button class="btn btn--primary" @click="handleImport">
+            Import
+          </button>
         </div>
       </template>
       <template v-else>
@@ -51,50 +99,6 @@
     </div>
   </Modal>
 </template>
-
-<script lang="ts" setup>
-import { ref } from 'vue';
-
-import FileSelector from '@/components/shared/FileSelector.vue';
-import Modal from '@/components/shared/Modal.vue';
-import useWordLists from '@/composables/words/useWordLists';
-
-import { getWordsOfText } from '@/utils/string';
-import { readFile } from '@/utils/file';
-
-const emit = defineEmits<{
-  (e: 'import', words: string[]): void;
-}>();
-
-const { getIntersection } = useWordLists();
-
-const isModalOpen = ref(false);
-const isFileSelected = ref(false);
-const importedWords = ref<string[]>([]);
-
-async function handleFile(file: File) {
-  const content = (await readFile(file)) as string;
-  const words = getWordsOfText(content, 30).map((w) => w.toLowerCase());
-  const intersect = getIntersection(words);
-
-  importedWords.value = intersect;
-  isFileSelected.value = true;
-}
-
-function handleImport() {
-  emit('import', importedWords.value);
-  handleClose();
-}
-
-function handleClose() {
-  isModalOpen.value = false;
-}
-
-function handleCleanUp() {
-  importedWords.value = [];
-  isFileSelected.value = false;
-}
-</script>
 
 <style scoped>
 .import-btn {

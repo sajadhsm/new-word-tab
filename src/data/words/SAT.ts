@@ -5005,4 +5005,4 @@ export default [
   'zenith',
   'zephyr',
   'zodiac',
-];
+]

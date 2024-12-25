@@ -1,7 +1,23 @@
+<script setup lang="ts">
+import useBackground from '@/composables/useBackground'
+
+import { openOptionsPage } from '@/utils/browser'
+
+import { computed } from 'vue'
+
+const { shouldModifyUI } = useBackground()
+
+const backgroundClass = computed(() => ({
+  'no-word-list--boxed': shouldModifyUI.value,
+}))
+</script>
+
 <template>
   <div class="no-word-list" :class="backgroundClass">
     <span class="no-word-list__emoji">😐</span>
-    <h1 class="no-word-list__title">There's nothing to show!</h1>
+    <h1 class="no-word-list__title">
+      There's nothing to show!
+    </h1>
     <p class="no-word-list__subtitle">
       Please head to
       <a class="options-page-link" @click="openOptionsPage">options page</a> and
@@ -9,20 +25,6 @@
     </p>
   </div>
 </template>
-
-<script setup lang="ts">
-import { computed } from 'vue';
-
-import { openOptionsPage } from '@/utils/browser';
-
-import useBackground from '@/composables/useBackground';
-
-const { shouldModifyUI } = useBackground();
-
-const backgroundClass = computed(() => ({
-  'no-word-list--boxed': shouldModifyUI.value,
-}));
-</script>
 
 <style scoped>
 .no-word-list {

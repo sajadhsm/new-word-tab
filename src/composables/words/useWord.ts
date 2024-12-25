@@ -1,54 +1,54 @@
-import { ref, computed } from 'vue';
+import { capitalizeFirstLetter } from '@/utils/string'
 
-import { capitalizeFirstLetter } from '@/utils/string';
+import { computed, ref } from 'vue'
+import useIgnoredWords from './useIgnoredWords'
+import useRandomWord from './useRandomWord'
+import useWordDefinitions from './useWordDefinitions'
+import useWordLists from './useWordLists'
+import wordsHistory from './useWordsHistory'
 
-import useWordLists from './useWordLists';
-import useRandomWord from './useRandomWord';
-import wordsHistory from './useWordsHistory';
-import useIgnoredWords from './useIgnoredWords';
-import useWordDefinitions from './useWordDefinitions';
-
-const word = ref('');
+const word = ref('')
 
 export default function useWord() {
-  const { wordsPoll } = useWordLists();
+  const { wordsPoll } = useWordLists()
 
-  const { ignoredWords, isIgnoredWord, reloadIgnoredWords } = useIgnoredWords();
+  const { ignoredWords, isIgnoredWord, reloadIgnoredWords } = useIgnoredWords()
 
-  const { addWordToHistory } = wordsHistory();
+  const { addWordToHistory } = wordsHistory()
 
   const unIgnoredWords = computed(() =>
-    wordsPoll.value.filter((word) => !isIgnoredWord(word))
-  );
+    wordsPoll.value.filter(word => !isIgnoredWord(word)),
+  )
 
-  const { getRandomWord } = useRandomWord(unIgnoredWords);
+  const { getRandomWord } = useRandomWord(unIgnoredWords)
 
-  const { isLoading, definitions, error, getDefinitions } =
-    useWordDefinitions();
+  const { isLoading, definitions, error, getDefinitions }
+    = useWordDefinitions()
 
   const hasLearnedAllWords = computed(
-    () => wordsPoll.value.length <= ignoredWords.value.length
-  );
+    () => wordsPoll.value.length <= ignoredWords.value.length,
+  )
 
   async function getWord() {
-    reloadIgnoredWords();
+    reloadIgnoredWords()
 
-    const randomWord = getRandomWord().value;
-    if (!randomWord) return;
+    const randomWord = getRandomWord().value
+    if (!randomWord)
+      return
 
-    searchWord(randomWord);
+    searchWord(randomWord)
   }
 
   async function searchWord(searchedWord: string) {
-    const lowerCaseWord = searchedWord.toLowerCase();
-    await getDefinitions(lowerCaseWord);
-    handleUpdateWord(lowerCaseWord);
+    const lowerCaseWord = searchedWord.toLowerCase()
+    await getDefinitions(lowerCaseWord)
+    handleUpdateWord(lowerCaseWord)
   }
 
   function handleUpdateWord(value: string) {
-    word.value = value;
-    addWordToHistory(value);
-    document.title = `NWT • ${capitalizeFirstLetter(value)}`;
+    word.value = value
+    addWordToHistory(value)
+    document.title = `NWT • ${capitalizeFirstLetter(value)}`
   }
 
   return {
@@ -60,5 +60,5 @@ export default function useWord() {
     getWord,
     error,
     word,
-  };
+  }
 }

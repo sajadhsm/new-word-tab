@@ -1761,7 +1761,7 @@ export default [
   'numerous',
   'nurse',
   'nut',
-  "o'clock",
+  'o\'clock',
   'obey',
   'object',
   'objective',
@@ -2977,4 +2977,4 @@ export default [
   'youth',
   'zero',
   'zone',
-];
+]

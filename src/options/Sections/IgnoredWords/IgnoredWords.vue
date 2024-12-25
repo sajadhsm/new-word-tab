@@ -1,3 +1,17 @@
+<script setup lang="ts">
+import WordList, { ActionButton } from '@/components/shared/WordList'
+import useIgnoredWords from '@/composables/words/useIgnoredWords'
+
+import Section from '@/options/components/Section.vue'
+import ImportFile from './ImportFile.vue'
+
+const { ignoredWords, removeIgnoredWords, setAsIgnored } = useIgnoredWords()
+
+function handleImportFile(words: string[]) {
+  setAsIgnored(words)
+}
+</script>
+
 <template>
   <Section
     title="Ignored words"
@@ -26,20 +40,6 @@
     </WordList>
   </Section>
 </template>
-
-<script setup lang="ts">
-import useIgnoredWords from '@/composables/words/useIgnoredWords';
-
-import WordList, { ActionButton } from '@/components/shared/WordList';
-import Section from '@/options/components/Section.vue';
-import ImportFile from './ImportFile.vue';
-
-const { ignoredWords, removeIgnoredWords, setAsIgnored } = useIgnoredWords();
-
-function handleImportFile(words: string[]) {
-  setAsIgnored(words);
-}
-</script>
 
 <style scoped>
 .empty-state {

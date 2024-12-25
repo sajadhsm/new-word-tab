@@ -1,7 +1,9 @@
 <template>
   <div class="learned-all">
     <span class="learned-all__emoji">🎉</span>
-    <h1 class="learned-all__title">Hooray</h1>
+    <h1 class="learned-all__title">
+      Hooray
+    </h1>
     <p class="learned-all__subtitle">
       You've learned all of our words. Well done!
     </p>

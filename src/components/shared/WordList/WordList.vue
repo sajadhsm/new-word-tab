@@ -1,3 +1,35 @@
+<script lang="ts" setup>
+import useSort from '@/composables/useSort'
+
+import { computed, ref } from 'vue'
+
+const props = defineProps<{
+  list: string[]
+  dense?: boolean
+  border?: boolean
+  stretch?: boolean
+  pointer?: boolean
+  maxHeight?: string
+  noFilters?: boolean
+}>()
+
+defineEmits<{
+  (e: 'rowClick', word: string): void
+}>()
+
+const { sortStateMeta, setNextSortState } = useSort()
+
+const searchQuery = ref('')
+
+const filteredWords = computed(() =>
+  sortStateMeta.value.sortMethod(
+    props.list.filter(word =>
+      word.toLowerCase().includes(searchQuery.value.toLowerCase()),
+    ),
+  ),
+)
+</script>
+
 <template>
   <div>
     <div v-if="!noFilters" class="top">
@@ -17,7 +49,7 @@
           placeholder="Filter"
           class="search"
           :disabled="!list.length"
-        />
+        >
       </div>
 
       <slot name="top-action" />
@@ -26,14 +58,14 @@
     <slot v-if="!list.length" name="empty">
       <p class="state-message">
         <i-ic-round-inbox />
-        <br />
+        <br>
         There is nothing to show
       </p>
     </slot>
 
     <p v-else-if="!filteredWords.length" class="state-message">
       <i-ic-round-search-off />
-      <br />
+      <br>
       No word matched
     </p>
 
@@ -52,7 +84,7 @@
           cursor: pointer ? 'pointer' : 'default',
         }"
         class="row"
-        @click.self="$emit('row-click', word)"
+        @click.self="$emit('rowClick', word)"
       >
         {{ word }}
         <div class="actions">
@@ -62,38 +94,6 @@
     </ul>
   </div>
 </template>
-
-<script lang="ts" setup>
-import { ref, computed } from 'vue';
-
-import useSort from '@/composables/useSort';
-
-const props = defineProps<{
-  list: string[];
-  dense?: boolean;
-  border?: boolean;
-  stretch?: boolean;
-  pointer?: boolean;
-  maxHeight?: string;
-  noFilters?: boolean;
-}>();
-
-defineEmits<{
-  (e: 'row-click', word: string): void;
-}>();
-
-const { sortStateMeta, setNextSortState } = useSort();
-
-const searchQuery = ref('');
-
-const filteredWords = computed(() =>
-  sortStateMeta.value.sortMethod(
-    props.list.filter((word) =>
-      word.toLowerCase().includes(searchQuery.value.toLowerCase())
-    )
-  )
-);
-</script>
 
 <style scoped>
 .top,

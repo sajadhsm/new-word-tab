@@ -1,3 +1,48 @@
+<script setup lang="ts">
+import { watch } from 'vue'
+
+interface Props {
+  modelValue: boolean
+  title?: string
+  subtitle?: string
+  showClose?: boolean
+  closeOnOverlay?: boolean
+  maxWidth?: string
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  title: '',
+  subtitle: '',
+  showClose: true,
+  closeOnOverlay: true,
+  maxWidth: '500px',
+})
+
+const emit = defineEmits<{
+  (e: 'update:modelValue', value: boolean): void
+  (e: 'close'): void
+}>()
+
+watch(
+  () => props.modelValue,
+  (value) => {
+    if (!value) {
+      emit('close')
+    }
+  },
+)
+
+function handleCloseOnOverlay() {
+  if (props.closeOnOverlay) {
+    handleClose()
+  }
+}
+
+function handleClose() {
+  emit('update:modelValue', false)
+}
+</script>
+
 <template>
   <Teleport to="body">
     <transition name="fade">
@@ -5,7 +50,9 @@
         <div class="modal" :style="{ maxWidth }">
           <div class="modal__header">
             <div>
-              <h3 v-if="title" class="title">{{ title }}</h3>
+              <h3 v-if="title" class="title">
+                {{ title }}
+              </h3>
               <small v-if="subtitle" class="subtitle">{{ subtitle }}</small>
             </div>
 
@@ -20,51 +67,6 @@
     </transition>
   </Teleport>
 </template>
-
-<script setup lang="ts">
-import { watch } from 'vue';
-
-interface Props {
-  modelValue: boolean;
-  title?: string;
-  subtitle?: string;
-  showClose?: boolean;
-  closeOnOverlay?: boolean;
-  maxWidth?: string;
-}
-
-const props = withDefaults(defineProps<Props>(), {
-  title: '',
-  subtitle: '',
-  showClose: true,
-  closeOnOverlay: true,
-  maxWidth: '500px',
-});
-
-const emit = defineEmits<{
-  (e: 'update:modelValue', value: boolean): void;
-  (e: 'close'): void;
-}>();
-
-watch(
-  () => props.modelValue,
-  (value) => {
-    if (!value) {
-      emit('close');
-    }
-  }
-);
-
-function handleCloseOnOverlay() {
-  if (props.closeOnOverlay) {
-    handleClose();
-  }
-}
-
-function handleClose() {
-  emit('update:modelValue', false);
-}
-</script>
 
 <style scoped>
 .fade-enter-active,

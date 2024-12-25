@@ -1,1 +1,1 @@
-export { default } from './IgnoredWords.vue';
+export { default } from './IgnoredWords.vue'

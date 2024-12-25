@@ -1,1 +1,1 @@
-export { default } from './WordsInventory.vue';
+export { default } from './WordsInventory.vue'

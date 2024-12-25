@@ -1,10 +1,36 @@
+<script lang="ts" setup>
+import WordList, { ActionButton } from '@/components/shared/WordList'
+import useIgnoredWords from '@/composables/words/useIgnoredWords'
+import useLearnedWords from '@/composables/words/useLearnedWords'
+
+import useLearningWords from '@/composables/words/useLearningWords'
+
+defineEmits<{
+  (e: 'showDefinition', word: string): void
+}>()
+
+const { setAsIgnored } = useIgnoredWords()
+const { setAsLearned } = useLearnedWords()
+const { learningWords, removeLearningWords } = useLearningWords()
+
+function handleMarkAsLearned(word: string) {
+  setAsLearned(word)
+  removeLearningWords(word)
+}
+
+function handleMarkAsIgnored(word: string) {
+  setAsIgnored(word)
+  removeLearningWords(word)
+}
+</script>
+
 <template>
   <WordList
     :list="learningWords"
     max-height="calc(100vh - 165px)"
     stretch
     pointer
-    @row-click="$emit('show-definition', $event)"
+    @row-click="$emit('showDefinition', $event)"
   >
     <template #actions="{ word }">
       <ActionButton title="Mark as Learned" @click="handleMarkAsLearned(word)">
@@ -28,32 +54,6 @@
     </template>
   </WordList>
 </template>
-
-<script lang="ts" setup>
-import useLearnedWords from '@/composables/words/useLearnedWords';
-import useIgnoredWords from '@/composables/words/useIgnoredWords';
-import useLearningWords from '@/composables/words/useLearningWords';
-
-import WordList, { ActionButton } from '@/components/shared/WordList';
-
-defineEmits<{
-  (e: 'show-definition', word: string): void;
-}>();
-
-const { setAsIgnored } = useIgnoredWords();
-const { setAsLearned } = useLearnedWords();
-const { learningWords, removeLearningWords } = useLearningWords();
-
-function handleMarkAsLearned(word: string) {
-  setAsLearned(word);
-  removeLearningWords(word);
-}
-
-function handleMarkAsIgnored(word: string) {
-  setAsIgnored(word);
-  removeLearningWords(word);
-}
-</script>
 
 <style scoped>
 .empty-state {

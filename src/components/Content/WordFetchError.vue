@@ -1,3 +1,38 @@
+<script setup lang="ts">
+import useBackground from '@/composables/useBackground'
+
+import useGoogleTranslate from '@/composables/useGoogleTranslate'
+
+import useIgnoredWords from '@/composables/words/useIgnoredWords'
+import { randomNumberBetween } from '@/utils/number'
+import { computed } from 'vue'
+
+const props = defineProps<{
+  word: string
+}>()
+
+const emit = defineEmits(['retry'])
+
+const EMOJIS = ['🥺', '😔', '☹️']
+
+const { shouldModifyUI } = useBackground()
+
+const backgroundClass = computed(() => ({
+  'error--boxed': shouldModifyUI.value,
+}))
+
+const { setAsIgnored } = useIgnoredWords()
+const { targetLanguage } = useGoogleTranslate()
+
+function handleIgnoreWord() {
+  setAsIgnored(props.word)
+  emit('retry')
+}
+
+const randomEmojiIndex = randomNumberBetween(0, EMOJIS.length - 1)
+const emoji = EMOJIS[randomEmojiIndex]
+</script>
+
 <template>
   <div class="error" :class="backgroundClass">
     <span class="icon">{{ emoji }}</span>
@@ -6,7 +41,9 @@
       Ops! Couldn't find any definitions for <i class="word">"{{ word }}"</i>
     </h2>
 
-    <p class="error__subtitle">Well, what now? Use the actions below...!</p>
+    <p class="error__subtitle">
+      Well, what now? Use the actions below...!
+    </p>
 
     <div class="actions">
       <div class="actions__secondary">
@@ -28,41 +65,6 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import { computed } from 'vue';
-
-import useGoogleTranslate from '@/composables/useGoogleTranslate';
-import useIgnoredWords from '@/composables/words/useIgnoredWords';
-import useBackground from '@/composables/useBackground';
-
-import { randomNumberBetween } from '@/utils/number';
-
-const EMOJIS = ['🥺', '😔', '☹️'];
-
-const props = defineProps<{
-  word: string;
-}>();
-
-const emit = defineEmits(['retry']);
-
-const { shouldModifyUI } = useBackground();
-
-const backgroundClass = computed(() => ({
-  'error--boxed': shouldModifyUI.value,
-}));
-
-const { setAsIgnored } = useIgnoredWords();
-const { targetLanguage } = useGoogleTranslate();
-
-const handleIgnoreWord = () => {
-  setAsIgnored(props.word);
-  emit('retry');
-};
-
-const randomEmojiIndex = randomNumberBetween(0, EMOJIS.length - 1);
-const emoji = EMOJIS[randomEmojiIndex];
-</script>
 
 <style scoped>
 .error {

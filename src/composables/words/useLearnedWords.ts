@@ -1,13 +1,13 @@
-import { useStoredList } from './useStoredList';
+import { useStoredList } from './useStoredList'
 
-const LEARNED_WORDS_STORAGE_KEY = 'lw';
+const LEARNED_WORDS_STORAGE_KEY = 'lw'
 
 export default function useLearnedWords() {
   const { list, add, has, remove, load } = useStoredList(
-    LEARNED_WORDS_STORAGE_KEY
-  );
+    LEARNED_WORDS_STORAGE_KEY,
+  )
 
-  load();
+  load()
 
   return {
     removeLearnedWords: remove,
@@ -15,5 +15,5 @@ export default function useLearnedWords() {
     isLearnedWord: has,
     setAsLearned: add,
     learnedWords: list,
-  };
+  }
 }

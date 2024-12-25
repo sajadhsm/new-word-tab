@@ -1,3 +1,37 @@
+<script setup lang="ts">
+import type { WordList } from '@/data/words'
+
+import useWord from '@/composables/words/useWord'
+
+import wordLists from '@/data/words'
+import { ref } from 'vue'
+
+const emit = defineEmits(['check'])
+
+const { searchWord } = useWord()
+
+const openListName = ref<WordList | null>(null)
+const openList = ref<string[]>([])
+
+function handleOpenList(name: WordList | null) {
+  if (openListName.value === name) {
+    openListName.value = null
+    openList.value = []
+  }
+  else {
+    openListName.value = name
+    if (name) {
+      openList.value = wordLists[name].list
+    }
+  }
+}
+
+function handleCheckDefinition(word: string) {
+  searchWord(word)
+  emit('check')
+}
+</script>
+
 <template>
   <ul class="list tiny-scrollbar">
     <li
@@ -28,38 +62,6 @@
     </li>
   </ul>
 </template>
-
-<script setup lang="ts">
-import { ref } from 'vue';
-
-import useWord from '@/composables/words/useWord';
-
-import wordLists, { WordList } from '@/data/words';
-
-const emit = defineEmits(['check']);
-
-const { searchWord } = useWord();
-
-const openListName = ref<WordList | null>(null);
-const openList = ref<string[]>([]);
-
-function handleOpenList(name: WordList | null) {
-  if (openListName.value === name) {
-    openListName.value = null;
-    openList.value = [];
-  } else {
-    openListName.value = name;
-    if (name) {
-      openList.value = wordLists[name].list;
-    }
-  }
-}
-
-function handleCheckDefinition(word: string) {
-  searchWord(word);
-  emit('check');
-}
-</script>
 
 <style scoped>
 ul {

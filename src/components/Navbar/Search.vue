@@ -1,3 +1,33 @@
+<script setup lang="ts">
+import IconButton from '@/components/shared/IconButton.vue'
+import useWord from '@/composables/words/useWord'
+import { computed, ref, watch } from 'vue'
+
+const query = ref('')
+const lastQuery = ref('')
+const inputRef = ref<HTMLInputElement | null>(null)
+const isVisible = ref(false)
+const { searchWord } = useWord()
+
+const canSearch = computed(
+  () => query.value && query.value !== lastQuery.value,
+)
+
+function handleSearch() {
+  if (canSearch.value) {
+    lastQuery.value = query.value
+    searchWord(query.value)
+  }
+
+  if (!query.value) {
+    isVisible.value = false
+  }
+}
+
+// Auto focus on search input when it is visible
+watch(inputRef, el => el?.focus())
+</script>
+
 <template>
   <div class="search">
     <IconButton v-if="!isVisible" title="Search word" @click="isVisible = true">
@@ -11,43 +41,13 @@
         class="search__form__input"
         placeholder="Search word"
         type="search"
-      />
+      >
       <button type="submit" class="search__form__btn">
         <i-ic-round-search />
       </button>
     </form>
   </div>
 </template>
-
-<script setup lang="ts">
-import { ref, computed, watch } from 'vue';
-import IconButton from '@/components/shared/IconButton.vue';
-import useWord from '@/composables/words/useWord';
-
-const query = ref('');
-const lastQuery = ref('');
-const inputRef = ref<HTMLInputElement | null>(null);
-const isVisible = ref(false);
-const { searchWord } = useWord();
-
-const canSearch = computed(
-  () => query.value && query.value !== lastQuery.value
-);
-
-function handleSearch() {
-  if (canSearch.value) {
-    lastQuery.value = query.value;
-    searchWord(query.value);
-  }
-
-  if (!query.value) {
-    isVisible.value = false;
-  }
-}
-
-// Auto focus on search input when it is visible
-watch(inputRef, (el) => el?.focus());
-</script>
 
 <style>
 .search__form {

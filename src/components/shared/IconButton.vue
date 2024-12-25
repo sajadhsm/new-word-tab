@@ -1,17 +1,17 @@
-<template>
-  <component :is="href ? 'a' : 'button'" :href="href" class="icon-btn">
-    <slot />
-  </component>
-</template>
-
 <script setup lang="ts">
 defineProps({
   href: {
     type: String,
     default: null,
   },
-});
+})
 </script>
+
+<template>
+  <component :is="href ? 'a' : 'button'" :href="href" class="icon-btn">
+    <slot />
+  </component>
+</template>
 
 <style scoped>
 .icon-btn {

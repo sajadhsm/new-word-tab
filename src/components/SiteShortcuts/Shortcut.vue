@@ -1,25 +1,5 @@
-<template>
-  <a
-    :href="shortcut.url"
-    :title="shortcut.name"
-    class="shortcut"
-    @contextmenu.prevent="(event) => onContextMenu(event, shortcut)"
-  >
-    <img
-      v-if="shortcut.hostname"
-      :src="`https://icons.duckduckgo.com/ip2/${shortcut.hostname}.ico`"
-      :alt="shortcut.name"
-      width="16"
-      height="16"
-      class="shortcut__favicon"
-    />
-    <i-ph-circle-dashed-bold v-else class="shortcut__no-favicon" />
-    <small class="shortcut__text">{{ shortcut.name }}</small>
-  </a>
-</template>
-
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'Shortcut',
@@ -35,8 +15,28 @@ export default defineComponent({
       required: true,
     },
   },
-});
+})
 </script>
+
+<template>
+  <a
+    :href="shortcut.url"
+    :title="shortcut.name"
+    class="shortcut"
+    @contextmenu.prevent="(event) => onContextMenu(event, shortcut)"
+  >
+    <img
+      v-if="shortcut.hostname"
+      :src="`https://icons.duckduckgo.com/ip2/${shortcut.hostname}.ico`"
+      :alt="shortcut.name"
+      width="16"
+      height="16"
+      class="shortcut__favicon"
+    >
+    <i-ph-circle-dashed-bold v-else class="shortcut__no-favicon" />
+    <small class="shortcut__text">{{ shortcut.name }}</small>
+  </a>
+</template>
 
 <style>
 .shortcut {

@@ -1,3 +1,22 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+
+defineProps<{ title: string, isOpen: boolean }>()
+
+const emit = defineEmits(['open', 'close'])
+
+const isShowingDrawer = ref(false)
+
+function handleShowDrawer() {
+  isShowingDrawer.value = true
+  emit('open')
+}
+
+function handleCloseDrawer() {
+  isShowingDrawer.value = false
+}
+</script>
+
 <template>
   <Teleport to="body">
     <transition name="fade" @after-enter="handleShowDrawer">
@@ -5,7 +24,9 @@
         <transition name="slide" @after-leave="$emit('close')">
           <div v-show="isShowingDrawer" class="drawer">
             <div class="drawer__header">
-              <h4 class="drawer__title">{{ title }}</h4>
+              <h4 class="drawer__title">
+                {{ title }}
+              </h4>
 
               <button
                 class="btn drawer__close"
@@ -23,25 +44,6 @@
     </transition>
   </Teleport>
 </template>
-
-<script setup lang="ts">
-import { ref } from 'vue';
-
-defineProps<{ title: string; isOpen: boolean }>();
-
-const emit = defineEmits(['open', 'close']);
-
-const isShowingDrawer = ref(false);
-
-function handleShowDrawer() {
-  isShowingDrawer.value = true;
-  emit('open');
-}
-
-function handleCloseDrawer() {
-  isShowingDrawer.value = false;
-}
-</script>
 
 <style scoped>
 .overlay {

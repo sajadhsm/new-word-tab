@@ -1339,4 +1339,4 @@ export default [
   'zealot',
   'zenith',
   'zephyr',
-];
+]

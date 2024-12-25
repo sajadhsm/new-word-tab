@@ -1,1 +1,1 @@
-export { default } from './SiteShortcuts.vue';
+export { default } from './SiteShortcuts.vue'

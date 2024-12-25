@@ -1,14 +1,14 @@
-import { useStoredList } from './useStoredList';
+import { useStoredList } from './useStoredList'
 
 // mw to keep it backward compatible
-const LEARNING_WORDS_STORAGE_KEY = 'mw';
+const LEARNING_WORDS_STORAGE_KEY = 'mw'
 
 export default function useLearningWords() {
   const { list, add, has, remove, load } = useStoredList(
-    LEARNING_WORDS_STORAGE_KEY
-  );
+    LEARNING_WORDS_STORAGE_KEY,
+  )
 
-  load();
+  load()
 
   return {
     removeLearningWords: remove,
@@ -16,5 +16,5 @@ export default function useLearningWords() {
     isLearningWord: has,
     setAsLearning: add,
     learningWords: list,
-  };
+  }
 }

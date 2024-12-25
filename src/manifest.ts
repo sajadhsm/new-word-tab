@@ -1,14 +1,14 @@
-import fs from 'fs-extra';
-import { r, isDev, port } from '../scripts/utils';
+import type { Manifest } from 'webextension-polyfill'
+import type PkgType from '../package.json'
+import fs from 'fs-extra'
 
-import type PkgType from '../package.json';
-import type { Manifest } from 'webextension-polyfill';
+import { isDev, port, r } from '../scripts/utils'
 
 export async function getManifest() {
-  const pkg = (await fs.readJSON(r('package.json'))) as typeof PkgType;
+  const pkg = (await fs.readJSON(r('package.json'))) as typeof PkgType
 
   const manifest: Manifest.WebExtensionManifest = {
-    manifest_version: 2,
+    manifest_version: 3,
     name: pkg.displayName || pkg.name,
     description: pkg.description,
     version: pkg.version,
@@ -20,8 +20,6 @@ export async function getManifest() {
     options_ui: {
       page: './dist/options/index.html',
       open_in_tab: true,
-      chrome_style: false,
-      browser_style: false,
     },
 
     icons: {
@@ -31,12 +29,14 @@ export async function getManifest() {
       128: './assets/128.png',
     },
 
-    content_security_policy: [
-      'img-src * data:',
-      "object-src 'self'",
-      `script-src 'self' ${isDev ? `http://localhost:${port}` : ''}`.trim(),
-    ].join(';'),
-  };
+    content_security_policy: {
+      extension_pages: [
+        'img-src * data:',
+        'object-src \'self\'',
+        `script-src 'self' ${isDev ? `http://localhost:${port}` : ''}`.trim(),
+      ].join(';'),
+    },
+  }
 
-  return manifest;
+  return manifest
 }

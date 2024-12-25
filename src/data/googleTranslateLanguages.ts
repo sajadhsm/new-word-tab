@@ -1,6 +1,6 @@
-export type GoogleTranslateCodeLang = {
-  code: string;
-  lang: string;
+export interface GoogleTranslateCodeLang {
+  code: string
+  lang: string
 }
 
 export default [
@@ -440,4 +440,4 @@ export default [
     code: 'zu',
     lang: 'Zulu',
   },
-];
+]

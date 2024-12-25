@@ -1,3 +1,33 @@
+<script setup lang="ts">
+import FileSelector from '@/components/shared/FileSelector.vue'
+
+import useBackground, { BackgroundMode } from '@/composables/useBackground'
+import Section from '@/options/components/Section.vue'
+
+import Select from '@/options/components/Select.vue'
+import { readFile } from '@/utils/file'
+
+const { url, mode, saveImageDataURL } = useBackground({ initialize: true })
+
+const options = [
+  {
+    text: 'No Background',
+    value: BackgroundMode.NO_BG,
+  },
+  {
+    text: 'Custom Image',
+    value: BackgroundMode.IMAGE,
+  },
+]
+
+async function handleFileSelect(file: File) {
+  const base64 = (await readFile(file, 'dataURL')) as string
+  saveImageDataURL(base64)
+}
+
+const handleURLChange = () => saveImageDataURL(url.value)
+</script>
+
 <template>
   <Section title="Background" description="Customize page background.">
     <template #bar>
@@ -11,7 +41,7 @@
         type="url"
         placeholder="Enter an image URL"
         @change="handleURLChange"
-      />
+      >
 
       <span>or</span>
 
@@ -26,36 +56,6 @@
     </div>
   </Section>
 </template>
-
-<script setup lang="ts">
-import { readFile } from '@/utils/file';
-
-import Section from '@/options/components/Section.vue';
-import Select from '@/options/components/Select.vue';
-
-import FileSelector from '@/components/shared/FileSelector.vue';
-import useBackground, { BackgroundMode } from '@/composables/useBackground';
-
-const { url, mode, saveImageDataURL } = useBackground({ initialize: true });
-
-const options = [
-  {
-    text: 'No Background',
-    value: BackgroundMode.NO_BG,
-  },
-  {
-    text: 'Custom Image',
-    value: BackgroundMode.IMAGE,
-  },
-];
-
-const handleFileSelect = async (file: File) => {
-  const base64 = (await readFile(file, 'dataURL')) as string;
-  saveImageDataURL(base64);
-};
-
-const handleURLChange = () => saveImageDataURL(url.value);
-</script>
 
 <style scoped>
 .actions {

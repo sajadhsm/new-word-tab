@@ -4,7 +4,9 @@
       <i-ic-round-wifi-off />
     </span>
 
-    <h3 class="title">You are offline</h3>
+    <h3 class="title">
+      You are offline
+    </h3>
 
     <p class="description">
       You need to connect to the internet to see word definitions.
