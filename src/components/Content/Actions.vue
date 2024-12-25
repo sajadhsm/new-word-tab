@@ -1,3 +1,34 @@
+<script setup lang="ts">
+import IconButton from '@/components/shared/IconButton.vue'
+
+import useLearningWords from '@/composables/words/useLearningWords'
+import useIgnoredWords from '@/composables/words/useIgnoredWords'
+import useGoogleTranslate from '@/composables/useGoogleTranslate'
+
+import type { IWordDefinition } from '@/composables/words/useWordDefinitions'
+
+const props = defineProps<{
+  definition: IWordDefinition
+}>()
+
+const emit = defineEmits(['marked'])
+
+const { targetLanguage } = useGoogleTranslate()
+const { setAsIgnored } = useIgnoredWords()
+const { setAsLearning, removeLearningWords } = useLearningWords()
+
+function handleMarkAsLearning() {
+  setAsLearning(props.definition.word)
+  emit('marked')
+}
+
+function handleMarkAsIgnored() {
+  removeLearningWords(props.definition.word)
+  setAsIgnored(props.definition.word)
+  emit('marked')
+}
+</script>
+
 <template>
   <div class="actions">
     <IconButton
@@ -17,37 +48,6 @@
     </IconButton>
   </div>
 </template>
-
-<script setup lang="ts">
-import IconButton from '@/components/shared/IconButton.vue';
-
-import useLearningWords from '@/composables/words/useLearningWords';
-import useIgnoredWords from '@/composables/words/useIgnoredWords';
-import useGoogleTranslate from '@/composables/useGoogleTranslate';
-
-import { type IWordDefinition } from '@/composables/words/useWordDefinitions';
-
-const props = defineProps<{
-  definition: IWordDefinition;
-}>();
-
-const emit = defineEmits(['marked']);
-
-const { targetLanguage } = useGoogleTranslate();
-const { setAsIgnored } = useIgnoredWords();
-const { setAsLearning, removeLearningWords } = useLearningWords();
-
-function handleMarkAsLearning() {
-  setAsLearning(props.definition.word);
-  emit('marked');
-}
-
-function handleMarkAsIgnored() {
-  removeLearningWords(props.definition.word);
-  setAsIgnored(props.definition.word);
-  emit('marked');
-}
-</script>
 
 <style scoped>
 .actions {

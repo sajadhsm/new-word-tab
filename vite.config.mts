@@ -1,10 +1,10 @@
-import { defineConfig } from 'vite';
-import Vue from '@vitejs/plugin-vue';
-import Icons from 'unplugin-icons/vite';
-import IconsResolver from 'unplugin-icons/resolver';
-import Components from 'unplugin-vue-components/vite';
+import { defineConfig } from 'vite'
+import Vue from '@vitejs/plugin-vue'
+import Icons from 'unplugin-icons/vite'
+import IconsResolver from 'unplugin-icons/resolver'
+import Components from 'unplugin-vue-components/vite'
 
-import { r, port, isDev } from './scripts/utils';
+import { isDev, port, r } from './scripts/utils'
 import packageJson from './package.json'
 
 export default defineConfig(({ command }) => ({
@@ -28,7 +28,7 @@ export default defineConfig(({ command }) => ({
   optimizeDeps: {
     include: [
       'vue',
-      'webextension-polyfill'
+      'webextension-polyfill',
     ],
   },
   base: command === 'serve' ? `http://localhost:${port}/` : '/dist/',
@@ -53,4 +53,4 @@ export default defineConfig(({ command }) => ({
       },
     },
   },
-}));
+}))

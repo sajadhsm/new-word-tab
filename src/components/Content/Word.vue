@@ -1,8 +1,33 @@
+<script setup lang="ts">
+import { computed } from 'vue'
+
+import Actions from './Actions.vue'
+import Phonetic from './Phonetic.vue'
+
+import useBackground from '@/composables/useBackground'
+import type { IWordDefinition } from '@/composables/words/useWordDefinitions'
+
+const props = defineProps<{
+  word: string
+  definitions: IWordDefinition[]
+}>()
+
+defineEmits(['marked'])
+
+const { shouldModifyUI } = useBackground()
+
+const definition = computed(() => props.definitions?.[0])
+
+const backgroundClass = computed(() => ({ boxed: shouldModifyUI.value }))
+</script>
+
 <template>
   <div class="content">
     <div class="title" :class="backgroundClass">
       <div class="title__word-actions">
-        <h1 class="word">{{ word }}</h1>
+        <h1 class="word">
+          {{ word }}
+        </h1>
 
         <Actions
           v-if="definition"
@@ -26,36 +51,17 @@
         </b>
 
         <div v-for="(def, defIndex) of meaning.definitions" :key="defIndex">
-          <p class="meaning__def">{{ def.definition }}</p>
-          <p class="meaning__example">{{ def.example }}</p>
+          <p class="meaning__def">
+            {{ def.definition }}
+          </p>
+          <p class="meaning__example">
+            {{ def.example }}
+          </p>
         </div>
       </div>
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import { computed } from 'vue';
-
-import Actions from './Actions.vue';
-import Phonetic from './Phonetic.vue';
-
-import useBackground from '@/composables/useBackground';
-import type { IWordDefinition } from '@/composables/words/useWordDefinitions';
-
-const props = defineProps<{
-  word: string;
-  definitions: IWordDefinition[];
-}>();
-
-defineEmits(['marked']);
-
-const { shouldModifyUI } = useBackground();
-
-const definition = computed(() => props.definitions?.[0]);
-
-const backgroundClass = computed(() => ({ boxed: shouldModifyUI.value }));
-</script>
 
 <style scoped>
 .content {

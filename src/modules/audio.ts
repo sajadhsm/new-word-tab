@@ -1,8 +1,8 @@
-const audioInstance = new Audio();
+const audioInstance = new Audio()
 
 export default {
   setAudio: (src: string) => {
-    audioInstance.src = src ? src : "";
+    audioInstance.src = src || ''
   },
   playAudio: () => audioInstance.play(),
-};
+}

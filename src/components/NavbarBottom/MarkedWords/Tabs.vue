@@ -1,3 +1,16 @@
+<script lang="ts" setup>
+import { ref } from 'vue'
+
+import Learned from './Learned.vue'
+import Learning from './Learning.vue'
+
+defineEmits<{
+  (e: 'showDefinition', word: string): void
+}>()
+
+const activeTab = ref('learning')
+</script>
+
 <template>
   <div>
     <ul class="navbar">
@@ -17,27 +30,14 @@
 
     <Learned
       v-if="activeTab === 'learned'"
-      @show-definition="$emit('show-definition', $event)"
+      @show-definition="$emit('showDefinition', $event)"
     />
     <Learning
       v-if="activeTab === 'learning'"
-      @show-definition="$emit('show-definition', $event)"
+      @show-definition="$emit('showDefinition', $event)"
     />
   </div>
 </template>
-
-<script lang="ts" setup>
-import { ref } from 'vue';
-
-import Learned from './Learned.vue';
-import Learning from './Learning.vue';
-
-defineEmits<{
-  (e: 'show-definition', word: string): void;
-}>();
-
-const activeTab = ref('learning');
-</script>
 
 <style scoped>
 .navbar {

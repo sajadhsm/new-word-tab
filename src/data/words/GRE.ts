@@ -1161,4 +1161,4 @@ export default [
   'woo',
   'writ',
   'yarn',
-];
+]

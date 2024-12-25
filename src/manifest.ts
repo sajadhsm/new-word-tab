@@ -1,11 +1,11 @@
-import fs from 'fs-extra';
-import { r, isDev, port } from '../scripts/utils';
+import fs from 'fs-extra'
+import type { Manifest } from 'webextension-polyfill'
+import { isDev, port, r } from '../scripts/utils'
 
-import type PkgType from '../package.json';
-import type { Manifest } from 'webextension-polyfill';
+import type PkgType from '../package.json'
 
 export async function getManifest() {
-  const pkg = (await fs.readJSON(r('package.json'))) as typeof PkgType;
+  const pkg = (await fs.readJSON(r('package.json'))) as typeof PkgType
 
   const manifest: Manifest.WebExtensionManifest = {
     manifest_version: 2,
@@ -33,10 +33,10 @@ export async function getManifest() {
 
     content_security_policy: [
       'img-src * data:',
-      "object-src 'self'",
+      'object-src \'self\'',
       `script-src 'self' ${isDev ? `http://localhost:${port}` : ''}`.trim(),
     ].join(';'),
-  };
+  }
 
-  return manifest;
+  return manifest
 }

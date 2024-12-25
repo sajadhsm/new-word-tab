@@ -1,8 +1,9 @@
 {
   "name": "new-word-tab",
   "displayName": "New Word Tab",
-  "description": "Learn a word per new tab",
   "version": "1.6.0",
+  "packageManager": "pnpm@9.15.1",
+  "description": "Learn a word per new tab",
   "author": {
     "name": "Sajad Hashemian",
     "email": "sajadhsm@gmail.com"
@@ -19,10 +20,14 @@
     "start:chromium": "web-ext run --source-dir ./extension --target=chromium",
     "start:firefox": "web-ext run --source-dir ./extension --target=firefox-desktop",
     "clear": "rimraf --glob extension/dist extension/manifest.json extension.*",
-    "lint": "eslint 'src/**/*.{json,ts,js,vue}'",
+    "lint": "eslint --cache .",
     "typecheck": "tsc --noEmit"
   },
+  "dependencies": {
+    "vuedraggable": "^4.1.0"
+  },
   "devDependencies": {
+    "@antfu/eslint-config": "^2.27.0",
     "@iconify-json/eos-icons": "^1.2.2",
     "@iconify-json/fa-solid": "^1.2.1",
     "@iconify-json/ic": "^1.2.2",
@@ -39,13 +44,10 @@
     "chokidar": "^4.0.3",
     "cross-env": "^7.0.3",
     "eslint": "^9.17.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-vue": "^9.32.0",
     "esno": "^4.8.0",
     "fs-extra": "^11.2.0",
     "kolorist": "^1.8.0",
     "npm-run-all": "^4.1.5",
-    "prettier": "2.6.2",
     "rimraf": "^6.0.1",
     "typescript": "^5.5.4",
     "unplugin-icons": "^0.22.0",
@@ -54,9 +56,5 @@
     "vue": "^3.5.13",
     "web-ext": "^8.3.0",
     "webextension-polyfill": "^0.12.0"
-  },
-  "dependencies": {
-    "vuedraggable": "^4.1.0"
-  },
-  "packageManager": "pnpm@9.15.1"
+  }
 }

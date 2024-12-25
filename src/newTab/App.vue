@@ -1,3 +1,15 @@
+<script setup lang="ts">
+import Navbar from '@/components/Navbar'
+import Content from '@/components/Content'
+import NavbarBottom from '@/components/NavbarBottom'
+import SiteShortcuts from '@/components/SiteShortcuts'
+
+import { isActive } from '@/composables/shortcuts/useShortcuts'
+import useBackground from '@/composables/useBackground'
+
+useBackground({ initialize: true })
+</script>
+
 <template>
   <div class="container">
     <main class="main">
@@ -12,18 +24,6 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import Navbar from '@/components/Navbar';
-import Content from '@/components/Content';
-import NavbarBottom from '@/components/NavbarBottom';
-import SiteShortcuts from '@/components/SiteShortcuts';
-
-import { isActive } from '@/composables/shortcuts/useShortcuts';
-import useBackground from '@/composables/useBackground';
-
-useBackground({ initialize: true });
-</script>
 
 <style scoped>
 .container {

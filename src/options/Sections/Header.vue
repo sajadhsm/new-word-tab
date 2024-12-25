@@ -1,6 +1,12 @@
+<script setup lang="ts">
+import { version } from '@/../package.json'
+</script>
+
 <template>
   <header class="header">
-    <h1 class="title">Options</h1>
+    <h1 class="title">
+      Options
+    </h1>
 
     <div class="info">
       <a
@@ -15,10 +21,6 @@
     </div>
   </header>
 </template>
-
-<script setup lang="ts">
-import { version } from '@/../package.json';
-</script>
 
 <style scoped>
 .header {

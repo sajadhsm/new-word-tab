@@ -1,32 +1,31 @@
 (function () {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  window.__onThemeChange = function () {};
+  window.__onThemeChange = function () {}
+
+  let preferredTheme
+  try {
+    preferredTheme = localStorage.getItem('theme')
+  }
+  catch {}
 
   function setTheme(newTheme) {
-    window.__theme = newTheme;
-    preferredTheme = newTheme;
-    document.body.className = newTheme;
-    window.__onThemeChange(newTheme);
+    window.__theme = newTheme
+    preferredTheme = newTheme
+    document.body.className = newTheme
+    window.__onThemeChange(newTheme)
   }
 
-  let preferredTheme;
-  try {
-    preferredTheme = localStorage.getItem('theme');
-    // eslint-disable-next-line no-empty
-  } catch (e) {}
-
   window.__setPreferredTheme = function (newTheme) {
-    setTheme(newTheme);
+    setTheme(newTheme)
     try {
-      localStorage.setItem('theme', newTheme);
-      // eslint-disable-next-line no-empty
-    } catch (e) {}
-  };
+      localStorage.setItem('theme', newTheme)
+    }
+    catch {}
+  }
 
-  const darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
-  darkQuery.addEventListener('change', function (event) {
-    window.__setPreferredTheme(event.matches ? 'dark' : 'light');
-  });
+  const darkQuery = window.matchMedia('(prefers-color-scheme: dark)')
+  darkQuery.addEventListener('change', (event) => {
+    window.__setPreferredTheme(event.matches ? 'dark' : 'light')
+  })
 
-  setTheme(preferredTheme || (darkQuery.matches ? 'dark' : 'light'));
-})();
+  setTheme(preferredTheme || (darkQuery.matches ? 'dark' : 'light'))
+})()

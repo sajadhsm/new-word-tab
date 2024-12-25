@@ -1,3 +1,13 @@
+<script setup lang="ts">
+import GoogleTranslate from './Sections/GoogleTranslate.vue'
+import VocabularyLists from './Sections/VocabularyLists.vue'
+import SiteShortcuts from './Sections/SiteShortcuts.vue'
+import Background from './Sections/Background.vue'
+import IgnoredWords from './Sections/IgnoredWords'
+import Header from './Sections/Header.vue'
+import Theme from './Sections/Theme.vue'
+</script>
+
 <template>
   <div class="options">
     <Header />
@@ -9,16 +19,6 @@
     <IgnoredWords />
   </div>
 </template>
-
-<script setup lang="ts">
-import GoogleTranslate from './Sections/GoogleTranslate.vue';
-import VocabularyLists from './Sections/VocabularyLists.vue';
-import SiteShortcuts from './Sections/SiteShortcuts.vue';
-import Background from './Sections/Background.vue';
-import IgnoredWords from './Sections/IgnoredWords';
-import Header from './Sections/Header.vue';
-import Theme from './Sections/Theme.vue';
-</script>
 
 <style>
 *,

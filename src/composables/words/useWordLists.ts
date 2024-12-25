@@ -1,58 +1,59 @@
-import { ref, computed, watch } from 'vue';
+import { computed, ref, watch } from 'vue'
 
-import { intersect } from '@/utils/array';
+import { intersect } from '@/utils/array'
 
-import storage from '@/modules/localStorage';
-import WORD_LISTS, { WordList } from '@/data/words';
+import storage from '@/modules/localStorage'
+import type { WordList } from '@/data/words'
+import WORD_LISTS from '@/data/words'
 
-const SELECTED_WORD_LIST_KEYS_STORAGE_KEY = 'swl';
+const SELECTED_WORD_LIST_KEYS_STORAGE_KEY = 'swl'
 
-export const selectedListKeys = ref(Object.keys(WORD_LISTS) as WordList[]);
+export const selectedListKeys = ref(Object.keys(WORD_LISTS) as WordList[])
 
 export default function useWordLists() {
-  selectedListKeys.value = getSelectedWordListKeysFromStorage();
+  selectedListKeys.value = getSelectedWordListKeysFromStorage()
 
-  watch(selectedListKeys, saveSelectedWordListKeysToStorage);
+  watch(selectedListKeys, saveSelectedWordListKeysToStorage)
 
   const wordsPoll = computed(() => {
-    let wordsSet = new Set<string>();
+    let wordsSet = new Set<string>()
 
     selectedListKeys.value.forEach((listKey) => {
       if (WORD_LISTS[listKey]) {
-        wordsSet = new Set([...wordsSet, ...WORD_LISTS[listKey].list]);
+        wordsSet = new Set([...wordsSet, ...WORD_LISTS[listKey].list])
       }
-    });
+    })
 
-    return Array.from(wordsSet);
-  });
+    return Array.from(wordsSet)
+  })
 
   function getIntersection(words: string[]) {
-    let allWordsSet = new Set<string>();
+    let allWordsSet = new Set<string>()
     Object.values(WORD_LISTS).forEach((wordList) => {
-      allWordsSet = new Set([...allWordsSet, ...wordList.list]);
-    });
-    const allWords = Array.from(allWordsSet);
+      allWordsSet = new Set([...allWordsSet, ...wordList.list])
+    })
+    const allWords = Array.from(allWordsSet)
 
-    return intersect(allWords, words);
+    return intersect(allWords, words)
   }
 
   return {
     selectedListKeys,
     getIntersection,
     wordsPoll,
-  };
+  }
 }
 
 function saveSelectedWordListKeysToStorage(list: WordList[]) {
-  storage.set(SELECTED_WORD_LIST_KEYS_STORAGE_KEY, list.join(','));
+  storage.set(SELECTED_WORD_LIST_KEYS_STORAGE_KEY, list.join(','))
 }
 
 function getSelectedWordListKeysFromStorage() {
-  const keys = storage.get(SELECTED_WORD_LIST_KEYS_STORAGE_KEY);
+  const keys = storage.get(SELECTED_WORD_LIST_KEYS_STORAGE_KEY)
 
   if (keys === null) {
-    return Object.keys(WORD_LISTS) as WordList[];
+    return Object.keys(WORD_LISTS) as WordList[]
   }
 
-  return keys.split(',') as WordList[];
+  return keys.split(',') as WordList[]
 }

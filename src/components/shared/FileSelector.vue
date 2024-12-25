@@ -1,3 +1,48 @@
+<script lang="ts" setup>
+import { ref } from 'vue'
+import { formatBytes } from '@/utils/number'
+
+interface Props {
+  id: string
+  accept: string
+  label?: string
+  maxSize?: number
+  maxWidth?: string
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  label: 'Select a file',
+  maxWidth: undefined,
+  maxSize: Infinity,
+})
+
+const emit = defineEmits<{
+  (e: 'file', file: File): void
+}>()
+
+const input = ref<HTMLInputElement | null>(null)
+const fileName = ref('')
+
+async function handleFile() {
+  if (input.value?.files?.length) {
+    const file = input.value.files[0]
+
+    if (file.size > props.maxSize) {
+      // eslint-disable-next-line no-alert
+      alert(
+        `File size (${formatBytes(
+          file.size,
+        )}) should not be greater than ${formatBytes(props.maxSize)}!`,
+      )
+      return
+    }
+
+    fileName.value = file.name
+    emit('file', file)
+  }
+}
+</script>
+
 <template>
   <div class="file-input">
     <input
@@ -7,57 +52,13 @@
       type="file"
       :accept="accept"
       @change="handleFile"
-    />
+    >
 
     <label :for="id" :style="{ maxWidth }">
       {{ fileName ? fileName : label }}
     </label>
   </div>
 </template>
-
-<script lang="ts" setup>
-import { ref } from 'vue';
-import { formatBytes } from '@/utils/number';
-
-interface Props {
-  id: string;
-  accept: string;
-  label?: string;
-  maxSize?: number;
-  maxWidth?: string;
-}
-
-const props = withDefaults(defineProps<Props>(), {
-  label: 'Select a file',
-  maxWidth: undefined,
-  maxSize: Infinity,
-});
-
-const emit = defineEmits<{
-  (e: 'file', file: File): void;
-}>();
-
-const input = ref<HTMLInputElement | null>(null);
-const fileName = ref('');
-
-const handleFile = async () => {
-  if (input.value?.files?.length) {
-    const file = input.value.files[0];
-
-    if (file.size > props.maxSize) {
-      alert(
-        `File size (${formatBytes(
-          file.size
-        )}) should not be greater than ${formatBytes(props.maxSize)}!`
-      );
-      return;
-    }
-
-    fileName.value = file.name;
-    emit('file', file);
-  }
-};
-</script>
 
 <style scoped>
 .file-input {

@@ -1,9 +1,20 @@
+<script setup lang="ts">
+defineProps<{
+  title: string
+  description: string
+}>()
+</script>
+
 <template>
   <section class="section">
     <div class="section__bar">
       <div>
-        <h2 class="section__title">{{ title }}</h2>
-        <p class="section__description">{{ description }}</p>
+        <h2 class="section__title">
+          {{ title }}
+        </h2>
+        <p class="section__description">
+          {{ description }}
+        </p>
       </div>
 
       <slot name="bar" />
@@ -12,13 +23,6 @@
     <slot />
   </section>
 </template>
-
-<script setup lang="ts">
-defineProps<{
-  title: string;
-  description: string;
-}>();
-</script>
 
 <style scoped>
 .section {

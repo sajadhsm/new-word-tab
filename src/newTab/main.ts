@@ -1,14 +1,14 @@
-import { createApp } from 'vue';
-import App from './App.vue';
+import { createApp } from 'vue'
+import App from './App.vue'
 
-import '@/styles/normalize.css';
-import '@/styles/index.css';
+import '@/styles/normalize.css'
+import '@/styles/index.css'
 
-import storage from '@/modules/localStorage';
+import storage from '@/modules/localStorage'
 
-const app = createApp(App);
-app.mount('#app');
+const app = createApp(App)
+app.mount('#app')
 
 // Remove actions position from storage
 // It's temporarily and will be removed once all users upgraded to the next version
-storage.remove('ap');
+storage.remove('ap')

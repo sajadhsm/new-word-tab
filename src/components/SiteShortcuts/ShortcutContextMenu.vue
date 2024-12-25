@@ -1,36 +1,29 @@
-<template>
-  <ul v-show="isVisible" ref="contextMenuRef" class="shortcut-context-menu">
-    <li @click="handleEdit">Edit shortcut</li>
-    <li @click="handleRemove">Remove</li>
-  </ul>
-</template>
-
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
 
-import useShortcuts from '@/composables/shortcuts/useShortcuts';
-import useShortcutModal from '@/composables/shortcuts/useShortcutModal';
-import useShortcutContextMenu from '@/composables/shortcuts/useShortcutContextMenu';
+import useShortcuts from '@/composables/shortcuts/useShortcuts'
+import useShortcutModal from '@/composables/shortcuts/useShortcutModal'
+import useShortcutContextMenu from '@/composables/shortcuts/useShortcutContextMenu'
 
 export default defineComponent({
   name: 'ShortcutContextMenu',
 
   setup() {
-    const { openModal } = useShortcutModal();
-    const { removeShortcut } = useShortcuts();
-    const { isVisible, contextMenuRef, selectedShortcut, closeContextMenu } =
-      useShortcutContextMenu();
+    const { openModal } = useShortcutModal()
+    const { removeShortcut } = useShortcuts()
+    const { isVisible, contextMenuRef, selectedShortcut, closeContextMenu }
+      = useShortcutContextMenu()
 
     function handleRemove() {
       if (selectedShortcut.value) {
-        removeShortcut(selectedShortcut.value.name);
+        removeShortcut(selectedShortcut.value.name)
       }
-      closeContextMenu();
+      closeContextMenu()
     }
 
     function handleEdit() {
-      openModal();
-      closeContextMenu({ clearShortcut: false });
+      openModal()
+      closeContextMenu({ clearShortcut: false })
     }
 
     return {
@@ -39,10 +32,21 @@ export default defineComponent({
 
       contextMenuRef,
       isVisible,
-    };
+    }
   },
-});
+})
 </script>
+
+<template>
+  <ul v-show="isVisible" ref="contextMenuRef" class="shortcut-context-menu">
+    <li @click="handleEdit">
+      Edit shortcut
+    </li>
+    <li @click="handleRemove">
+      Remove
+    </li>
+  </ul>
+</template>
 
 <style scoped>
 .shortcut-context-menu {

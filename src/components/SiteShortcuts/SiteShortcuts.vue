@@ -1,3 +1,33 @@
+<script lang="ts" setup>
+import { computed } from 'vue'
+
+import Shortcuts from './Shortcuts.vue'
+import AddShortcutForm from './AddShortcutForm.vue'
+import ShortcutContextMenu from './ShortcutContextMenu.vue'
+import Modal from '@/components/shared/Modal.vue'
+
+import {
+  isVisible,
+  selectedShortcut,
+} from '@/composables/shortcuts/useShortcutContextMenu'
+import useShortcutModal from '@/composables/shortcuts/useShortcutModal'
+import useBackground from '@/composables/useBackground'
+
+const { isModalVisible, openModal, closeModal } = useShortcutModal()
+
+const { shouldModifyUI } = useBackground()
+
+const backgroundClass = computed(() => ({
+  'shortcuts--filled': shouldModifyUI.value,
+}))
+
+function hideShortcutContextMenuOnScroll() {
+  if (isVisible.value) {
+    isVisible.value = false
+  }
+}
+</script>
+
 <template>
   <aside
     :class="backgroundClass"
@@ -22,36 +52,6 @@
     <AddShortcutForm @submit="closeModal" @cancel="closeModal" />
   </Modal>
 </template>
-
-<script lang="ts" setup>
-import { computed } from 'vue';
-
-import Modal from '@/components/shared/Modal.vue';
-import Shortcuts from './Shortcuts.vue';
-import AddShortcutForm from './AddShortcutForm.vue';
-import ShortcutContextMenu from './ShortcutContextMenu.vue';
-
-import {
-  isVisible,
-  selectedShortcut,
-} from '@/composables/shortcuts/useShortcutContextMenu';
-import useShortcutModal from '@/composables/shortcuts/useShortcutModal';
-import useBackground from '@/composables/useBackground';
-
-const { isModalVisible, openModal, closeModal } = useShortcutModal();
-
-const { shouldModifyUI } = useBackground();
-
-const backgroundClass = computed(() => ({
-  'shortcuts--filled': shouldModifyUI.value,
-}));
-
-function hideShortcutContextMenuOnScroll() {
-  if (isVisible.value) {
-    isVisible.value = false;
-  }
-}
-</script>
 
 <style>
 .shortcuts {

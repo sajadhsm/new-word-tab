@@ -1,1 +1,1 @@
-export { default } from './WordsHistory.vue';
+export { default } from './WordsHistory.vue'

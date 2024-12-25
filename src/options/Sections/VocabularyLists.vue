@@ -1,3 +1,12 @@
+<script setup lang="ts">
+import Section from '../components/Section.vue'
+import WORD_LISTS from '@/data/words'
+
+import useWordLists from '@/composables/words/useWordLists'
+
+const { selectedListKeys } = useWordLists()
+</script>
+
 <template>
   <Section
     title="Vocabulary lists"
@@ -15,23 +24,13 @@
             ({{ listValue.list.length }} words)
           </small>
 
-          <input v-model="selectedListKeys" type="checkbox" :value="listKey" />
-          <span class="checkmark"></span>
+          <input v-model="selectedListKeys" type="checkbox" :value="listKey">
+          <span class="checkmark" />
         </label>
       </li>
     </ul>
   </Section>
 </template>
-
-<script setup lang="ts">
-import WORD_LISTS from '@/data/words';
-
-import Section from '../components/Section.vue';
-
-import useWordLists from '@/composables/words/useWordLists';
-
-const { selectedListKeys } = useWordLists();
-</script>
 
 <style scoped>
 .vocab-list {

@@ -1,9 +1,9 @@
-import { ref, computed } from 'vue';
+import { computed, ref } from 'vue'
 
-import MdiSortClockAscending from '~icons/mdi/sort-clock-ascending';
-import MdiSortClockDescending from '~icons/mdi/sort-clock-descending';
-import MdiSortAlphabeticalAscending from '~icons/mdi/sort-alphabetical-ascending';
-import MdiSortAlphabeticalDescending from '~icons/mdi/sort-alphabetical-descending';
+import MdiSortClockAscending from '~icons/mdi/sort-clock-ascending'
+import MdiSortClockDescending from '~icons/mdi/sort-clock-descending'
+import MdiSortAlphabeticalAscending from '~icons/mdi/sort-alphabetical-ascending'
+import MdiSortAlphabeticalDescending from '~icons/mdi/sort-alphabetical-descending'
 
 const SORT_STATES = [
   {
@@ -26,19 +26,19 @@ const SORT_STATES = [
     icon: MdiSortAlphabeticalDescending,
     sortMethod: (list: string[]) => list.sort((a, b) => b.localeCompare(a)),
   },
-];
+]
 
 export default function useSort() {
-  const sortState = ref(0);
+  const sortState = ref(0)
 
-  const sortStateMeta = computed(() => SORT_STATES[sortState.value]);
+  const sortStateMeta = computed(() => SORT_STATES[sortState.value])
 
   function setNextSortState() {
-    sortState.value = (sortState.value + 1) % SORT_STATES.length;
+    sortState.value = (sortState.value + 1) % SORT_STATES.length
   }
 
   return {
     sortStateMeta,
     setNextSortState,
-  };
+  }
 }

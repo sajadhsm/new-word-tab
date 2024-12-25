@@ -1995,4 +1995,4 @@ export default [
   'yell',
   'yield',
   'youngster',
-];
+]

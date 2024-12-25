@@ -1,3 +1,34 @@
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+import Draggable from 'vuedraggable'
+
+import Shortcut from './Shortcut.vue'
+
+import useShortcuts from '@/composables/shortcuts/useShortcuts'
+import useShortcutContextMenu from '@/composables/shortcuts/useShortcutContextMenu'
+
+export default defineComponent({
+  name: 'Shortcuts',
+
+  components: {
+    Draggable,
+    Shortcut,
+  },
+
+  setup() {
+    const { shortcuts, saveShortcutsToStorage } = useShortcuts()
+    const { openContextMenu } = useShortcutContextMenu()
+
+    return {
+      shortcuts,
+      openContextMenu,
+      saveShortcutsToStorage,
+    }
+  },
+})
+</script>
+
 <template>
   <Draggable
     v-model="shortcuts"
@@ -11,37 +42,6 @@
     </template>
   </Draggable>
 </template>
-
-<script lang="ts">
-import { defineComponent } from 'vue';
-
-import Draggable from 'vuedraggable';
-
-import Shortcut from './Shortcut.vue';
-
-import useShortcuts from '@/composables/shortcuts/useShortcuts';
-import useShortcutContextMenu from '@/composables/shortcuts/useShortcutContextMenu';
-
-export default defineComponent({
-  name: 'Shortcuts',
-
-  components: {
-    Draggable,
-    Shortcut,
-  },
-
-  setup() {
-    const { shortcuts, saveShortcutsToStorage } = useShortcuts();
-    const { openContextMenu } = useShortcutContextMenu();
-
-    return {
-      shortcuts,
-      openContextMenu,
-      saveShortcutsToStorage,
-    };
-  },
-});
-</script>
 
 <style scoped>
 .shortcut--ghost {

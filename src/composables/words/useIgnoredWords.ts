@@ -1,13 +1,13 @@
-import { useStoredList } from './useStoredList';
+import { useStoredList } from './useStoredList'
 
-const IGNORED_WORDS_STORAGE_KEY = 'iw';
+const IGNORED_WORDS_STORAGE_KEY = 'iw'
 
 export default function useIgnoredWords() {
   const { list, add, has, remove, load } = useStoredList(
-    IGNORED_WORDS_STORAGE_KEY
-  );
+    IGNORED_WORDS_STORAGE_KEY,
+  )
 
-  load();
+  load()
 
   return {
     removeIgnoredWords: remove,
@@ -15,5 +15,5 @@ export default function useIgnoredWords() {
     isIgnoredWord: has,
     setAsIgnored: add,
     ignoredWords: list,
-  };
+  }
 }

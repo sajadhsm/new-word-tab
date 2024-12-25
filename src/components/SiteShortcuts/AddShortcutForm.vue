@@ -1,44 +1,13 @@
-<template>
-  <form class="form" @submit.prevent="handleSubmit">
-    <label class="form__label">
-      Name
-      <input
-        ref="urlInputRef"
-        v-model="formModel.name"
-        class="form__input"
-        :class="{ 'form__input--error': isNameDuplicated }"
-      />
-      <small v-if="isNameDuplicated" class="form__error">
-        Name is duplicated.
-      </small>
-    </label>
-
-    <label class="form__label">
-      URL
-      <input v-model="formModel.url" class="form__input" />
-    </label>
-
-    <div class="form__footer">
-      <button type="button" class="form__cancel-btn" @click="handleCancel">
-        Cancel
-      </button>
-      <button type="submit" class="form__submit-btn" :disabled="!isFormValid">
-        Done
-      </button>
-    </div>
-  </form>
-</template>
-
 <script lang="ts">
-import { defineComponent, ref, computed, onMounted } from 'vue';
+import { computed, defineComponent, onMounted, ref } from 'vue'
 
-import useShortcuts from '@/composables/shortcuts/useShortcuts';
-import { selectedShortcut } from '@/composables/shortcuts/useShortcutContextMenu';
+import useShortcuts from '@/composables/shortcuts/useShortcuts'
+import { selectedShortcut } from '@/composables/shortcuts/useShortcutContextMenu'
 
 const SHORTCUT_SCHEMA = {
   name: '',
   url: '',
-};
+}
 
 export default defineComponent({
   name: 'AddShortcutForm',
@@ -53,10 +22,10 @@ export default defineComponent({
   emits: ['cancel', 'submit'],
 
   setup(props, { emit }) {
-    const { addShortcut, editShortcut, shortcuts } = useShortcuts();
+    const { addShortcut, editShortcut, shortcuts } = useShortcuts()
 
-    const urlInputRef = ref<HTMLInputElement | null>(null);
-    onMounted(() => urlInputRef.value?.focus());
+    const urlInputRef = ref<HTMLInputElement | null>(null)
+    onMounted(() => urlInputRef.value?.focus())
 
     const formModel = ref<typeof SHORTCUT_SCHEMA>(
       selectedShortcut.value
@@ -64,54 +33,55 @@ export default defineComponent({
             name: selectedShortcut.value.name,
             url: selectedShortcut.value.url,
           }
-        : { ...SHORTCUT_SCHEMA }
-    );
+        : { ...SHORTCUT_SCHEMA },
+    )
 
     const isNameDuplicated = computed(() => {
       const shortcut = shortcuts.value.find(
-        ({ name }) => name === formModel.value.name
-      );
+        ({ name }) => name === formModel.value.name,
+      )
 
       if (!shortcut) {
-        return false;
+        return false
       }
 
       if (selectedShortcut.value) {
-        return !(selectedShortcut.value.name === shortcut.name);
+        return !(selectedShortcut.value.name === shortcut.name)
       }
 
-      return true;
-    });
+      return true
+    })
 
     const isFormValid = computed(() =>
       Boolean(
-        formModel.value.name && formModel.value.url && !isNameDuplicated.value
-      )
-    );
+        formModel.value.name && formModel.value.url && !isNameDuplicated.value,
+      ),
+    )
 
     function handleCancel() {
-      emit('cancel');
-      clearForm();
+      emit('cancel')
+      clearForm()
     }
 
     function handleSubmit() {
       if (isFormValid.value) {
-        const { name, url } = formModel.value;
+        const { name, url } = formModel.value
 
         if (selectedShortcut.value) {
-          editShortcut(selectedShortcut.value.name, name, url);
-        } else {
-          addShortcut(name, url);
+          editShortcut(selectedShortcut.value.name, name, url)
+        }
+        else {
+          addShortcut(name, url)
         }
 
-        emit('submit');
-        clearForm();
+        emit('submit')
+        clearForm()
       }
     }
 
     function clearForm() {
-      formModel.value = { ...SHORTCUT_SCHEMA };
-      selectedShortcut.value = null;
+      formModel.value = { ...SHORTCUT_SCHEMA }
+      selectedShortcut.value = null
     }
 
     return {
@@ -121,10 +91,41 @@ export default defineComponent({
       isFormValid,
       handleSubmit,
       handleCancel,
-    };
+    }
   },
-});
+})
 </script>
+
+<template>
+  <form class="form" @submit.prevent="handleSubmit">
+    <label class="form__label">
+      Name
+      <input
+        ref="urlInputRef"
+        v-model="formModel.name"
+        class="form__input"
+        :class="{ 'form__input--error': isNameDuplicated }"
+      >
+      <small v-if="isNameDuplicated" class="form__error">
+        Name is duplicated.
+      </small>
+    </label>
+
+    <label class="form__label">
+      URL
+      <input v-model="formModel.url" class="form__input">
+    </label>
+
+    <div class="form__footer">
+      <button type="button" class="form__cancel-btn" @click="handleCancel">
+        Cancel
+      </button>
+      <button type="submit" class="form__submit-btn" :disabled="!isFormValid">
+        Done
+      </button>
+    </div>
+  </form>
+</template>
 
 <style scoped>
 .form {

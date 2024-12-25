@@ -1,1 +1,1 @@
-export { default } from './MarkedWords.vue';
+export { default } from './MarkedWords.vue'

@@ -1,8 +1,8 @@
-import { createApp } from 'vue';
-import App from './App.vue';
+import { createApp } from 'vue'
+import App from './App.vue'
 
-import '@/styles/normalize.css';
-import '@/styles/index.css';
+import '@/styles/normalize.css'
+import '@/styles/index.css'
 
-const app = createApp(App);
-app.mount('#app');
+const app = createApp(App)
+app.mount('#app')

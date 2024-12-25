@@ -1,3 +1,11 @@
+<script setup lang="ts">
+import Section from '../components/Section.vue'
+
+import useTheme from '@/composables/useTheme'
+
+const { theme, toggleTheme } = useTheme()
+</script>
+
 <template>
   <Section title="Theme" description="Change theme color scheme.">
     <template #bar>
@@ -14,14 +22,6 @@
     </template>
   </Section>
 </template>
-
-<script setup lang="ts">
-import Section from '../components/Section.vue';
-
-import useTheme from '@/composables/useTheme';
-
-const { theme, toggleTheme } = useTheme();
-</script>
 
 <style scoped>
 .toggle-btn {

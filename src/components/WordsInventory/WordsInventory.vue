@@ -1,3 +1,13 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+
+import WordsList from './WordsList.vue'
+import IconButton from '@/components/shared/IconButton.vue'
+import Modal from '@/components/shared/Modal.vue'
+
+const isModalOpen = ref(false)
+</script>
+
 <template>
   <IconButton
     class="open-btn"
@@ -15,16 +25,6 @@
     <WordsList @check="isModalOpen = false" />
   </Modal>
 </template>
-
-<script setup lang="ts">
-import { ref } from 'vue';
-
-import IconButton from '@/components/shared/IconButton.vue';
-import Modal from '@/components/shared/Modal.vue';
-import WordsList from './WordsList.vue';
-
-const isModalOpen = ref(false);
-</script>
 
 <style scoped>
 .open-btn {

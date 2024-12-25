@@ -1,46 +1,48 @@
-import { ref, Ref, watchEffect } from 'vue';
+import type { Ref } from 'vue'
+import { ref, watchEffect } from 'vue'
 
-import { useClickOutside } from '../useClickOutside';
+import { useClickOutside } from '../useClickOutside'
 
-import type { Shortcut } from './useShortcuts';
+import type { Shortcut } from './useShortcuts'
 
-const contextMenuRef: Ref<HTMLElement | null> = ref(null);
-const isClickOutsideSet = ref(false);
+const contextMenuRef: Ref<HTMLElement | null> = ref(null)
+const isClickOutsideSet = ref(false)
 
-export const isVisible = ref(false);
-export const selectedShortcut: Ref<Shortcut | null> = ref(null);
+export const isVisible = ref(false)
+export const selectedShortcut: Ref<Shortcut | null> = ref(null)
 
 export default function useShortcutContextMenu() {
   watchEffect(
     () => {
       if (!isClickOutsideSet.value) {
-        useClickOutside(contextMenuRef, () => (isVisible.value = false));
-        isClickOutsideSet.value = true;
+        useClickOutside(contextMenuRef, () => (isVisible.value = false))
+        isClickOutsideSet.value = true
       }
     },
-    { flush: 'post' }
-  );
+    { flush: 'post' },
+  )
 
   function openContextMenu(event: MouseEvent, shortcut: Shortcut) {
-    if (!event.target) return;
+    if (!event.target)
+      return
 
-    const target = getShortcutElement(event.target as HTMLElement);
-    const { y } = target.getBoundingClientRect();
+    const target = getShortcutElement(event.target as HTMLElement)
+    const { y } = target.getBoundingClientRect()
 
     if (contextMenuRef.value) {
-      const offset = y + 15;
-      contextMenuRef.value.style.top = `${offset}px`;
+      const offset = y + 15
+      contextMenuRef.value.style.top = `${offset}px`
     }
 
-    isVisible.value = true;
-    selectedShortcut.value = shortcut;
+    isVisible.value = true
+    selectedShortcut.value = shortcut
   }
 
   function closeContextMenu({ clearShortcut = true } = {}) {
-    isVisible.value = false;
+    isVisible.value = false
 
     if (clearShortcut) {
-      selectedShortcut.value = null;
+      selectedShortcut.value = null
     }
   }
 
@@ -50,13 +52,13 @@ export default function useShortcutContextMenu() {
     openContextMenu,
     closeContextMenu,
     selectedShortcut,
-  };
+  }
 }
 
 function getShortcutElement(target: HTMLElement): HTMLElement {
   if (target && target.className === 'shortcut') {
-    return target;
+    return target
   }
 
-  return getShortcutElement(target.parentNode as HTMLElement);
+  return getShortcutElement(target.parentNode as HTMLElement)
 }

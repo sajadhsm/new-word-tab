@@ -1,3 +1,11 @@
+<script setup lang="ts">
+import Section from '../components/Section.vue'
+
+import useShortcuts from '@/composables/shortcuts/useShortcuts'
+
+const { isActive } = useShortcuts()
+</script>
+
 <template>
   <Section
     title="Site shortcuts"
@@ -5,20 +13,12 @@
   >
     <template #bar>
       <label class="switch">
-        <input v-model="isActive" type="checkbox" />
+        <input v-model="isActive" type="checkbox">
         <span class="slider round" />
       </label>
     </template>
   </Section>
 </template>
-
-<script setup lang="ts">
-import Section from '../components/Section.vue';
-
-import useShortcuts from '@/composables/shortcuts/useShortcuts';
-
-const { isActive } = useShortcuts();
-</script>
 
 <style scoped>
 .switch {
