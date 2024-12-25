@@ -5,8 +5,19 @@ import IconsResolver from 'unplugin-icons/resolver';
 import Components from 'unplugin-vue-components/vite';
 
 import { r, port, isDev } from './scripts/utils';
+import packageJson from './package.json'
 
 export default defineConfig(({ command }) => ({
+  root: r('src'),
+  resolve: {
+    alias: {
+      '@': r('src'),
+    },
+  },
+  define: {
+    __DEV__: isDev,
+    __NAME__: JSON.stringify(packageJson.name),
+  },
   plugins: [
     Vue(),
     Components({
@@ -14,14 +25,11 @@ export default defineConfig(({ command }) => ({
     }),
     Icons({ autoInstall: true }),
   ],
-  root: r('src'),
-  resolve: {
-    alias: {
-      '@': r('src'),
-    },
-  },
   optimizeDeps: {
-    include: ['vue', 'webextension-polyfill'],
+    include: [
+      'vue',
+      'webextension-polyfill'
+    ],
   },
   base: command === 'serve' ? `http://localhost:${port}/` : '/dist/',
   server: {
@@ -29,12 +37,12 @@ export default defineConfig(({ command }) => ({
     hmr: {
       host: 'localhost',
     },
+    origin: `http://localhost:${port}`,
   },
   build: {
     outDir: r('extension/dist'),
     emptyOutDir: false,
     sourcemap: isDev ? 'inline' : false,
-    minify: 'terser',
     terserOptions: {
       mangle: false,
     },
