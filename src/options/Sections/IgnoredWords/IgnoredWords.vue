@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import ImportFile from './ImportFile.vue'
+import WordList, { ActionButton } from '@/components/shared/WordList'
 import useIgnoredWords from '@/composables/words/useIgnoredWords'
 
-import WordList, { ActionButton } from '@/components/shared/WordList'
 import Section from '@/options/components/Section.vue'
+import ImportFile from './ImportFile.vue'
 
 const { ignoredWords, removeIgnoredWords, setAsIgnored } = useIgnoredWords()
 

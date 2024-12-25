@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import Section from '../components/Section.vue'
-
 import useShortcuts from '@/composables/shortcuts/useShortcuts'
+
+import Section from '../components/Section.vue'
 
 const { isActive } = useShortcuts()
 </script>

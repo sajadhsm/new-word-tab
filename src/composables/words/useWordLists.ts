@@ -1,10 +1,10 @@
-import { computed, ref, watch } from 'vue'
+import type { WordList } from '@/data/words'
 
-import { intersect } from '@/utils/array'
+import WORD_LISTS from '@/data/words'
 
 import storage from '@/modules/localStorage'
-import type { WordList } from '@/data/words'
-import WORD_LISTS from '@/data/words'
+import { intersect } from '@/utils/array'
+import { computed, ref, watch } from 'vue'
 
 const SELECTED_WORD_LIST_KEYS_STORAGE_KEY = 'swl'
 

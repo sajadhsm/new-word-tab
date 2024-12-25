@@ -1,9 +1,9 @@
 import { computed, ref } from 'vue'
 
-import MdiSortClockAscending from '~icons/mdi/sort-clock-ascending'
-import MdiSortClockDescending from '~icons/mdi/sort-clock-descending'
 import MdiSortAlphabeticalAscending from '~icons/mdi/sort-alphabetical-ascending'
 import MdiSortAlphabeticalDescending from '~icons/mdi/sort-alphabetical-descending'
+import MdiSortClockAscending from '~icons/mdi/sort-clock-ascending'
+import MdiSortClockDescending from '~icons/mdi/sort-clock-descending'
 
 const SORT_STATES = [
   {

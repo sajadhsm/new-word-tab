@@ -1,11 +1,11 @@
 <script setup lang="ts">
+import type { IWordDefinition } from '@/composables/words/useWordDefinitions'
+
+import useBackground from '@/composables/useBackground'
 import { computed } from 'vue'
 
 import Actions from './Actions.vue'
 import Phonetic from './Phonetic.vue'
-
-import useBackground from '@/composables/useBackground'
-import type { IWordDefinition } from '@/composables/words/useWordDefinitions'
 
 const props = defineProps<{
   word: string

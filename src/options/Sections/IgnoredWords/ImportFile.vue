@@ -1,12 +1,12 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
-
 import FileSelector from '@/components/shared/FileSelector.vue'
+
 import Modal from '@/components/shared/Modal.vue'
 import useWordLists from '@/composables/words/useWordLists'
+import { readFile } from '@/utils/file'
 
 import { getWordsOfText } from '@/utils/string'
-import { readFile } from '@/utils/file'
+import { ref } from 'vue'
 
 const emit = defineEmits<{
   (e: 'import', words: string[]): void

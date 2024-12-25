@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import Section from '../components/Section.vue'
+import useWordLists from '@/composables/words/useWordLists'
 import WORD_LISTS from '@/data/words'
 
-import useWordLists from '@/composables/words/useWordLists'
+import Section from '../components/Section.vue'
 
 const { selectedListKeys } = useWordLists()
 </script>

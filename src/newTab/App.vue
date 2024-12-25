@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import Navbar from '@/components/Navbar'
 import Content from '@/components/Content'
+import Navbar from '@/components/Navbar'
 import NavbarBottom from '@/components/NavbarBottom'
 import SiteShortcuts from '@/components/SiteShortcuts'
 

@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import useBackground from '@/composables/useBackground'
 
-import ThemeSwitch from './ThemeSwitch.vue'
+import { computed } from 'vue'
 import Options from './Options.vue'
 import Search from './Search.vue'
-import useBackground from '@/composables/useBackground'
+import ThemeSwitch from './ThemeSwitch.vue'
 
 const { shouldModifyUI } = useBackground()
 

@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-
-import useGoogleTranslate from '@/composables/useGoogleTranslate'
-import useIgnoredWords from '@/composables/words/useIgnoredWords'
 import useBackground from '@/composables/useBackground'
 
+import useGoogleTranslate from '@/composables/useGoogleTranslate'
+
+import useIgnoredWords from '@/composables/words/useIgnoredWords'
 import { randomNumberBetween } from '@/utils/number'
+import { computed } from 'vue'
 
 const props = defineProps<{
   word: string

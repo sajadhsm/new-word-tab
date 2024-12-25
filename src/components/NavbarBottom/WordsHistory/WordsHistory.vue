@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-
-import useWordsHistory from '@/composables/words/useWordsHistory'
-import useWord from '@/composables/words/useWord'
-
 import IconButton from '@/components/shared/IconButton.vue'
-import WordsList from '@/components/shared/WordList'
+
 import Modal from '@/components/shared/Modal.vue'
+import WordsList from '@/components/shared/WordList'
+
+import useWord from '@/composables/words/useWord'
+import useWordsHistory from '@/composables/words/useWordsHistory'
+import { ref } from 'vue'
 
 const { wordsHistory } = useWordsHistory()
 const { searchWord } = useWord()

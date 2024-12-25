@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import Section from '../components/Section.vue'
-
 import useTheme from '@/composables/useTheme'
+
+import Section from '../components/Section.vue'
 
 const { theme, toggleTheme } = useTheme()
 </script>

@@ -1,6 +1,6 @@
-import { computed, ref } from 'vue'
-
 import storage from '@/modules/localStorage'
+
+import { computed, ref } from 'vue'
 
 export function useStoredList(storageKey: string) {
   const _listSet = ref(new Set<string>())

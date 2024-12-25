@@ -1,8 +1,8 @@
 import type { Ref } from 'vue'
-import { ref, watch } from 'vue'
+import storage from '@/modules/localStorage'
 
 import { getUrlHostname } from '@/utils/url'
-import storage from '@/modules/localStorage'
+import { ref, watch } from 'vue'
 
 export interface Shortcut {
   name: string

@@ -1,5 +1,5 @@
-import fs from 'fs-extra'
 import chokidar from 'chokidar'
+import fs from 'fs-extra'
 import { writeManifest } from './manifest'
 import { isDev, log, port, r } from './utils'
 

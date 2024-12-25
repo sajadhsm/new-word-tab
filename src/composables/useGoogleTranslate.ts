@@ -1,7 +1,7 @@
-import storage from '@/modules/localStorage'
+import type { GoogleTranslateCodeLang } from '@/data/googleTranslateLanguages'
 
 import GOOGLE_TRANSLATE_LANGUAGES from '@/data/googleTranslateLanguages'
-import type { GoogleTranslateCodeLang } from '@/data/googleTranslateLanguages'
+import storage from '@/modules/localStorage'
 
 const GOOGLE_TRANSLATE_TARGET_LANGUAGE_CODE_STORAGE_KEY = 'gttl'
 

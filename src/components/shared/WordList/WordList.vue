@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { computed, ref } from 'vue'
-
 import useSort from '@/composables/useSort'
+
+import { computed, ref } from 'vue'
 
 const props = defineProps<{
   list: string[]

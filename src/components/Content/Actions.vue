@@ -1,11 +1,11 @@
 <script setup lang="ts">
+import type { IWordDefinition } from '@/composables/words/useWordDefinitions'
+
 import IconButton from '@/components/shared/IconButton.vue'
+import useGoogleTranslate from '@/composables/useGoogleTranslate'
+import useIgnoredWords from '@/composables/words/useIgnoredWords'
 
 import useLearningWords from '@/composables/words/useLearningWords'
-import useIgnoredWords from '@/composables/words/useIgnoredWords'
-import useGoogleTranslate from '@/composables/useGoogleTranslate'
-
-import type { IWordDefinition } from '@/composables/words/useWordDefinitions'
 
 const props = defineProps<{
   definition: IWordDefinition

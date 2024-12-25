@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-
-import Section from '../components/Section.vue'
-import Select from '../components/Select.vue'
-
 import useGoogleTranslate from '@/composables/useGoogleTranslate'
 
 import languages from '@/data/googleTranslateLanguages'
+import { ref } from 'vue'
+
+import Section from '../components/Section.vue'
+
+import Select from '../components/Select.vue'
 
 const { targetLanguage, storeTargetLanguageCode } = useGoogleTranslate()
 const selectedTargetLanguage = ref(targetLanguage)

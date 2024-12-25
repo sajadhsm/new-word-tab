@@ -1,9 +1,4 @@
 <script lang="ts" setup>
-import { computed } from 'vue'
-
-import Shortcuts from './Shortcuts.vue'
-import AddShortcutForm from './AddShortcutForm.vue'
-import ShortcutContextMenu from './ShortcutContextMenu.vue'
 import Modal from '@/components/shared/Modal.vue'
 
 import {
@@ -12,6 +7,11 @@ import {
 } from '@/composables/shortcuts/useShortcutContextMenu'
 import useShortcutModal from '@/composables/shortcuts/useShortcutModal'
 import useBackground from '@/composables/useBackground'
+import { computed } from 'vue'
+
+import AddShortcutForm from './AddShortcutForm.vue'
+import ShortcutContextMenu from './ShortcutContextMenu.vue'
+import Shortcuts from './Shortcuts.vue'
 
 const { isModalVisible, openModal, closeModal } = useShortcutModal()
 

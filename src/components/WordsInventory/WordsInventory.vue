@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-
-import WordsList from './WordsList.vue'
 import IconButton from '@/components/shared/IconButton.vue'
+
 import Modal from '@/components/shared/Modal.vue'
+import { ref } from 'vue'
+import WordsList from './WordsList.vue'
 
 const isModalOpen = ref(false)
 </script>

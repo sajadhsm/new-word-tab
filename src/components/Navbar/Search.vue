@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
 import IconButton from '@/components/shared/IconButton.vue'
 import useWord from '@/composables/words/useWord'
+import { computed, ref, watch } from 'vue'
 
 const query = ref('')
 const lastQuery = ref('')

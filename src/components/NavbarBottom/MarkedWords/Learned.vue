@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import useLearnedWords from '@/composables/words/useLearnedWords'
-import useIgnoredWords from '@/composables/words/useIgnoredWords'
-import useLearningWords from '@/composables/words/useLearningWords'
-
 import WordList, { ActionButton } from '@/components/shared/WordList'
+import useIgnoredWords from '@/composables/words/useIgnoredWords'
+import useLearnedWords from '@/composables/words/useLearnedWords'
+
+import useLearningWords from '@/composables/words/useLearningWords'
 
 defineEmits<{
   (e: 'showDefinition', word: string): void

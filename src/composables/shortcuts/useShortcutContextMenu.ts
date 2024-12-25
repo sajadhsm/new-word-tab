@@ -1,9 +1,9 @@
 import type { Ref } from 'vue'
+import type { Shortcut } from './useShortcuts'
+
 import { ref, watchEffect } from 'vue'
 
 import { useClickOutside } from '../useClickOutside'
-
-import type { Shortcut } from './useShortcuts'
 
 const contextMenuRef: Ref<HTMLElement | null> = ref(null)
 const isClickOutsideSet = ref(false)

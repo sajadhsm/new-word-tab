@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import { computed } from 'vue'
-
-import MarkedWords from './MarkedWords'
-import WordsHistory from './WordsHistory'
-
 import useBackground from '@/composables/useBackground'
+
+import { computed } from 'vue'
+import MarkedWords from './MarkedWords'
+
+import WordsHistory from './WordsHistory'
 
 const { shouldModifyUI } = useBackground()
 

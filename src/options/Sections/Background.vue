@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { readFile } from '@/utils/file'
-
-import Section from '@/options/components/Section.vue'
-import Select from '@/options/components/Select.vue'
-
 import FileSelector from '@/components/shared/FileSelector.vue'
+
 import useBackground, { BackgroundMode } from '@/composables/useBackground'
+import Section from '@/options/components/Section.vue'
+
+import Select from '@/options/components/Select.vue'
+import { readFile } from '@/utils/file'
 
 const { url, mode, saveImageDataURL } = useBackground({ initialize: true })
 

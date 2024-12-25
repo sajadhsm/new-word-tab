@@ -1,6 +1,6 @@
-import fs from 'fs-extra'
-import archiver from 'archiver'
 import type PkgType from '../package.json'
+import archiver from 'archiver'
+import fs from 'fs-extra'
 import { log, r } from './utils'
 
 packExtension()

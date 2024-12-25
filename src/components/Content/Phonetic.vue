@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-
-import audio from '@/modules/audio'
+import type { IWordDefinition } from '@/composables/words/useWordDefinitions'
 
 import IconButton from '@/components/shared/IconButton.vue'
-import type { IWordDefinition } from '@/composables/words/useWordDefinitions'
+
+import audio from '@/modules/audio'
+import { computed } from 'vue'
 
 const props = defineProps<{
   definition: IWordDefinition

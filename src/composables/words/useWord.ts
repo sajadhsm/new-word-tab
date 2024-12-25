@@ -1,11 +1,11 @@
-import { computed, ref } from 'vue'
-
-import useWordLists from './useWordLists'
-import useRandomWord from './useRandomWord'
-import wordsHistory from './useWordsHistory'
-import useIgnoredWords from './useIgnoredWords'
-import useWordDefinitions from './useWordDefinitions'
 import { capitalizeFirstLetter } from '@/utils/string'
+
+import { computed, ref } from 'vue'
+import useIgnoredWords from './useIgnoredWords'
+import useRandomWord from './useRandomWord'
+import useWordDefinitions from './useWordDefinitions'
+import useWordLists from './useWordLists'
+import wordsHistory from './useWordsHistory'
 
 const word = ref('')
 

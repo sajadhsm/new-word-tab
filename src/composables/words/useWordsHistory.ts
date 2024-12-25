@@ -1,6 +1,6 @@
-import { ref } from 'vue'
-
 import storage from '@/modules/localStorage'
+
+import { ref } from 'vue'
 
 const WORDS_HISTORY_STORAGE_KEY = 'wh'
 const HISTORY_LIMIT = 10
